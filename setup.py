@@ -20,7 +20,7 @@ setup(
     keywords='chinese postman problem networkx optimization network graph arc routing',
     url='https://github.com/brooksandrew',
     packages=['postman_problems'],
-    long_description=read('README_reference.md'),
+    long_description=read('README.md'),
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Topic :: Scientific/Engineering :: Mathematics',
@@ -32,9 +32,6 @@ setup(
         'pandas',
         'networkx',
         'imageio'
-    ],
-    entry_points={
-        'console_scripts': ['chinese_postman=postman_problems.main:main'],
-    }
+    ]
 )
 

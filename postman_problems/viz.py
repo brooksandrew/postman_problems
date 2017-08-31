@@ -75,8 +75,6 @@ def make_circuit_graphviz(circuit, graph, filename='cpp_graph', format='svg', en
             graph[e[0]][e[1]][parallel_edge_cnt[e_pair]]['decorate'] = True
         graph[e[0]][e[1]][parallel_edge_cnt[e_pair]]['penwidth'] += 1
 
-
-
         cnt += 1
 
     graph_walked_gv = convert_networkx_graph_to_graphiz(graph, directed=False)

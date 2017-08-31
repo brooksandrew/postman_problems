@@ -21,7 +21,7 @@ Run one of the provided examples:
 python examples/sleepinggiant/cpp.py
 ```
 
-You should see output that describes the CPP solution (Eulerian circuit) through the each trail on the Sleeping Giant graph:
+You should see output that describes the CPP solution (Eulerian circuit) through each trail on the Sleeping Giant graph that looks something like this:
 
 ```
 ('b_end_east', 'b_y', {'distance': 1.32, 'trail': 'b', 'estimate': 0.0, 'weight_flipped': -1.32, 'weight': 1.32, 'augmented': True})

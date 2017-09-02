@@ -1,40 +1,58 @@
 import itertools
 import pandas as pd
 import networkx as nx
-from postman_problems.viz import add_pos_node_attribute
 
 
 def read_edgelist(edgelist_filename):
-    """Read an edgelist table into a pandas dataframe"""
+    """
+    Read an edgelist table into a pandas dataframe
+    Args:
+        edgelist_filename (str): filename of edgelist.  See cpp.py for more details.
+    Returns:
+        pandas dataframe of edgelist
+    """
     el = pd.read_csv(edgelist_filename)
-    el = el.dropna()
+    el = el.dropna()  # drop rows with all NAs... as I find CSVs created w Numbers annoyingly do.
     return el
 
 
-def create_networkx_graph_from_edgelist(edgelist, edge_attributes={'weight': 'distance'}):
+def create_networkx_graph_from_edgelist(edgelist):
     """
     Create a networkx object from an edgelist (pandas dataframe)
-    The first two columns are treated as source and target vertex names.
-    The following columns are treated as edge attributes.
-    The :edge_attributes: parameter is a dict that will rename columns as necessary (networkx expects an edge attribute
-    named weight)
+
+    Args:
+        edgelist (pandas dataframe): output of read_edgelist function.
+            The first two columns are treated as source and target vertex names.
+            The following columns are treated as edge attributes.
+
+    Returns:
+        networkx.MultiGraph:
+            Returning a MultiGraph rather than Graph to support parallel edges
     """
     g = nx.MultiGraph()
-    g.add_nodes_from(list(set(edgelist.ix[:, 0].append(edgelist.ix[:, 0]))))
-    sum_dist = sum(pd.to_numeric(edgelist[edge_attributes['weight']]))
     for row in edgelist.iterrows():
         edge_attr_dict = row[1][2:].to_dict()
-        edge_attr_dict['weight'] = edge_attr_dict[edge_attributes['weight']]
-        edge_attr_dict['weight_flipped'] = -edge_attr_dict[edge_attributes['weight']]
         g.add_edge(row[1][0], row[1][1], attr_dict=edge_attr_dict)
     return g
 
 
-def add_node_attributes(g, nodelist):
-    """Adds node attributes to graph"""
+def add_node_attributes(graph, nodelist):
+    """
+    Adds node attributes to graph.  Only used for visualization.
+
+    Args:
+        graph (networkx graph): graph you want to add node attributes to
+        nodelist (pandas dataframe): containing node attributes.
+            Expects a column named 'id' specifying the node names from `graph`.
+            Other columns should specify desired node attributes.
+            First row should include attribute names.
+
+    Returns:
+        networkx graph: original `graph` augmented w node attributes
+    """
     for i, row in nodelist.iterrows():
-        g.node[row['id']] = row.to_dict()
-    return g
+        graph.node[row['id']] = row.to_dict()
+    return graph
 
 
 def _get_even_or_odd_vertices(graph, mod):
@@ -64,29 +82,11 @@ def get_shortest_paths_distances(graph, pairs, edge_weight_name):
     return distances
 
 
-def find_min_weight_matching_dumb(pairs, weights):
-    """
-    Dumb function for finding pairings of odd vertex.  Could be smarter w updates/more iterations.
-    Or implement Edmonds Blossum algorithm.
-    """
-    paths = list(zip(pairs, weights))
-    paths.sort(key=lambda x: x[1])
-    connected_vertices = []
-    matched_pairs = []
-    for edge in paths:
-        if (edge[0][0] not in connected_vertices) & (edge[0][1] not in connected_vertices):
-            connected_vertices.append(edge[0][0])
-            connected_vertices.append(edge[0][1])
-            matched_pairs.append(edge[0])
-    return matched_pairs
-
-
 def create_complete_graph(pair_weights, flip_weights=True):
-    """create a perfectly connected graph using a vertex pair and """
+    """create a perfectly connected graph a list of vertex pairs and the distances between them."""
     g = nx.Graph()
-    sum_dist = sum(pair_weights.values())
     for k, v in pair_weights.items():
-        wt_i = sum_dist - v if flip_weights else v
+        wt_i = -v if flip_weights else v
         g.add_edge(k[0], k[1], attr_dict={'distance': v, 'weight': wt_i})
     return g
 
@@ -103,14 +103,17 @@ def add_augmenting_path_to_graph(graph, min_weight_pairs, edge_weight_name):
     Note the resulting graph could (and likely will) have edges that didn't exist on the original graph.  To get the
     true circuit, we must breakdown these augmented edges into the shortest path through the edges that do exist.
     """
-    graph_aug = graph.copy()
+    graph_aug = graph.copy()  # so we don't mess with the original graph
     for pair in min_weight_pairs:
-        graph_aug.add_edge(pair[0], pair[1], attr_dict={'distance': nx.dijkstra_path_length(graph, pair[0], pair[1], weight=edge_weight_name),
-                                                        'trail': 'augmented'})
+        graph_aug.add_edge(pair[0],
+                           pair[1],
+                           attr_dict={'distance': nx.dijkstra_path_length(graph, pair[0], pair[1], weight=edge_weight_name),
+                                      'trail': 'augmented'}
+                           )
     return graph_aug
 
 
-def create_eulerian_circuit(graph_augmented, graph_original, starting_node=None):
+def create_eulerian_circuit(graph_augmented, graph_original, start_node=None):
     """
     nx.eulerian_circuit only returns the order in which we hit each vertex.  It does not return the attributes of the
     edges needed to complete the circuit.  This is necessary for the postman problem where we to keep track of which
@@ -118,7 +121,7 @@ def create_eulerian_circuit(graph_augmented, graph_original, starting_node=None)
     We also need to add the annotate the edges added to make the eulerian to follow the actual shortest path trails ( not
     the direct shortest path pairings between the odd nodes for which there might not be a direct trail)
     """
-    euler_circuit = list(nx.eulerian_circuit(graph_augmented, source=starting_node))
+    euler_circuit = list(nx.eulerian_circuit(graph_augmented, source=start_node))
 
     assert len(graph_augmented.edges()) == len(euler_circuit), "graph and euler_circuit do not have equal number of edges."
 
@@ -142,25 +145,28 @@ def create_eulerian_circuit(graph_augmented, graph_original, starting_node=None)
         edge_data.remove(possible_edges[0])
 
 
-def circuit_to_graph(circuit):
+def cpp(edgelist_filename, nodelist_filename=None, start_node=None, edge_weight='distance'):
     """
-    Not currently using this....
+    Solving the CPP from beginning (load network data) to end (finding optimal route).
+    Can be run from command line with arguments from cpp.py, or from an interactive Python session (ex jupyter notebook)
+
+    Args:
+        edgelist_filename (str): filename of edgelist.  See cpp.py for more details
+        start_node (str): name of starting node.  See cpp.py for more details
+
+    Returns:
+        list[tuple(str, str, dict)]: Each tuple is a direction (from one node to another) from the CPP solution route.
+        The first element is the starting ("from") node.
+        The second element is the end ("to") node.
+        The third element is the dict of edge attributes for that edge.
     """
-    graph = nx.DiGraph(strict=False)
-    for e in circuit:
-        graph.add_edge(e[0], e[1], e[2])
-    return graph
-
-
-def cpp(config):
-    """Chinese Postman Problem"""
-    el = read_edgelist(config['data']['edgelist'])
+    el = read_edgelist(edgelist_filename)
     g = create_networkx_graph_from_edgelist(el)
 
     # get augmenting path for odd vertices
     odd_vertices = get_odd_vertices(g)
     odd_vertex_pairs = list(itertools.combinations(odd_vertices, 2))
-    odd_vertex_pairs_shortest_paths = get_shortest_paths_distances(g, odd_vertex_pairs, 'weight')
+    odd_vertex_pairs_shortest_paths = get_shortest_paths_distances(g, odd_vertex_pairs, edge_weight)
     g_odd_complete = create_complete_graph(odd_vertex_pairs_shortest_paths, flip_weights=True)
 
     # best solution using blossom algorithm
@@ -170,7 +176,7 @@ def cpp(config):
     g_aug = add_augmenting_path_to_graph(g, odd_matching, 'weight')
 
     # get eulerian circuit route.
-    circuit = list(create_eulerian_circuit(g_aug, g, config['data']['starting_node']))
+    circuit = list(create_eulerian_circuit(g_aug, g, start_node))
 
     return circuit
 

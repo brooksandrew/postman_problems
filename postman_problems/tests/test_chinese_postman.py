@@ -9,16 +9,12 @@ from postman_problems.graph import (
 
 # PARAMETERS / DATA
 
-EDGELIST = pkg_resources.resource_filename(__name__, '../examples/sleepinggiant/edgelist_sleeping_giant.csv')
+EDGELIST = pkg_resources.resource_filename('examples', 'sleepinggiant/edgelist_sleeping_giant.csv')
 START_NODE = 'b_end_east'
 print(EDGELIST)
 
 
 # TESTS
-
-def test_dumb():
-    assert 1==1
-
 
 def test_read_sleeping_giant_edgelist():
     df = read_edgelist(EDGELIST)

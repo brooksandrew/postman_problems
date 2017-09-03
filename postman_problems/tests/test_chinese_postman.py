@@ -1,11 +1,16 @@
 import math
 import pkg_resources
-from postman_problems.graph import cpp, read_edgelist, create_networkx_graph_from_edgelist, get_odd_nodes, get_even_nodes
+import itertools
+import pandas as pd
+from postman_problems.graph import (
+    cpp, read_edgelist, create_networkx_graph_from_edgelist, get_odd_nodes, get_even_nodes, get_shortest_paths_distances
+)
 
 
 # PARAMETERS / DATA
 
-EDGELIST = pkg_resources.resource_filename('examples', 'sleepinggiant/edgelist_sleeping_giant.csv')
+# TODO: figure out how to reference this more stably w pkg_resources or package_data.
+EDGELIST = 'postman_problems/tests/edgelist_sleeping_giant.csv'
 START_NODE = 'b_end_east'
 
 
@@ -42,6 +47,27 @@ def test_sleeping_giant_cpp_solution():
 
     # make sure our circuit begins and ends at the same place
     assert cpp_solution[0][0] == cpp_solution[-1][1] == START_NODE
+
+
+def test_get_shortest_paths_distances():
+
+    # redefining necessary objects.  TODO: these could be fixtures.
+    df = read_edgelist(EDGELIST)
+    g = create_networkx_graph_from_edgelist(df)
+    odd_nodes = get_odd_nodes(g)
+    odd_node_pairs = list(itertools.combinations(odd_nodes, 2))
+
+    # coarsely checking structure of `get_shortest_paths_distances` return value
+    odd_node_pairs_shortest_paths = get_shortest_paths_distances(g, odd_node_pairs, 'distance')
+    assert len(odd_node_pairs_shortest_paths) == 630
+    assert type(odd_node_pairs_shortest_paths) == dict
+
+    # check that each node name appears the same number of times in `get_shortest_paths_distances` return value
+    node_names = list(itertools.chain(*[i[0] for i in odd_node_pairs_shortest_paths.items()]))
+    assert set(pd.value_counts(node_names)) == set([35])
+
+
+
 
 
 

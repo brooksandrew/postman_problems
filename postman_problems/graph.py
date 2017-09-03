@@ -99,7 +99,7 @@ def get_even_nodes(graph):
     return _get_even_or_odd_nodes(graph, 0)
 
 
-def get_shortest_paths_distances(graph, pairs, edge_weight_name):
+def get_shortest_paths_distances(graph, pairs, edge_weight_name='distance'):
     """
     Calculate shortest distance between each pair of nodes in a graph
 
@@ -169,7 +169,7 @@ def add_augmenting_path_to_graph(graph, min_weight_pairs, edge_weight_name='weig
     for pair in min_weight_pairs:
         graph_aug.add_edge(pair[0],
                            pair[1],
-                           attr_dict={'distance': nx.dijkstra_path_length(graph, pair[0], pair[1]),
+                           attr_dict={'distance': nx.dijkstra_path_length(graph, pair[0], pair[1], weight=edge_weight_name),
                                       'trail': 'augmented'}
                            )
     return graph_aug

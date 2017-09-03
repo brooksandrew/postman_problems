@@ -27,8 +27,11 @@ setup(
         'Topic :: Scientific/Engineering :: Visualization',
         'License :: OSI Approved :: MIT License'
     ],
+    package_data={
+        'sleeping_giant_edgelist': ['examples/sleepingiant/edgelist_sleeping_giant.csv'],
+    },
+    python_requires='>=3.5',
     install_requires=[
-        'numpy',
         'pandas',
         'networkx',
         'imageio'

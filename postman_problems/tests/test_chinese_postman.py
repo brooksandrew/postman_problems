@@ -9,7 +9,7 @@ from postman_problems.graph import (
 
 # PARAMETERS / DATA
 
-EDGELIST = pkg_resources.resource_filename('examples', 'sleepinggiant/edgelist_sleeping_giant.csv')
+EDGELIST = pkg_resources.resource_filename('postman_problems', 'examples/sleepinggiant/edgelist_sleeping_giant.csv')
 START_NODE = 'b_end_east'
 
 

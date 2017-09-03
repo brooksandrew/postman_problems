@@ -27,6 +27,7 @@ setup(
         'Topic :: Scientific/Engineering :: Visualization',
         'License :: OSI Approved :: MIT License'
     ],
+    python_requires='>=3.5',
     install_requires=[
         'numpy',
         'pandas',

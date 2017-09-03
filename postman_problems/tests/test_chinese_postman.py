@@ -9,11 +9,11 @@ from postman_problems.graph import (
 
 # PARAMETERS / DATA
 
-EDGELIST = pkg_resources.resource_filename(pkg_resources.Requirement.parse('examples'),
-                                           'sleepinggiant/edgelist_sleeping_giant.csv')
-START_NODE = 'b_end_east'
-
-print(EDGELIST)
+# EDGELIST = pkg_resources.resource_filename(pkg_resources.Requirement.parse('examples'),
+#                                            'sleepinggiant/edgelist_sleeping_giant.csv')
+# START_NODE = 'b_end_east'
+#
+# print(EDGELIST)
 
 
 # TESTS

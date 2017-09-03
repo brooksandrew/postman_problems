@@ -1,6 +1,6 @@
 import math
 import pkg_resources
-from postman_problems.graph import cpp, read_edgelist
+from postman_problems.graph import cpp, read_edgelist, create_networkx_graph_from_edgelist, get_odd_nodes, get_even_nodes
 
 
 # PARAMETERS / DATA
@@ -13,8 +13,21 @@ START_NODE = 'b_end_east'
 
 def test_read_sleeping_giant_edgelist():
     df = read_edgelist(EDGELIST)
+
+    # check that our Sleeping Giant example dataset contains the correct fields and values
     assert ['node1', 'node2', 'trail', 'distance', 'estimate'] in df.columns.values
     assert math.isclose(df['distance'].sum(), 25.76)
+
+
+def test_get_degree_nodes():
+    df = read_edgelist(EDGELIST)
+    g = create_networkx_graph_from_edgelist(df)
+
+    # check that even + odd == total
+    assert len(get_odd_nodes(g)) + len(get_even_nodes(g)) == len(g.nodes())
+
+    # check that there is no overlap between odd and even
+    assert set(get_odd_nodes(g)).intersection(get_even_nodes(g)) == set()
 
 
 def test_sleeping_giant_cpp_solution():
@@ -29,6 +42,7 @@ def test_sleeping_giant_cpp_solution():
 
     # make sure our circuit begins and ends at the same place
     assert cpp_solution[0][0] == cpp_solution[-1][1] == START_NODE
+
 
 
 

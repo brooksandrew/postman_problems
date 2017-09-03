@@ -21,8 +21,8 @@ def create_networkx_graph_from_edgelist(edgelist):
     Create a networkx object from an edgelist (pandas dataframe)
 
     Args:
-        edgelist (pandas dataframe): output of read_edgelist function.
-            The first two columns are treated as source and target vertex names.
+        edgelist (pandas dataframe): output of `read_edgelist function`.
+            The first two columns are treated as source and target node names.
             The following columns are treated as edge attributes.
 
     Returns:
@@ -55,27 +55,62 @@ def add_node_attributes(graph, nodelist):
     return graph
 
 
-def _get_even_or_odd_vertices(graph, mod):
-    """Helper function: given a networkx object, return names of the odd (mod=1) or even (mod=0) vertices"""
-    degree_vertices = []
+def _get_even_or_odd_nodes(graph, mod):
+    """
+    Helper function for get_even_nodes.  Given a networkx object, return names of the odd or even nodes
+    Args:
+        graph (networkx graph): determine the degree of nodes in this graph
+        mod (int): 0 for even, 1 for odd
+
+    Returns:
+        list[str]: list of node names of odd or even degree
+    """
+    degree_nodes = []
     for v, d in graph.degree_iter():
         if d % 2 == mod:
-            degree_vertices.append(v)
-    return degree_vertices
+            degree_nodes.append(v)
+    return degree_nodes
 
 
-def get_odd_vertices(graph):
-    """Given a networkx object, return names of the odd vertices"""
-    return _get_even_or_odd_vertices(graph, 1)
+def get_odd_nodes(graph):
+    """
+    Given a networkx object, return names of the odd degree nodes
+
+    Args:
+        graph (networkx graph): graph used to list odd degree nodes for
+
+    Returns:
+        list[str]: names of nodes with odd degree
+    """
+    return _get_even_or_odd_nodes(graph, 1)
 
 
-def get_even_vertices(graph):
-    """Given a networkx object, return names of the even vertices"""
-    return _get_even_or_odd_vertices(graph, 0)
+def get_even_nodes(graph):
+    """
+    Given a networkx object, return names of the even degree nodes
+
+    Args:
+        graph (networkx graph): graph used to list even degree nodes for
+
+    Returns:
+        list[str]: names of nodes with even degree
+
+    """
+    return _get_even_or_odd_nodes(graph, 0)
 
 
 def get_shortest_paths_distances(graph, pairs, edge_weight_name):
-    """Calculate shortest distance between each pair of vertices in a graph"""
+    """
+    Calculate shortest distance between each pair of nodes in a graph
+
+    Args:
+        graph (networkx graph)
+        pairs (list[2tuple]): List of length 2 tuples containing node pairs to calculate shortest path between
+        edge_weight_name (str): edge attribute used for distance calculation
+
+    Returns:
+        dict: mapping each pair in `pairs` to the shortest path using `edge_weight_name` between them.
+    """
     distances = {}
     for pair in pairs:
         distances[pair] = nx.dijkstra_path_length(graph, pair[0], pair[1], weight=edge_weight_name)
@@ -83,7 +118,17 @@ def get_shortest_paths_distances(graph, pairs, edge_weight_name):
 
 
 def create_complete_graph(pair_weights, flip_weights=True):
-    """create a perfectly connected graph a list of vertex pairs and the distances between them."""
+    """
+    Create a perfectly connected graph from a list of node pairs and the distances between them.
+
+    Args:
+        pair_weights (dict): mapping between node pairs and distance calculated in `get_shortest_paths_distances`.
+        flip_weights (Boolean): True negates the distance in `pair_weights`.  We negate whenever we want to find the
+         minimum weight matching on a graph because networkx has only `max_weight_matching`, no `min_weight_matching`.
+
+    Returns:
+        complete (fully connected graph) networkx graph using the node pairs and distances provided in `pair_weights`
+    """
     g = nx.Graph()
     for k, v in pair_weights.items():
         wt_i = -v if flip_weights else v
@@ -92,22 +137,39 @@ def create_complete_graph(pair_weights, flip_weights=True):
 
 
 def dedupe_matching(matching):
-    """Remove duplicates vertex pairs from the output of nx.algorithms.max_weight_matching"""
+    """
+    Remove duplicates node pairs from the output of networkx.algorithms.max_weight_matching since we don't care about order.
+
+    Args:
+        matching (list[2tuples]): output from networkx.algorithms.max_weight_matching.
+
+    Returns:
+        list[2tuples]: list of node pairs from `matching` deduped (ignoring order).
+    """
     matched_pairs_w_dupes = [tuple(sorted([k, v])) for k, v in matching.items()]
     return list(pd.unique(matched_pairs_w_dupes))
 
 
-def add_augmenting_path_to_graph(graph, min_weight_pairs, edge_weight_name):
+def add_augmenting_path_to_graph(graph, min_weight_pairs, edge_weight_name='weight'):
     """
     Add the min weight matching edges to the original graph
     Note the resulting graph could (and likely will) have edges that didn't exist on the original graph.  To get the
-    true circuit, we must breakdown these augmented edges into the shortest path through the edges that do exist.
+    true circuit, we must breakdown these augmented edges into the shortest path through the edges that do exist.  This
+    is done with `create_eulerian_circuit`.
+
+    Args:
+        graph (networkx graph):
+        min_weight_pairs (list[2tuples): output of `dedupe_matching` specifying the odd degree nodes to link together
+        edge_weight_name (str): edge attribute used for distance calculation
+
+    Returns:
+        networkx graph: `graph` augmented with edges between the odd nodes specified in `min_weight_pairs`
     """
     graph_aug = graph.copy()  # so we don't mess with the original graph
     for pair in min_weight_pairs:
         graph_aug.add_edge(pair[0],
                            pair[1],
-                           attr_dict={'distance': nx.dijkstra_path_length(graph, pair[0], pair[1], weight=edge_weight_name),
+                           attr_dict={'distance': nx.dijkstra_path_length(graph, pair[0], pair[1]),
                                       'trail': 'augmented'}
                            )
     return graph_aug
@@ -115,16 +177,23 @@ def add_augmenting_path_to_graph(graph, min_weight_pairs, edge_weight_name):
 
 def create_eulerian_circuit(graph_augmented, graph_original, start_node=None):
     """
-    nx.eulerian_circuit only returns the order in which we hit each vertex.  It does not return the attributes of the
-    edges needed to complete the circuit.  This is necessary for the postman problem where we to keep track of which
+    networkx.eulerian_circuit only returns the order in which we hit each node.  It does not return the attributes of the
+    edges needed to complete the circuit.  This is necessary for the postman problem where we need to keep track of which
     edges have been covered already when multiple edges exist between two nodes.
-    We also need to add the annotate the edges added to make the eulerian to follow the actual shortest path trails ( not
+    We also need to annotate the edges added to make the eulerian to follow the actual shortest path trails (not
     the direct shortest path pairings between the odd nodes for which there might not be a direct trail)
+
+    Args:
+        graph_augmented (networkx graph): graph w links between odd degree nodes created from `add_augmenting_path_to_graph`.
+        graph_original (networkx graph): orginal graph created from `create_networkx_graph_from_edgelist`
+        start_node (str): name of starting (and ending) node for CPP solution.
+
+    Returns:
+        networkx graph (`graph_original`) augmented with edges directly between the odd nodes
     """
+
     euler_circuit = list(nx.eulerian_circuit(graph_augmented, source=start_node))
-
     assert len(graph_augmented.edges()) == len(euler_circuit), "graph and euler_circuit do not have equal number of edges."
-
     edge_data = graph_augmented.edges(data=True)
 
     for edge in euler_circuit:
@@ -133,9 +202,10 @@ def create_eulerian_circuit(graph_augmented, graph_original, start_node=None):
         if possible_edges[0][2]['trail'] == 'augmented':
             # find shortest path from odd node to odd node in original graph
             aug_path = nx.shortest_path(graph_original, edge[0], edge[1], weight='distance')
-            # for each shortest path between odd nodes, add the shortest path through edges that actually exist to circuit
+
+            # for each shortest path between odd nodes, add the shortest path through edges that do exist to circuit
             for edge_aug in list(zip(aug_path[:-1], aug_path[1:])):
-                # find edge with shortest distance (if there are two parallel edges btwn the same nodes)
+                # find edge with shortest distance (if there are two parallel edges between the same nodes)
                 edge_aug_dict = graph_original[edge_aug[0]][edge_aug[1]]
                 edge_aug_shortest = edge_aug_dict[min(edge_aug_dict.keys(), key=(lambda k: edge_aug_dict[k]['distance']))]
                 edge_aug_shortest['augmented'] = True
@@ -152,7 +222,9 @@ def cpp(edgelist_filename, nodelist_filename=None, start_node=None, edge_weight=
 
     Args:
         edgelist_filename (str): filename of edgelist.  See cpp.py for more details
+        nodelist_filename (str): filename of nodelist.  TODO: implement this.  Only used for viz.
         start_node (str): name of starting node.  See cpp.py for more details
+        edge_weight (str): name edge attribute that indicates distance to minimize in CPP
 
     Returns:
         list[tuple(str, str, dict)]: Each tuple is a direction (from one node to another) from the CPP solution route.
@@ -163,17 +235,17 @@ def cpp(edgelist_filename, nodelist_filename=None, start_node=None, edge_weight=
     el = read_edgelist(edgelist_filename)
     g = create_networkx_graph_from_edgelist(el)
 
-    # get augmenting path for odd vertices
-    odd_vertices = get_odd_vertices(g)
-    odd_vertex_pairs = list(itertools.combinations(odd_vertices, 2))
-    odd_vertex_pairs_shortest_paths = get_shortest_paths_distances(g, odd_vertex_pairs, edge_weight)
-    g_odd_complete = create_complete_graph(odd_vertex_pairs_shortest_paths, flip_weights=True)
+    # get augmenting path for odd nodes
+    odd_nodes = get_odd_nodes(g)
+    odd_node_pairs = list(itertools.combinations(odd_nodes, 2))
+    odd_node_pairs_shortest_paths = get_shortest_paths_distances(g, odd_node_pairs, edge_weight)
+    g_odd_complete = create_complete_graph(odd_node_pairs_shortest_paths, flip_weights=True)
 
     # best solution using blossom algorithm
     odd_matching = dedupe_matching(nx.algorithms.max_weight_matching(g_odd_complete, True))
 
     # add the min weight matching edges to g
-    g_aug = add_augmenting_path_to_graph(g, odd_matching, 'weight')
+    g_aug = add_augmenting_path_to_graph(g, odd_matching)
 
     # get eulerian circuit route.
     circuit = list(create_eulerian_circuit(g_aug, g, start_node))

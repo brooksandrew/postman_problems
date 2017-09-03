@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/brooksandrew/postman_problems.svg?branch=master)](https://travis-ci.org/brooksandrew/postman_problems)
+
 ### Contents
 
 This package contains implementations to solve the suite of [Postman Problems] from graph theory.

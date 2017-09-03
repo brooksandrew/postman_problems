@@ -28,9 +28,7 @@ setup(
         'License :: OSI Approved :: MIT License'
     ],
     python_requires='>=3.5',
-    setup_requires=["numpy"],
     install_requires=[
-        'numpy',
         'pandas',
         'networkx',
         'imageio'

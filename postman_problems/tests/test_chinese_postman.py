@@ -10,7 +10,8 @@ from postman_problems.graph import (
 # PARAMETERS / DATA
 
 print('made it here!')
-EDGELIST = pkg_resources.resource_filename('postman_problems', 'tests/edgelist_sleeping_giant.csv')
+#EDGELIST = pkg_resources.resource_filename('postman_problems', 'tests/edgelist_sleeping_giant.csv')
+EDGELIST = 'postman_problems/tests/edgelist_sleeping_giant.csv'
 START_NODE = 'b_end_east'
 print(EDGELIST)
 

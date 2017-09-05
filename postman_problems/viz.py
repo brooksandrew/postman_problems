@@ -17,7 +17,6 @@ def add_pos_node_attribute(graph, origin='bottomleft'):
 
     Returns:
         networkx graph with the node attributes added to graph
-
     """
 
     ori = {

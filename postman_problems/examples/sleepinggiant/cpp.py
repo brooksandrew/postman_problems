@@ -25,8 +25,8 @@ from postman_problems.graph import cpp
 if __name__ == '__main__':
 
     # params / data
-    EDGELIST = pkg_resources.resource_filename('examples', 'sleepinggiant/edgelist_sleeping_giant.csv')
-    NODELIST = pkg_resources.resource_filename('examples', 'sleepinggiant/nodelist_sleeping_giant.csv')
+    EDGELIST = pkg_resources.resource_filename('postman_problems', 'examples/sleepinggiant/edgelist_sleeping_giant.csv')
+    NODELIST = pkg_resources.resource_filename('postman_problems', 'examples/leepinggiant/nodelist_sleeping_giant.csv')
     EDGE_WEIGHT = "distance"
     START_NODE = "b_end_east"
 

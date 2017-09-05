@@ -9,8 +9,7 @@ from postman_problems.graph import (
 
 # PARAMETERS / DATA
 
-# TODO: figure out how to reference this more stably w pkg_resources or package_data.
-EDGELIST = 'postman_problems/tests/edgelist_sleeping_giant.csv'
+EDGELIST = pkg_resources.resource_filename('postman_problems', 'examples/sleepinggiant/edgelist_sleeping_giant.csv')
 START_NODE = 'b_end_east'
 
 
@@ -65,11 +64,3 @@ def test_get_shortest_paths_distances():
     # check that each node name appears the same number of times in `get_shortest_paths_distances` return value
     node_names = list(itertools.chain(*[i[0] for i in odd_node_pairs_shortest_paths.items()]))
     assert set(pd.value_counts(node_names)) == set([35])
-
-
-
-
-
-
-
-

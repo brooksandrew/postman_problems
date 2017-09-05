@@ -10,7 +10,16 @@ def add_pos_node_attribute(graph, origin='bottomleft'):
     Add node attribute 'pos' with X and Y coordinates to networkx graph so that we can the positions of each node to
     graphviz for plotting.  The origin for the X,Y plane is provided as some tools for grabbing coordinates from images
     use the topleft or the bottomleft.
+
+    Args:
+        graph (networkx graph): graph to "pos" node attribute to.  `graph` already should X, Y node attributes.
+        origin (str): How to treat origin for X, Y.  One of: 'bottomleft', 'topleft', 'topright', 'bottomright'
+
+    Returns:
+        networkx graph with the node attributes added to graph
+
     """
+
     ori = {
         'bottomleft': {'X': 1, 'Y': 1},
         'topleft': {'X': 1, 'Y': -1},
@@ -19,8 +28,8 @@ def add_pos_node_attribute(graph, origin='bottomleft'):
     }[origin]
 
     for node_id in graph.nodes():
-        graph.node[node_id]['pos'] = "{},{}!".format(ori['X']*graph.node[node_id]['X'] / 100,
-                                                     ori['Y']*graph.node[node_id]['Y'] / 100)
+        graph.node[node_id]['pos'] = "{},{}!".format(ori['X']*graph.node[node_id]['X'],
+                                                     ori['Y']*graph.node[node_id]['Y'])
     return graph
 
 
@@ -29,6 +38,13 @@ def convert_networkx_graph_to_graphiz(graph, directed=False):
     Convert a networkx Multigraph to a graphviz.dot.Graph
     This allows us to modify the graphviz graph programmatically in Python before we dump to dot format and plot.
     Note the Graphviz plot is created sequentially... It is hard to edit it after the edges and node attrs are written.
+
+    Args:
+        graph (networkx graph): networkx graph to be converted to dot notation
+        directed (boolean): is `graph` directed... more specifically, do we want the returned graph to be directed?
+
+    Returns:
+        graphviz.dot.Graph: conversion of `graph` to a graphviz dot object.
     """
     if directed:
         G = gv.Digraph(strict=False, graph_attr={'forcelabels': 'True'})
@@ -48,10 +64,20 @@ def convert_networkx_graph_to_graphiz(graph, directed=False):
 
 
 def make_circuit_graphviz(circuit, graph, filename='cpp_graph', format='svg', engine='neato'):
-    """"
+    """
     Builds one graph
     TODO: consider making this a directed graph with edge labels specifying the order in which the edges should be
     traversed.
+
+    Args:
+        circuit (list[tuple]): solution of the CPP (result from graph.cpp function
+        graph (networkx graph):
+        filename (str): filename of viz output (leave off the file extension... this is appended from `format`)
+        format (str): 'svg', 'png`, etc
+        engine: which graphviz engine to use: 'dot', 'neato'. 'circo', etc
+
+    Returns:
+        No return value.  Writes a visualization to disk.
     """
     cnt = 1
     parallel_edge_cnt = {}
@@ -84,10 +110,20 @@ def make_circuit_graphviz(circuit, graph, filename='cpp_graph', format='svg', en
 
 
 def make_circuit_images(circuit, graph, path_plot, format='png', engine='neato'):
-    """"
+    """
     Builds (in a hacky way) a sequence of plots that simulate the network growing according to the eulerian path.
     TODO: consider making this a directed graph with edge labels specifying the order in which the edges should be
     traversed.
+
+    Args:
+        circuit (list[tuple]): solution of the CPP (result from graph.cpp function
+        graph (networkx graph):
+        path_plot (str): path to where a series of images named like img[X].[format] will be saved.
+        format (str): 'svg', 'png`, etc
+        engine: which graphviz engine to use: 'dot', 'neato'. 'circo', etc
+
+    Returns:
+        No return value.  Writes a viz to disk for each instruction in the CPP.
     """
     graph_white = graph.copy()
 
@@ -120,11 +156,21 @@ def make_circuit_images(circuit, graph, path_plot, format='png', engine='neato')
         graph_walked_gv.format = format
         graph_walked_gv.engine = engine
 
-        graph_walked_gv.render(filename=path_plot + 'img' + str(cnt), view=False)
+        graph_walked_gv.render(filename=os.path.join(path_plot, 'img' + str(cnt)), view=False)
         cnt += 1
 
 
 def make_circuit_video(image_path, movie_filename, fps=3):
+    """
+    Create a movie that visualizes the CPP solution from a series of static images.
+    Args:
+        image_path (str): path to list of images named like `img[X].png`.  These are produced from make_circuit_images
+        movie_filename (str): filename of created movie/gif (output)
+        fps (int): frames per second for movie
+
+    Returns:
+        No return value.  Writes a movie/gif to disk
+    """
     # sorting filenames in order
     filenames = glob.glob(image_path + 'img*.png')
     filenames_sort_indices = np.argsort([int(os.path.basename(filename).split('.')[0][3:]) for filename in filenames])

@@ -28,8 +28,9 @@ setup(
         'License :: OSI Approved :: MIT License'
     ],
     package_data={
-        'sleeping_giant_edgelist': ['examples/sleepingiant/edgelist_sleeping_giant.csv'],
+        'sleeping_giant_edgelist': ['postman_problems/examples/sleepingiant/edgelist_sleeping_giant.csv'],
     },
+    include_package_data=True,
     python_requires='>=3.5',
     install_requires=[
         'pandas',

@@ -38,7 +38,8 @@ setup(
     install_requires=[
         'pandas',
         'networkx',
-        'imageio'
+        'imageio',
+        'matplotlib'
     ]
 )
 

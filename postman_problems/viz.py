@@ -27,8 +27,12 @@ def add_pos_node_attribute(graph, origin='bottomleft'):
     }[origin]
 
     for node_id in graph.nodes():
-        graph.node[node_id]['pos'] = "{},{}!".format(ori['X']*graph.node[node_id]['X'],
-                                                     ori['Y']*graph.node[node_id]['Y'])
+        try:
+            # dividing by arbitrary number to make pos appear as required type: double
+            graph.node[node_id]['pos'] = "{},{}!".format(ori['X']*graph.node[node_id]['X']/100,
+                                                         ori['Y']*graph.node[node_id]['Y']/100)
+        except KeyError as e:
+            print('No X, Y coordinates found for node: {}'.format(node_id))
     return graph
 
 

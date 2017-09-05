@@ -1,0 +1,2 @@
+include postman_problems/examples/sleepinggiant/edgelist_sleeping_giant.csv
+include postman_problems/examples/sleepinggiant/nodelist_sleeping_giant.csv

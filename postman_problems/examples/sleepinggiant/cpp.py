@@ -20,6 +20,7 @@ Usage:
 
 import pkg_resources
 from postman_problems.graph import cpp
+from postman_problems.viz import make_circuit_graphviz
 
 
 if __name__ == '__main__':
@@ -36,5 +37,8 @@ if __name__ == '__main__':
     # print the solution
     for e in circuit:
         print(e)
+
+    # visualize solution
+        make_circuit_graphviz(circuit, ),
 
 

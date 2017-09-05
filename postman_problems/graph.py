@@ -18,7 +18,8 @@ def read_edgelist(edgelist_filename):
 
 def create_networkx_graph_from_edgelist(edgelist):
     """
-    Create a networkx object from an edgelist (pandas dataframe)
+    Create a networkx MultiGraph object from an edgelist (pandas dataframe).
+    Used to create the user's starting graph for which a CPP solution is desired.
 
     Args:
         edgelist (pandas dataframe): output of `read_edgelist function`.

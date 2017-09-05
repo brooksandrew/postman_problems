@@ -10,7 +10,8 @@ from postman_problems.graph import (
 # PARAMETERS / DATA
 
 # TODO: figure out how to reference this more stably w pkg_resources or package_data.
-EDGELIST = 'postman_problems/tests/edgelist_sleeping_giant.csv'
+#EDGELIST = 'postman_problems/tests/edgelist_sleeping_giant.csv'  # works
+EDGELIST = pkg_resources('examples', 'sleepinggiant/edgelist_sleeping_giant.csv') # might not work
 START_NODE = 'b_end_east'
 
 

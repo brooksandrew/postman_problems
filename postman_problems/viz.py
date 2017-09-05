@@ -111,8 +111,6 @@ def make_circuit_graphviz(circuit, graph, filename='cpp_graph', format='svg', en
 def make_circuit_images(circuit, graph, path_plot, format='png', engine='neato'):
     """
     Builds (in a hacky way) a sequence of plots that simulate the network growing according to the eulerian path.
-    TODO: consider making this a directed graph with edge labels specifying the order in which the edges should be
-    traversed.
 
     Args:
         circuit (list[tuple]): solution of the CPP (result from graph.cpp function

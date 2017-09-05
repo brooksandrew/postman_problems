@@ -30,7 +30,7 @@ setup(
     package_data={
         'sleeping_giant_edgelist': ['postman_problems/examples/sleepingiant/edgelist_sleeping_giant.csv'],
     },
-    include_data=True,
+    include_package_data=True,
     entry_points={
         'console_scripts': ['chinese_postman=postman_problems.chinese_postman:main']
     },

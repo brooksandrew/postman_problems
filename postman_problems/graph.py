@@ -16,7 +16,7 @@ def read_edgelist(edgelist_filename):
     return el
 
 
-def create_networkx_graph_from_edgelist(edgelist):
+def create_networkx_graph_from_edgelist(edgelist, edge_id='id'):
     """
     Create a networkx MultiGraph object from an edgelist (pandas dataframe).
     Used to create the user's starting graph for which a CPP solution is desired.
@@ -25,14 +25,16 @@ def create_networkx_graph_from_edgelist(edgelist):
         edgelist (pandas dataframe): output of `read_edgelist function`.
             The first two columns are treated as source and target node names.
             The following columns are treated as edge attributes.
+        edge_id (str): name of edge attribute which will specify
 
     Returns:
         networkx.MultiGraph:
             Returning a MultiGraph rather than Graph to support parallel edges
     """
     g = nx.MultiGraph()
-    for row in edgelist.iterrows():
+    for i, row in enumerate(edgelist.iterrows()):
         edge_attr_dict = row[1][2:].to_dict()
+        edge_attr_dict[edge_id] = i
         g.add_edge(row[1][0], row[1][1], attr_dict=edge_attr_dict)
     return g
 
@@ -200,30 +202,32 @@ def create_eulerian_circuit(graph_augmented, graph_original, start_node=None):
     for edge in euler_circuit:
         possible_edges = [e for e in edge_data if set([e[0], e[1]]) == set([edge[0], edge[1]])]
 
-        if possible_edges[0][2]['trail'] == 'augmented':
-            # find shortest path from odd node to odd node in original graph
+        edge_key = 0  # initialize w 0.  Could change w parallel edges.
+        if possible_edges[edge_key][2]['trail'] == 'augmented':
+            # find shortest path from odd node to odd node in original graph (could be nonadjacent)
             aug_path = nx.shortest_path(graph_original, edge[0], edge[1], weight='distance')
 
-            # for each shortest path between odd nodes, add the shortest path through edges that do exist to circuit
+            # for each shortest path between odd nodes, add shortest path through edges that actually exist to circuit
             for edge_aug in list(zip(aug_path[:-1], aug_path[1:])):
                 # find edge with shortest distance (if there are two parallel edges between the same nodes)
                 edge_aug_dict = graph_original[edge_aug[0]][edge_aug[1]]
-                edge_aug_shortest = edge_aug_dict[min(edge_aug_dict.keys(), key=(lambda k: edge_aug_dict[k]['distance']))]
+                edge_key = min(edge_aug_dict.keys(), key=(lambda k: edge_aug_dict[k]['distance']))  # index with min distance
+                edge_aug_shortest = edge_aug_dict[edge_key]
                 edge_aug_shortest['augmented'] = True
+                edge_aug_shortest['id'] = edge_aug_dict[edge_key]['id']
                 yield(edge_aug + (edge_aug_shortest,))
         else:
-            yield(edge + (possible_edges[0][2],))
-        edge_data.remove(possible_edges[0])
+            yield(edge + (possible_edges[edge_key][2],))
+        edge_data.remove(possible_edges[edge_key])
 
 
-def cpp(edgelist_filename, nodelist_filename=None, start_node=None, edge_weight='distance'):
+def cpp(edgelist_filename, start_node=None, edge_weight='distance'):
     """
     Solving the CPP from beginning (load network data) to end (finding optimal route).
     Can be run from command line with arguments from cpp.py, or from an interactive Python session (ex jupyter notebook)
 
     Args:
         edgelist_filename (str): filename of edgelist.  See cpp.py for more details
-        nodelist_filename (str): filename of nodelist.  TODO: implement this.  Only used for viz.
         start_node (str): name of starting node.  See cpp.py for more details
         edge_weight (str): name edge attribute that indicates distance to minimize in CPP
 

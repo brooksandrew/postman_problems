@@ -1,0 +1,14 @@
+graph {
+	graph [forcelabels=true "strict"=false]
+	C [label=C]
+	A [label=A]
+	B [label=B]
+	D [label=D]
+		C -- D [label=9 decorate=true distance=3 id=6 penwidth=1 trail=g]
+		C -- A [label="6, 7" decorate=true distance=2 id=2 penwidth=4 trail=c]
+		C -- A [label=8 decorate=true distance=10 id=3 penwidth=1 trail=d]
+		A -- B [label="3, 5" decorate=true distance=3 id=0 penwidth=4 trail=a]
+		A -- B [label=4 decorate=true distance=5 id=1 penwidth=1 trail=b]
+		A -- D [label="0, 1" decorate=true distance=1 id=4 penwidth=4 trail=e]
+		B -- D [label=2 decorate=true distance=9 id=5 penwidth=1 trail=f]
+}

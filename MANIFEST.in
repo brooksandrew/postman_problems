@@ -1,4 +1,3 @@
 include postman_problems/examples/sleeping_giant/edgelist_sleeping_giant.csv
 include postman_problems/examples/sleeping_giant/nodelist_sleeping_giant.csv
 include postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv
-include postman_problems/examples/seven_bridges/nodelist_seven_bridges.csv

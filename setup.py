@@ -13,18 +13,6 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
-class build_ext(_build_ext):
-    """
-    Hack needed to build numpy properly
-    See: https://stackoverflow.com/questions/19919905/how-to-bootstrap-numpy-installation-in-setup-py
-    """
-    def finalize_options(self):
-        _build_ext.finalize_options(self)
-        # Prevent numpy from thinking it is still in its setup process:
-        __builtins__.__NUMPY_SETUP__ = False
-        import numpy
-        self.include_dirs.append(numpy.get_include())
-
 setup(
     name='postman_problems',
     version='0.1dev',
@@ -50,8 +38,6 @@ setup(
         'console_scripts': ['chinese_postman=postman_problems.chinese_postman:main']
     },
     python_requires='>=3.5',
-    cmdclass={'build_ext':build_ext},
-    setup_requires='numpy',
     install_requires=[
         'pandas',
         'networkx',

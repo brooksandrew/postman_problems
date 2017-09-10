@@ -196,7 +196,7 @@ def create_eulerian_circuit(graph_augmented, graph_original, start_node=None):
     """
 
     euler_circuit = list(nx.eulerian_circuit(graph_augmented, source=start_node))
-    assert len(graph_augmented.edges()) == len(euler_circuit), "graph and euler_circuit do not have equal number of edges."
+    assert len(graph_augmented.edges()) == len(euler_circuit), 'graph and euler_circuit do not have equal number of edges.'
     edge_data = graph_augmented.edges(data=True)
 
     for edge in euler_circuit:

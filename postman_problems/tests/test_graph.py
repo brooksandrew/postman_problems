@@ -16,7 +16,6 @@ from postman_problems.tests.utils import create_mock_csv_from_dataframe
 
 NODE_PAIRS = {('a', 'b'): 2, ('b', 'c'): 5, ('c', 'd'): 10}
 MATCHING = {'a': 'b', 'd': 'c', 'b': 'a', 'c': 'd'}
-START_NODE = 'b_end_east'
 GRAPH = nx.MultiGraph([
     ('a', 'b', {'id': 1, 'distance': 5}),
     ('a', 'c', {'id': 2, 'distance': 20}),

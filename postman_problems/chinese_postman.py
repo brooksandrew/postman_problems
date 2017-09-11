@@ -42,11 +42,7 @@ def get_args():
     return parser.parse_args()
 
 
-if __name__ == '__main__':
-    """
-    Parse command line arguments and solve the CPP
-    """
-
+def main():
     # parse arguments
     args = get_args()
 
@@ -57,6 +53,13 @@ if __name__ == '__main__':
 
     # print solution
     [print(edge) for edge in cpp_solution]
+
+
+if __name__ == '__main__':
+    """Parse command line arguments and solve the CPP"""
+    main()
+
+
 
 
 

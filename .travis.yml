@@ -16,5 +16,6 @@ script: python -m pytest
 branches:
   only:
     - master
+    - dev
 after_success:
     - coveralls

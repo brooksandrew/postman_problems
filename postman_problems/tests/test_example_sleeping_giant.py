@@ -1,12 +1,12 @@
 import math
 import pkg_resources
 import itertools
-import warnings
 import pandas as pd
 import networkx as nx
+from postman_problems.chinese_postman import cpp
 from postman_problems.graph import (
-    read_edgelist, create_networkx_graph_from_edgelist, get_odd_nodes, get_even_nodes, get_shortest_paths_distances,
-    add_node_attributes, create_complete_graph, dedupe_matching, add_augmenting_path_to_graph, create_eulerian_circuit
+    read_edgelist, create_networkx_graph_from_edgelist, get_odd_nodes, get_shortest_paths_distances,
+    add_node_attributes
 )
 
 # ###################
@@ -15,6 +15,7 @@ from postman_problems.graph import (
 
 EDGELIST = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/edgelist_sleeping_giant.csv')
 NODELIST = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/nodelist_sleeping_giant.csv')
+START_NODE = 'b_end_east'
 
 
 #########
@@ -64,7 +65,6 @@ def test_add_node_attributes():
 
 
 def test_get_shortest_paths_distances():
-
     df = read_edgelist(EDGELIST)
     graph = create_networkx_graph_from_edgelist(df, edge_id='id')
 
@@ -79,3 +79,17 @@ def test_get_shortest_paths_distances():
     # check that each node name appears the same number of times in `get_shortest_paths_distances` return value
     node_names = list(itertools.chain(*[i[0] for i in odd_node_pairs_shortest_paths.items()]))
     assert set(pd.value_counts(node_names)) == set([35])
+
+
+def test_sleeping_giant_cpp_solution():
+    cpp_solution = cpp(edgelist_filename=EDGELIST, start_node=START_NODE)
+
+    # make number of edges in solution is correct
+    assert len(cpp_solution) == 154
+
+    # make sure our total mileage is correct
+    cpp_solution_distance = sum([edge[2]['distance'] for edge in cpp_solution])
+    assert math.isclose(cpp_solution_distance, 33.59)
+
+    # make sure our circuit begins and ends at the same place
+    assert cpp_solution[0][0] == cpp_solution[-1][1] == START_NODE

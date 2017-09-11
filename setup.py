@@ -34,7 +34,10 @@ setup(
     },
     include_package_data=True,
     entry_points={
-        'console_scripts': ['chinese_postman=postman_problems.chinese_postman:main']
+        'console_scripts': [
+            'chinese_postman=postman_problems.chinese_postman:main',
+            'chinese_postman_sleeping_giant=postman_problems.examples.sleeping_giant.cpp_sleeping_giant:main'
+        ]
     },
     python_requires='>=3.5',
     tests_require=['pytest'],

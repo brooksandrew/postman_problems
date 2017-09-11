@@ -1,6 +1,5 @@
 import os
 from setuptools import setup
-from setuptools.command.build_ext import build_ext as _build_ext
 
 
 def read(fname):

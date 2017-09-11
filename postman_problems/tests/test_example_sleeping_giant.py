@@ -4,9 +4,9 @@ import itertools
 import pandas as pd
 import networkx as nx
 from postman_problems.chinese_postman import cpp
+from postman_problems.viz import add_node_attributes
 from postman_problems.graph import (
-    read_edgelist, create_networkx_graph_from_edgelist, get_odd_nodes, get_shortest_paths_distances,
-    add_node_attributes
+    read_edgelist, create_networkx_graph_from_edgelist, get_odd_nodes, get_shortest_paths_distances
 )
 
 # ###################
@@ -82,7 +82,7 @@ def test_get_shortest_paths_distances():
 
 
 def test_sleeping_giant_cpp_solution():
-    cpp_solution = cpp(edgelist_filename=EDGELIST, start_node=START_NODE)
+    cpp_solution, graph = cpp(edgelist_filename=EDGELIST, start_node=START_NODE)
 
     # make number of edges in solution is correct
     assert len(cpp_solution) == 154
@@ -93,3 +93,8 @@ def test_sleeping_giant_cpp_solution():
 
     # make sure our circuit begins and ends at the same place
     assert cpp_solution[0][0] == cpp_solution[-1][1] == START_NODE
+
+    # make sure original graph is properly returned
+    assert len(graph.edges()) == 119
+    [e[2].get('augmented') for e in graph.edges(data=True)].count(True) == 35
+

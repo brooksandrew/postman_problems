@@ -15,15 +15,16 @@ Usage:
     interactive python environment using an interpreter (ex, Jupyter notebook), remove the `if __name__ == '__main__':`
     line, and you should be good to go.
     ```
-    python postman_problems/examples//seven_bridges/cpp_seven_bridges.py
+    python postman_problems/examples/seven_bridges/cpp_seven_bridges.py
     ```
 
 """
 
 import logging
 import pkg_resources
-from postman_problems.graph import create_networkx_graph_from_edgelist, cpp, read_edgelist
+from postman_problems.graph import cpp
 from postman_problems.viz import make_circuit_graphviz, make_circuit_images, make_circuit_video
+
 
 if __name__ == '__main__':
     """Solve the CPP and save visualizations of the solution"""
@@ -38,16 +39,14 @@ if __name__ == '__main__':
     CPP_VIZ_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/output/cpp_graph')
     CPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/output/cpp_graph.gif')
 
-    # SOLVE CPP -----------------------------------------
-
     # setup logging
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
-    logger.info('Load edgelist and solve the CPP')
-    edgelist_df = read_edgelist(EDGELIST)
-    graph = create_networkx_graph_from_edgelist(edgelist_df)
-    circuit = cpp(edgelist_filename=EDGELIST, start_node=START_NODE)
+    # SOLVE CPP -----------------------------------------
+
+    logger.info('Solve CPP')
+    circuit, graph = cpp(edgelist_filename=EDGELIST, start_node=START_NODE)
 
     logger.info('Print the CPP solution:')
     for e in circuit:

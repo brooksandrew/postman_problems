@@ -26,35 +26,44 @@ def get_args():
                              'The first column should be the node name.'
                              'Additional columns should be used to provide node attributes.'
                              'The first row should be the node attribute names.')
-    parser.add_argument('--edge_weight',
-                        required=False,
-                        type=str,
-                        default='distance',
-                        help='Edge attribute used to specify the distance between nodes (optional).'
-                             'Default is "distance".')
     parser.add_argument('--start_node',
                         required=False,
                         type=str,
                         default=None,
                         help='Node to start the CPP solution from (optional).'
                              'If not provided, a starting node will be selected at random.')
+    parser.add_argument('--edge_weight',
+                        required=False,
+                        type=str,
+                        default='distance',
+                        help='Edge attribute used to specify the distance between nodes (optional).'
+                             'Default is "distance".')
+
 
     return parser.parse_args()
 
 
-if __name__ == '__main__':
-    """
-    Parse command line arguments and solve the CPP
-    """
-
+def main():
     # parse arguments
     args = get_args()
 
     # solve CPP
-    cpp_solution = cpp(**vars(args))
+    cpp_solution = cpp(edgelist_filename=args.edgelist_filename,
+                       start_node=args.start_node,
+                       edge_weight=args.edge_weight)
 
     # print solution
     [print(edge) for edge in cpp_solution]
+
+    # visualize
+
+
+
+if __name__ == '__main__':
+    """Parse command line arguments and solve the CPP"""
+    main()
+
+
 
 
 

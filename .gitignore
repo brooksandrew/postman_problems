@@ -106,3 +106,9 @@ ENV/
 # Mac
 .DS_Store
 
+# PNGs
+postman_problems/examples/seven_bridges/output/png/
+postman_problems/examples/sleeping_giant/output/png/
+
+# Coveralls config (do not share repo token)
+.coveralls.yml

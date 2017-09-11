@@ -1,4 +1,5 @@
 import itertools
+import warnings
 import pandas as pd
 import networkx as nx
 
@@ -13,6 +14,15 @@ def read_edgelist(edgelist_filename):
     """
     el = pd.read_csv(edgelist_filename)
     el = el.dropna()  # drop rows with all NAs... as I find CSVs created w Numbers annoyingly do.
+
+    assert 'augmented' not in el.columns, \
+        'Edgelist cannot contain a column named "augmented", sorry. This will cause computation problems'
+
+    if 'id' in el.columns:
+        warnings.warn("Edgelist contains field named 'id'.  This is a field that will be assigned to edge attributes"
+                      "with the `create_networkx_graph_from_edgelist function.  That is OK though.  We'll use your 'id'"
+                      "field if it is unique.")
+        assert el['id'].nunique() == len(el), 'Provided edge "id" field is not unique.  Please drop "id" or try again.'
     return el
 
 
@@ -22,40 +32,27 @@ def create_networkx_graph_from_edgelist(edgelist, edge_id='id'):
     Used to create the user's starting graph for which a CPP solution is desired.
 
     Args:
-        edgelist (pandas dataframe): output of `read_edgelist function`.
+        edgelist (pandas dataframe): output of `read_edgelist` function.
             The first two columns are treated as source and target node names.
             The following columns are treated as edge attributes.
-        edge_id (str): name of edge attribute which will specify
+        edge_id (str): name of edge attribute which will be used in `create_eulerian_circuit`.
 
     Returns:
         networkx.MultiGraph:
             Returning a MultiGraph rather than Graph to support parallel edges
     """
     g = nx.MultiGraph()
+    if edge_id in edgelist.columns:
+        warnings.warn('{} is already an edge attribute in `edgelist`.  We will try to use it, but recommend '
+                      'renaming this column in your edgelist to allow this function to create it in a standardized way'
+                      'where it is guaranteed to be unique'.format(edge_id))
+
     for i, row in enumerate(edgelist.iterrows()):
         edge_attr_dict = row[1][2:].to_dict()
-        edge_attr_dict[edge_id] = i
+        if edge_id not in edge_attr_dict:
+            edge_attr_dict[edge_id] = i
         g.add_edge(row[1][0], row[1][1], attr_dict=edge_attr_dict)
     return g
-
-
-def add_node_attributes(graph, nodelist):
-    """
-    Adds node attributes to graph.  Only used for visualization.
-
-    Args:
-        graph (networkx graph): graph you want to add node attributes to
-        nodelist (pandas dataframe): containing node attributes.
-            Expects a column named 'id' specifying the node names from `graph`.
-            Other columns should specify desired node attributes.
-            First row should include attribute names.
-
-    Returns:
-        networkx graph: original `graph` augmented w node attributes
-    """
-    for i, row in nodelist.iterrows():
-        graph.node[row['id']] = row.to_dict()
-    return graph
 
 
 def _get_even_or_odd_nodes(graph, mod):
@@ -144,7 +141,7 @@ def dedupe_matching(matching):
     Remove duplicates node pairs from the output of networkx.algorithms.max_weight_matching since we don't care about order.
 
     Args:
-        matching (list[2tuples]): output from networkx.algorithms.max_weight_matching.
+        matching (dict): output from networkx.algorithms.max_weight_matching.  key is "from" node, value is "to" node.
 
     Returns:
         list[2tuples]: list of node pairs from `matching` deduped (ignoring order).
@@ -173,7 +170,7 @@ def add_augmenting_path_to_graph(graph, min_weight_pairs, edge_weight_name='weig
         graph_aug.add_edge(pair[0],
                            pair[1],
                            attr_dict={'distance': nx.dijkstra_path_length(graph, pair[0], pair[1], weight=edge_weight_name),
-                                      'trail': 'augmented'}
+                                      'augmented': True}
                            )
     return graph_aug
 
@@ -196,14 +193,14 @@ def create_eulerian_circuit(graph_augmented, graph_original, start_node=None):
     """
 
     euler_circuit = list(nx.eulerian_circuit(graph_augmented, source=start_node))
-    assert len(graph_augmented.edges()) == len(euler_circuit), "graph and euler_circuit do not have equal number of edges."
+    assert len(graph_augmented.edges()) == len(euler_circuit), 'graph and euler_circuit do not have equal number of edges.'
     edge_data = graph_augmented.edges(data=True)
 
     for edge in euler_circuit:
         possible_edges = [e for e in edge_data if set([e[0], e[1]]) == set([edge[0], edge[1]])]
 
         edge_key = 0  # initialize w 0.  Could change w parallel edges.
-        if possible_edges[edge_key][2]['trail'] == 'augmented':
+        if possible_edges[edge_key][2].get('augmented'):
             # find shortest path from odd node to odd node in original graph (could be nonadjacent)
             aug_path = nx.shortest_path(graph_original, edge[0], edge[1], weight='distance')
 
@@ -232,10 +229,12 @@ def cpp(edgelist_filename, start_node=None, edge_weight='distance'):
         edge_weight (str): name edge attribute that indicates distance to minimize in CPP
 
     Returns:
-        list[tuple(str, str, dict)]: Each tuple is a direction (from one node to another) from the CPP solution route.
-        The first element is the starting ("from") node.
-        The second element is the end ("to") node.
-        The third element is the dict of edge attributes for that edge.
+        tuple(list[tuple(str, str, dict)], networkx.MultiGraph]:
+        Each tuple is a direction (from one node to another) from the CPP solution route.
+          The first element is the starting ("from") node.
+          The second element is the end ("to") node.
+          The third element is the dict of edge attributes for that edge.
+        The original graph is returned as well.  This is needed for visualization
     """
     el = read_edgelist(edgelist_filename)
     g = create_networkx_graph_from_edgelist(el)
@@ -255,6 +254,6 @@ def cpp(edgelist_filename, start_node=None, edge_weight='distance'):
     # get eulerian circuit route.
     circuit = list(create_eulerian_circuit(g_aug, g, start_node))
 
-    return circuit
+    return circuit, g
 
 

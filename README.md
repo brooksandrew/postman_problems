@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/brooksandrew/postman_problems.svg?branch=master)](https://travis-ci.org/brooksandrew/postman_problems)
 
+[![Coverage Status](https://coveralls.io/repos/github/brooksandrew/postman_problems/badge.svg?branch=master)](https://coveralls.io/github/brooksandrew/postman_problems?branch=master)
+
 ### Contents
 
 This package contains implementations to solve the suite of [Postman Problems] from graph theory.

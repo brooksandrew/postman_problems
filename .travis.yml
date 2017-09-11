@@ -3,7 +3,6 @@ python:
   - "3.5"
   - "3.6"
 before_install:
-  - pip install pytest pytest-cov
   - pip install coveralls
 install:
   - sudo apt-get update
@@ -11,6 +10,7 @@ install:
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
+  - pip install pytest pytest-cov
   - pip install .
 script: python -m pytest
 branches:

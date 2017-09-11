@@ -7,6 +7,25 @@ import graphviz as gv
 from collections import defaultdict
 
 
+def add_node_attributes(graph, nodelist):
+    """
+    Adds node attributes to graph.  Only used for visualization.
+
+    Args:
+        graph (networkx graph): graph you want to add node attributes to
+        nodelist (pandas dataframe): containing node attributes.
+            Expects a column named 'id' specifying the node names from `graph`.
+            Other columns should specify desired node attributes.
+            First row should include attribute names.
+
+    Returns:
+        networkx graph: original `graph` augmented w node attributes
+    """
+    for i, row in nodelist.iterrows():
+        graph.node[row['id']] = row.to_dict()
+    return graph
+
+
 def add_pos_node_attribute(graph, origin='bottomleft'):
     """
     Add node attribute 'pos' with X and Y coordinates to networkx graph so that we can the positions of each node to

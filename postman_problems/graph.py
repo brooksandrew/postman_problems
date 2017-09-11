@@ -55,25 +55,6 @@ def create_networkx_graph_from_edgelist(edgelist, edge_id='id'):
     return g
 
 
-def add_node_attributes(graph, nodelist):
-    """
-    Adds node attributes to graph.  Only used for visualization.
-
-    Args:
-        graph (networkx graph): graph you want to add node attributes to
-        nodelist (pandas dataframe): containing node attributes.
-            Expects a column named 'id' specifying the node names from `graph`.
-            Other columns should specify desired node attributes.
-            First row should include attribute names.
-
-    Returns:
-        networkx graph: original `graph` augmented w node attributes
-    """
-    for i, row in nodelist.iterrows():
-        graph.node[row['id']] = row.to_dict()
-    return graph
-
-
 def _get_even_or_odd_nodes(graph, mod):
     """
     Helper function for get_even_nodes.  Given a networkx object, return names of the odd or even nodes
@@ -248,10 +229,12 @@ def cpp(edgelist_filename, start_node=None, edge_weight='distance'):
         edge_weight (str): name edge attribute that indicates distance to minimize in CPP
 
     Returns:
-        list[tuple(str, str, dict)]: Each tuple is a direction (from one node to another) from the CPP solution route.
-        The first element is the starting ("from") node.
-        The second element is the end ("to") node.
-        The third element is the dict of edge attributes for that edge.
+        tuple(list[tuple(str, str, dict)], networkx.MultiGraph]:
+        Each tuple is a direction (from one node to another) from the CPP solution route.
+          The first element is the starting ("from") node.
+          The second element is the end ("to") node.
+          The third element is the dict of edge attributes for that edge.
+        The original graph is returned as well.  This is needed for visualization
     """
     el = read_edgelist(edgelist_filename)
     g = create_networkx_graph_from_edgelist(el)
@@ -271,6 +254,6 @@ def cpp(edgelist_filename, start_node=None, edge_weight='distance'):
     # get eulerian circuit route.
     circuit = list(create_eulerian_circuit(g_aug, g, start_node))
 
-    return circuit
+    return circuit, g
 
 

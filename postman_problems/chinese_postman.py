@@ -39,6 +39,7 @@ def get_args():
                         help='Edge attribute used to specify the distance between nodes (optional).'
                              'Default is "distance".')
 
+
     return parser.parse_args()
 
 
@@ -53,6 +54,9 @@ def main():
 
     # print solution
     [print(edge) for edge in cpp_solution]
+
+    # visualize
+
 
 
 if __name__ == '__main__':

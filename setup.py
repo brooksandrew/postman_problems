@@ -38,11 +38,13 @@ setup(
         'console_scripts': ['chinese_postman=postman_problems.chinese_postman:main']
     },
     python_requires='>=3.5',
+    tests_require=['pytest'],
     install_requires=[
         'pandas',
         'networkx',
         'imageio',
-        'matplotlib'
+        'matplotlib',
+        'graphviz'
     ]
 )
 

@@ -5,7 +5,7 @@ import pandas as pd
 import networkx as nx
 from postman_problems.graph import (
     read_edgelist, create_networkx_graph_from_edgelist, get_odd_nodes, get_even_nodes, get_shortest_paths_distances,
-    add_node_attributes, create_complete_graph, dedupe_matching, add_augmenting_path_to_graph, create_eulerian_circuit
+    create_complete_graph, dedupe_matching, add_augmenting_path_to_graph, create_eulerian_circuit
 )
 from postman_problems.tests.utils import create_mock_csv_from_dataframe
 
@@ -84,12 +84,6 @@ def test_create_networkx_graph_from_edgelist_w_ids():
 def test_create_networkx_graph_from_edgelist_w_ids():
     graph = create_networkx_graph_from_edgelist(EDGELIST_DF, edge_id='id')
     _test_graph_structure(graph)  # make sure our graph is as it should be
-
-
-def test_add_node_attributes():
-    graph_node_attrs = add_node_attributes(GRAPH, NODE_ATTRIBUTES)
-    assert set([n[1]['attr_fruit'] for n in graph_node_attrs.nodes(data=True)]) == \
-           set(['apple', 'banana', 'cherry', 'durian'])
 
 
 def test_get_degree_nodes():

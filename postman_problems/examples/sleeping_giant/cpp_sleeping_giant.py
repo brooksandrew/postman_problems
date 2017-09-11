@@ -36,8 +36,11 @@ Usage:
 
 import logging
 import pkg_resources
-from postman_problems.graph import cpp, read_edgelist, create_networkx_graph_from_edgelist, add_node_attributes
-from postman_problems.viz import add_pos_node_attribute, make_circuit_graphviz, make_circuit_images, make_circuit_video
+import pandas as pd
+from postman_problems.graph import cpp
+from postman_problems.viz import (
+    add_pos_node_attribute, add_node_attributes, make_circuit_graphviz, make_circuit_images, make_circuit_video
+)
 
 
 def main():
@@ -46,10 +49,8 @@ def main():
     # PARAMS / DATA -------------------------------------
 
     # inputs
-    EDGELIST = pkg_resources.resource_filename('postman_problems',
-                                               'examples/sleeping_giant/edgelist_sleeping_giant.csv')
-    NODELIST = pkg_resources.resource_filename('postman_problems',
-                                               'examples/sleeping_giant/nodelist_sleeping_giant.csv')
+    EDGELIST = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/edgelist_sleeping_giant.csv')
+    NODELIST = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/nodelist_sleeping_giant.csv')
     START_NODE = "b_end_east"
 
     # outputs
@@ -59,27 +60,25 @@ def main():
     CPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems',
                                                        'examples/sleeping_giant/output/cpp_graph.gif')
 
-    # SOLVE CPP -----------------------------------------
-
     # setup logging
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
-    logger.info('Load edge list, node list and create starting network object')
-    edgelist_df = read_edgelist(EDGELIST)
-    graph = create_networkx_graph_from_edgelist(edgelist_df)
-    nodelist_df = read_edgelist(NODELIST)
-    graph = add_node_attributes(graph, nodelist_df)
-    graph = add_pos_node_attribute(graph, origin='topleft')
+    # SOLVE CPP -----------------------------------------
 
     logger.info('Solve CPP')
-    circuit = cpp(EDGELIST, start_node=START_NODE)
+    circuit, graph = cpp(EDGELIST, START_NODE)
 
     logger.info('Print the CPP solution:')
     for e in circuit:
         logger.info(e)
 
     # VIZ -----------------------------------------------
+
+    logger.info('Add node attributes to graph')
+    nodelist_df = pd.read_csv(NODELIST)
+    graph = add_node_attributes(graph, nodelist_df)  # add attributes
+    graph = add_pos_node_attribute(graph, origin='bottomleft')  # add X,Y positions in format for graphviz
 
     logger.info('Creating single SVG of CPP solution')
     graph_gv = make_circuit_graphviz(circuit=circuit,
@@ -108,4 +107,4 @@ def main():
 
 
 if __name__ == '__main__':
-   main()
+    main()

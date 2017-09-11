@@ -44,7 +44,8 @@ setup(
         'networkx',
         'imageio',
         'matplotlib',
-        'graphviz'
+        'graphviz',
+        'tqdm'
     ]
 )
 

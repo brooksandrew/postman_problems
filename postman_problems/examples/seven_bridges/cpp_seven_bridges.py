@@ -23,13 +23,12 @@ Usage:
 import logging
 import pkg_resources
 from postman_problems.graph import cpp
-from postman_problems.viz import make_circuit_graphviz, make_circuit_images, make_circuit_video
 
 
 def main():
     """Solve the CPP and save visualizations of the solution"""
 
-    # PARAMS / DATA -------------------------------------
+    # PARAMS / DATA ---------------------------------------------------------------------
 
     # inputs
     EDGELIST = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/edgelist_seven_bridges.csv')
@@ -44,7 +43,7 @@ def main():
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
-    # SOLVE CPP -----------------------------------------
+    # SOLVE CPP -------------------------------------------------------------------------
 
     logger.info('Solve CPP')
     circuit, graph = cpp(edgelist_filename=EDGELIST, start_node=START_NODE)
@@ -53,29 +52,36 @@ def main():
     for e in circuit:
         logger.info(e)
 
-    # VIZ -----------------------------------------------
+    # VIZ -------------------------------------------------------------------------------
 
-    logger.info('Creating single SVG of CPP solution')
-    graph_gv = make_circuit_graphviz(circuit=circuit,
-                                     graph=graph,
-                                     filename=CPP_VIZ_FILENAME,
-                                     format='svg',
-                                     engine='dot')
+    try:
+        from postman_problems.viz import make_circuit_graphviz, make_circuit_images, make_circuit_video
 
-    logger.info('Creating PNG files for GIF')
-    make_circuit_images(circuit=circuit,
-                        graph=graph,
-                        outfile_dir=PNG_PATH,
-                        format='png',
-                        engine='dot')
+        logger.info('Creating single SVG of CPP solution')
+        graph_gv = make_circuit_graphviz(circuit=circuit,
+                                         graph=graph,
+                                         filename=CPP_VIZ_FILENAME,
+                                         format='svg',
+                                         engine='dot')
 
-    logger.info('Creating GIF')
-    video_message = make_circuit_video(infile_dir_images=PNG_PATH,
-                                       outfile_movie=CPP_GIF_FILENAME,
-                                       fps=0.5)
+        logger.info('Creating PNG files for GIF')
+        make_circuit_images(circuit=circuit,
+                            graph=graph,
+                            outfile_dir=PNG_PATH,
+                            format='png',
+                            engine='dot')
 
-    logger.info(video_message)
-    logger.info("and that's a wrap, checkout the output!")
+        logger.info('Creating GIF')
+        video_message = make_circuit_video(infile_dir_images=PNG_PATH,
+                                           outfile_movie=CPP_GIF_FILENAME,
+                                           fps=0.5)
+
+        logger.info(video_message)
+        logger.info("and that's a wrap, checkout the output!")
+
+    except FileNotFoundError(OSError) as e:
+        print(e)
+        print("Sorry, looks like you don't have all the needed visualization dependencies.")
 
 
 if __name__ == '__main__':

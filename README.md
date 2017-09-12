@@ -139,7 +139,7 @@ Files produced:
  run the examples).
  
 
-### Seven Bridges of Konigsberg
+### 1. Seven Bridges of Konigsberg
 
 The Seven Bridges of Konigsberg is rather simple network with just 4 nodes and 7 edges.  Although small, it does contain
  2 parallel edges which introduce some complexity to the CPP computation.
@@ -163,7 +163,7 @@ once are annotated by a sequence and edges **bolded**.
 ![seven_bridges_cpp_gif](./postman_problems/examples/seven_bridges/output/cpp_graph.gif)
 
 
-### Sleeping Giant
+### 2. Sleeping Giant
 
 This example is near and dear to my heart and the motivation for this project in the first place.  
   
@@ -201,7 +201,7 @@ you need:
     pip install .[viz]
     ```
  
- Or do an editable install from the beginning.  This is my typical approach when developing. 
+    Or do an editable install from the beginning.  This is my typical approach when developing.
     
     ```
     pip install -e .
@@ -214,6 +214,7 @@ you need:
  2. <a href="http://www.troll.me?p=50341"><img src="http://troll.me/images/x-all-the-things/run-all-the-tests.jpg" HEIGHT=138, WIDTH=184></a>
     ```
     python -m pytest
+    pytest --cov
     ```
  
  

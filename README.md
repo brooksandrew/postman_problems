@@ -8,27 +8,28 @@
 [Contents](#Contents)  
 [Install](#Install)  
 [Usage](#Usage)  
-[Examples](#Examples)
-[Contribute](#Contribute)
+[Examples](#Examples)  
+[Developers](#Developers)
 
 ## Contents
 
 This package contains implementations to solve the suite of [Postman Problems] from graph theory.
-Currently this is a suite of 1: The Chinese Postman Problem, the most straightforward of the Postman Problems.  
+
+
+Currently this is a suite of one: The Chinese Postman Problem, the most straightforward of the Postman Problems.  
 The Rural Postman Problem will be added next.
 
 ## Install
 
 Install the `postman_problems` package:
 
-
-Clone the repo.  For now, just grab the master branch.  When I release to PyPI, I'll make 0.1 release.
+1. Clone the repo.  For now, just grab the master branch from GitHub.  When I release to PyPI, I'll make proper 0.1 release.
 ```
 git clone https://github.com/brooksandrew/postman_problems.git
 cd postman_problems
 ```
 
-Pip install
+2. Install with pip.  
 ```
 pip install .
 ```
@@ -54,8 +55,7 @@ The postman solvers are modules that can also be imported and run within a Pytho
 if solving the CPP is just one step in your problem, you'd like to poke and prod at the output, or you'd like to tweak 
 the visualization or optimization parameters beyond what's provided from the CLI.
 
-```
-import pkg_resources
+```python
 from postman_problems.graph import cpp
 
 # find CPP solution

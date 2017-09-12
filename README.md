@@ -106,15 +106,33 @@ Note, the visualization step will write a GIF and a series of PNGto your filesys
 
 ### Seven Bridges of Konigsberg
 
+```
+chinese_postman_seven_bridges
+```
+
+This will produce the `cpp_graph.svg` below.  Edges are annotated with the order in which they are walked, starting at 0.
+Edges walked more than once will include a sequence attribute.
+
+![seven_bridges_cpp_graph](./postman_problems/examples/seven_bridges/output/cpp_graph.svg)
+
+This will also produce the `cpp_graph.gif`) below.  The nodes and edges in red indicate the current direction.  
+ 
+![seven_bridges_cpp_gif](./postman_problems/examples/seven_bridges/output/cpp_graph.gif)
+
+
 ### Sleeping Giant
 
 ```
 chinese_postman_sleeping_giant
 ```
 
+Output in `postman_problems/examples/sleeping_giant/cpp_graph.svg`
 
+![sleeping_giant_cpp_graph](./postman_problems/examples/sleeping_giant/output/cpp_graph.svg)
 
-
+Output in `postman_problems/examples/sleeping_giant/cpp_graph.gif`  
+ 
+![sleeping_giant_cpp_gif](./postman_problems/examples/sleeping_giant/output/cpp_graph.gif)
 
 
 [Postman Problems]: https://en.wikipedia.org/wiki/Route_inspection_problem

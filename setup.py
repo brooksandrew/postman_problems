@@ -38,7 +38,8 @@ setup(
     entry_points={
         'console_scripts': [
             'chinese_postman=postman_problems.chinese_postman:main',
-            'chinese_postman_sleeping_giant=postman_problems.examples.sleeping_giant.cpp_sleeping_giant:main'
+            'chinese_postman_sleeping_giant=postman_problems.examples.sleeping_giant.cpp_sleeping_giant:main',
+            'chinese_postman_seven_bridges=postman_problems.examples.seven_bridges.cpp_seven_bridges:main'
         ]
     },
     python_requires='>=3.5',

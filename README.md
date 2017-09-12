@@ -51,16 +51,17 @@ chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seve
 ```
 
 You should see output that describes the CPP solution (Eulerian circuit) through each edge.  Something like this:
+
 ```
-('D', 'C', {'trail': 'g', 'distance': 3, 'id': 6})
-('C', 'A', {'trail': 'c', 'distance': 2, 'id': 2})
-('A', 'C', {'trail': 'd', 'distance': 10, 'id': 3})
-('C', 'D', {'trail': 'g', 'distance': 3, 'id': 6, 'augmented': True})
+('A', 'C', {'trail': 'c', 'distance': 2, 'id': 2})
+('C', 'D', {'trail': 'g', 'distance': 3, 'id': 6})
+('D', 'C', {'trail': 'g', 'distance': 3, 'id': 6, 'augmented': True})
+('C', 'A', {'trail': 'd', 'distance': 10, 'id': 3})
+('A', 'D', {'trail': 'e', 'distance': 1, 'id': 4})
 ('D', 'B', {'trail': 'f', 'distance': 9, 'id': 5})
 ('B', 'A', {'trail': 'a', 'distance': 3, 'id': 0})
 ('A', 'B', {'trail': 'b', 'distance': 5, 'id': 1})
 ('B', 'A', {'trail': 'a', 'distance': 3, 'id': 0, 'augmented': True})
-('A', 'D', {'trail': 'e', 'distance': 1, 'id': 4})
 ```
 
 The first two values of each tuple are the "from" and the "to" node respectively.  
@@ -90,8 +91,6 @@ circuit, graph = cpp(edgelist_filename='postman_problems/examples/seven_bridges/
 for e in circuit:
     print(e)
 ```
-
-
 
 ## Examples
 

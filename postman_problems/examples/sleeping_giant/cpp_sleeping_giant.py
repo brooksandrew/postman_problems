@@ -88,7 +88,7 @@ def main():
                                      node_attr=NODE_ATTR)
 
     logger.info('Creating PNG files for GIF')
-    images_message = make_circuit_images(circuit=circuit[0:20],
+    images_message = make_circuit_images(circuit=circuit,
                                          graph=graph,
                                          outfile_dir=PNG_PATH,
                                          format='png',

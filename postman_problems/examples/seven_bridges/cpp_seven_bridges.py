@@ -17,8 +17,8 @@ Usage:
     ```
     python postman_problems/examples/seven_bridges/cpp_seven_bridges.py
     ```
-
 """
+
 
 import logging
 import pkg_resources
@@ -26,8 +26,9 @@ from postman_problems.graph import cpp
 from postman_problems.viz import make_circuit_graphviz, make_circuit_images, make_circuit_video
 
 
-if __name__ == '__main__':
+def main():
     """Solve the CPP and save visualizations of the solution"""
+
     # PARAMS / DATA -------------------------------------
 
     # inputs
@@ -69,14 +70,13 @@ if __name__ == '__main__':
                         engine='dot')
 
     logger.info('Creating GIF')
-    make_circuit_video(infile_dir_images=PNG_PATH,
-                       outfile_movie=CPP_GIF_FILENAME,
-                       fps=0.5)
+    video_message = make_circuit_video(infile_dir_images=PNG_PATH,
+                                       outfile_movie=CPP_GIF_FILENAME,
+                                       fps=0.5)
 
+    logger.info(video_message)
     logger.info("and that's a wrap, checkout the output!")
 
 
-
-
-
-
+if __name__ == '__main__':
+    main()

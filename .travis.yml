@@ -1,5 +1,7 @@
 language: python
 python:
+  - "3.3"
+  - "3.4"
   - "3.5"
   - "3.6"
 before_install:
@@ -12,6 +14,8 @@ install:
   - hash -r
   - pip install pytest pytest-cov
   - pip install .
+  - pip install .[viz]
+  - pip install .[tests]
 script: python -m pytest
 branches:
   only:

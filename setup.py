@@ -50,6 +50,7 @@ setup(
         'imageio',
         'matplotlib',
         'graphviz',
+        'pydot',
         'tqdm'
     ]
 )

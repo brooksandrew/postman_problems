@@ -101,7 +101,6 @@ def main():
                                        outfile_movie=CPP_GIF_FILENAME,
                                        fps=2)
     logger.info(video_message)
-
     logger.info("and that's a wrap, checkout the output!")
 
 

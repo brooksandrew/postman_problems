@@ -106,6 +106,18 @@ Note, the visualization step will write a GIF and a series of PNGto your filesys
 
 ### Seven Bridges of Konigsberg
 
+```
+chinese_postman_seven_bridges
+```
+
+This will produce the `cpp_graph.svg` below:
+![Alt text](./postman_problems/examples/seven_bridges/output/cpp_graph.svg)
+
+Here's the GIF (`cpp_graph.gif`) produced by the example.  The nodes and edges in <font color="red">red</font> indicate
+the current direction. 
+![Alt text](./postman_problems/examples/seven_bridges/output/cpp_graph.gif)
+
+
 ### Sleeping Giant
 
 ```

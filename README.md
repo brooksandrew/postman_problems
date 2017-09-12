@@ -31,7 +31,7 @@ Install the `postman_problems` package:
     cd postman_problems
     ```
 
-2. Install with pip.  
+2. Install with pip.  Builds are tested on Python Python 2.7, 3.3, 3.4, 3.5, 3.6.  
     ```
     pip install .
     ```

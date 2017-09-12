@@ -43,15 +43,13 @@ setup(
         ]
     },
     python_requires='>=3.5',
-    tests_require=['pytest'],
     install_requires=[
         'pandas',
-        'networkx',
-        'imageio',
-        'matplotlib',
-        'graphviz',
-        'pydot',
-        'tqdm'
-    ]
+        'networkx'
+    ],
+    extras_require={
+        'viz': ['imageio', 'matplotlib', 'graphviz', 'tqdm'],
+        'test': ['pytest']
+    }
 )
 

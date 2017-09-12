@@ -57,8 +57,7 @@ def main():
     NODE_ATTR = {'shape': 'point', 'color': 'black', 'width': '0.1'}
     PNG_PATH = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/png/')
     CPP_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/cpp_graph')
-    CPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems',
-                                                       'examples/sleeping_giant/output/cpp_graph.gif')
+    CPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/cpp_graph.gif')
 
     # setup logging
     logging.basicConfig(level=logging.INFO)

@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 def read(fname):
@@ -21,7 +21,7 @@ setup(
     license='MIT License',
     keywords='chinese postman problem networkx optimization network graph arc routing',
     url='https://github.com/brooksandrew',
-    packages=['postman_problems'],
+    packages=find_packages(),
     long_description=read('README.md'),
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
@@ -30,7 +30,9 @@ setup(
         'License :: OSI Approved :: MIT License'
     ],
     package_data={
-        'sleeping_giant_edgelist': ['postman_problems/examples/sleepingiant/edgelist_sleeping_giant.csv'],
+        'sleeping_giant_edgelist': ['postman_problems/examples/sleeping_giant/edgelist_sleeping_giant.csv'],
+        'sleeping_giant_nodelist': ['postman_problems/examples/sleeping_giant/nodelist_sleeping_giant.csv'],
+        'seven_bridges_edgelist': ['postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv']
     },
     include_package_data=True,
     entry_points={

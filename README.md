@@ -153,9 +153,8 @@ Euler was right and this property is a key part of solving the Postman Problems.
 chinese_postman_seven_bridges
 ```
 
-`cpp_graph.svg`:    
-Edges are annotated with the order in which they are walked, starting at 0.  
-Edges walked more than once will be annotated by a sequence and edges will be **bolded**.
+`cpp_graph.svg`: Edges are annotated with the order in which they are walked, starting at 0.  Edges walked more than 
+once are annotated by a sequence and edges **bolded**.
 
 ![seven_bridges_cpp_graph](./postman_problems/examples/seven_bridges/output/cpp_graph.svg)
 

@@ -18,7 +18,9 @@ install:
   - pip install .
   - pip install .[viz]
   - pip install .[tests]
-script: python -m pytest
+script:
+  - python -m pytest
+  - py.test --cov=./
 branches:
   only:
     - master

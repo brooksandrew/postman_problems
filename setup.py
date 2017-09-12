@@ -42,7 +42,7 @@ setup(
             'chinese_postman_seven_bridges=postman_problems.examples.seven_bridges.cpp_seven_bridges:main'
         ]
     },
-    python_requires='>=3.5',
+    python_requires='>=2.7',
     install_requires=[
         'pandas',
         'networkx'

@@ -26,15 +26,15 @@ Plans are to implement the Rural Postman Problem next.
 Install the `postman_problems` package:
 
 1. Clone the repo.  For now, just grab the master branch from GitHub.  When I release to PyPI, I'll make proper 0.1 release.
-```
-git clone https://github.com/brooksandrew/postman_problems.git
-cd postman_problems
-```
+    ```
+    git clone https://github.com/brooksandrew/postman_problems.git
+    cd postman_problems
+    ```
 
 2. Install with pip.  
-```
-pip install .
-```
+    ```
+    pip install .
+    ```
 
 ### Viz 
 
@@ -44,9 +44,9 @@ base package, so users can optimize graphs to their heart's content unencumbered
 installing viz dependencies, if they so choose.
 
 1. Install optional Python visualization libraries.
-```
-pip install .[viz]
-```
+    ```
+    pip install .[viz]
+    ```
 
 2. Install Graphviz.  You need this underlying software application in addition to the [graphviz python package] which
    wraps around it.  Checkout the [Graphviz Download page] for the best way to install on your OS.
@@ -196,24 +196,24 @@ you need:
  
  1. Install test dependencies.
  
- ```
- pip install .[test]
- pip install .[viz]
- ```
+    ```
+    pip install .[test]
+    pip install .[viz]
+    ```
  
  Or do an editable install from the beginning.  This is my typical approach when developing. 
  
- ```
- pip install -e .
- pip install -e .[viz]
- pip install -e .[test]
- ```
+    ```
+    pip install -e .
+    pip install -e .[viz]
+    pip install -e .[test]
+    ```
  
  
  2. <a href="http://www.troll.me?p=50341"><img src="http://troll.me/images/x-all-the-things/run-all-the-tests.jpg" HEIGHT=138, WIDTH=184></a>
- ```
- python -m pytest
- ```
+    ```
+    python -m pytest
+    ```
  
  
 [Postman Problems]: https://en.wikipedia.org/wiki/Route_inspection_problem

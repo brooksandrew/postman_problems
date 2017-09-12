@@ -95,11 +95,23 @@ for e in circuit:
 
 ## Examples
 
-Two examples are within this repo to 
+Two examples are included in `postman_problems` which demonstrate end-to-end usage: raw edgelist & nodelist => 
+optimization and visualization.
+  
+Both examples are added as entry points and pre-configured arguments, so they can be executed with the single commands below.
+ 
+Note, the visualization step will write a GIF and a series of PNGto your filesystem.  The paths are locked into the 
+  *postman_problems/examples/[example_name]/output/* dir, so they should not be capable of writing rogue files on your 
+  machine.
 
 ### Seven Bridges of Konigsberg
 
 ### Sleeping Giant
+
+```
+chinese_postman_sleeping_giant
+```
+
 
 
 

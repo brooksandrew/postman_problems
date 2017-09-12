@@ -2,45 +2,96 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/brooksandrew/postman_problems/badge.svg?branch=master)](https://coveralls.io/github/brooksandrew/postman_problems?branch=master)
 
-### Contents
+
+## Postman Problems:
+
+[Contents](#Contents)  
+[Install](#Install)  
+[Usage](#Usage)  
+[Examples](#Examples)
+[Contribute](#Contribute)
+
+## Contents
 
 This package contains implementations to solve the suite of [Postman Problems] from graph theory.
-
-Currently a suite of 1: The Chinese Postman Problem, the most straightforward of the Postman Problems.
-
+Currently this is a suite of 1: The Chinese Postman Problem, the most straightforward of the Postman Problems.  
 The Rural Postman Problem will be added next.
 
-
-### Usage
+## Install
 
 Install the `postman_problems` package:
 
+
+Clone the repo.  For now, just grab the master branch.  When I release to PyPI, I'll make 0.1 release.
 ```
-pip install postman_problems
+git clone https://github.com/brooksandrew/postman_problems.git
+cd postman_problems
 ```
 
-Run one of the provided examples:
+Pip install
+```
+pip install .
+```
+
+
+## Usage
+
+### 1. CLI
+
+The easiest way to start is with the command line installed with this package, `chinese_postman`.  
+There are several optional command line arguments, but the only required one is `edgelist`.  More on those later.  
+Below we solve the CPP on the [Seven Bridges of Konigsberg] network.  This edgelist is provided in this repo, but you
+can swap this edgelist CSV out for any comma delimited text file where the first two columns represent the node pairs
+in your network.
 
 ```
-python examples/sleepinggiant/cpp.py
+chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv
 ```
 
-You should see output that describes the CPP solution (Eulerian circuit) through each trail on the Sleeping Giant graph that looks something like this:
+### 2. Python
+
+The postman solvers are modules that can also be imported and run within a Python environment.  This might interest you 
+if solving the CPP is just one step in your problem, you'd like to poke and prod at the output, or you'd like to tweak 
+the visualization or optimization parameters beyond what's provided from the CLI.
 
 ```
-('b_end_east', 'b_y', {'distance': 1.32, 'trail': 'b', 'estimate': 0.0, 'weight_flipped': -1.32, 'weight': 1.32, 'augmented': True})
-('b_y', 'b_o', {'distance': 0.08, 'trail': 'b', 'estimate': 0.0, 'weight_flipped': -0.08, 'weight': 0.08, 'augmented': True})
-('b_o', 'b_gy2', {'distance': 0.05, 'trail': 'b', 'estimate': 1.0, 'weight_flipped': -0.05, 'weight': 0.05, 'augmented': True})
-('b_gy2', 'w_gy2', {'distance': 0.03, 'trail': 'gy2', 'estimate': 1.0, 'weight_flipped': -0.03, 'weight': 0.03, 'augmented': True})
-('w_gy2', 'g_gy2', {'distance': 0.05, 'trail': 'gy2', 'estimate': 0.0, 'weight_flipped': -0.05, 'weight': 0.05, 'augmented': True})
-('g_gy2', 'park_east', {'distance': 0.14, 'weight_flipped': -0.14, 'trail': 'g', 'estimate': 0.0, 'weight': 0.14})
-('park_east', 'b_o', {'distance': 0.11, 'weight_flipped': -0.11, 'trail': 'o', 'estimate': 0.0, 'weight': 0.11})
-('b_o', 'b_y', {'distance': 0.08, 'weight_flipped': -0.08, 'trail': 'b', 'estimate': 0.0, 'weight': 0.08})
-('b_y', 'park_east', {'distance': 0.14, 'weight_flipped': -0.14, 'trail': 'y', 'estimate': 0.0, 'weight': 0.14})
-('park_east', 'w_gy2', {'distance': 0.12, 'weight_flipped': -0.12, 'trail': 'w', 'estimate': 0.0, 'weight': 0.12})
-...
+import pkg_resources
+from postman_problems.graph import cpp
+
+# find CPP solution
+circuit, graph = cpp(edgelist_filename='postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv',
+                     start_node='D')
+
+# print solution
+for e in circuit:
+    print(e)
 ```
+
+You should see output that describes the CPP solution (Eulerian circuit) through each edge.  Something like this:
+```
+('D', 'C', {'trail': 'g', 'distance': 3, 'id': 6})
+('C', 'A', {'trail': 'c', 'distance': 2, 'id': 2})
+('A', 'C', {'trail': 'd', 'distance': 10, 'id': 3})
+('C', 'D', {'trail': 'g', 'distance': 3, 'id': 6, 'augmented': True})
+('D', 'B', {'trail': 'f', 'distance': 9, 'id': 5})
+('B', 'A', {'trail': 'a', 'distance': 3, 'id': 0})
+('A', 'B', {'trail': 'b', 'distance': 5, 'id': 1})
+('B', 'A', {'trail': 'a', 'distance': 3, 'id': 0, 'augmented': True})
+('A', 'D', {'trail': 'e', 'distance': 1, 'id': 4})
+```
+
+## Examples
+
+Two examples are within this repo to demonstrate the usage.
+
+### Seven Bridges of Konigsberg
+
+### Sleeping Giant
+
+
+
 
 
 [Postman Problems]: https://en.wikipedia.org/wiki/Route_inspection_problem
+[Seven Bridges of Konigsberg]:https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
 

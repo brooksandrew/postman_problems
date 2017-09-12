@@ -202,12 +202,13 @@ you need:
     ```
  
  Or do an editable install from the beginning.  This is my typical approach when developing. 
- 
+    
     ```
     pip install -e .
     pip install -e .[viz]
     pip install -e .[test]
-    ```
+    ```    
+
  
  
  2. <a href="http://www.troll.me?p=50341"><img src="http://troll.me/images/x-all-the-things/run-all-the-tests.jpg" HEIGHT=138, WIDTH=184></a>

@@ -5,11 +5,11 @@
 
 ## Postman Problems:
 
-[Contents](#Contents)  
-[Install](#Install)  
-[Usage](#Usage)  
-[Examples](#Examples)  
-[Developers](#Developers)
+[Contents](#contents)  
+[Install](#install)  
+[Usage](#usage)  
+[Examples](#examples)  
+[Developers](#developers)
 
 ## Contents
 
@@ -40,31 +40,14 @@ pip install .
 ### 1. CLI
 
 The easiest way to start is with the command line installed with this package, `chinese_postman`.  
-There are several optional command line arguments, but the only required one is `edgelist`.  More on those later.  
-Below we solve the CPP on the [Seven Bridges of Konigsberg] network.  This edgelist is provided in this repo, but you
-can swap this edgelist CSV out for any comma delimited text file where the first two columns represent the node pairs
-in your network.
 
-```
+There are several optional command line arguments, but the only required one is `--edgelist`.  More on those later.
+  
+Below we solve the CPP on the [Seven Bridges of Konigsberg] network.  The edgelist is provided in this repo, but you
+can swap this out for any comma delimited text file where the first two columns represent the node pairs in your network.
+
+```bash
 chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv
-```
-
-### 2. Python
-
-The postman solvers are modules that can also be imported and run within a Python environment.  This might interest you 
-if solving the CPP is just one step in your problem, you'd like to poke and prod at the output, or you'd like to tweak 
-the visualization or optimization parameters beyond what's provided from the CLI.
-
-```python
-from postman_problems.graph import cpp
-
-# find CPP solution
-circuit, graph = cpp(edgelist_filename='postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv',
-                     start_node='D')
-
-# print solution
-for e in circuit:
-    print(e)
 ```
 
 You should see output that describes the CPP solution (Eulerian circuit) through each edge.  Something like this:
@@ -80,9 +63,39 @@ You should see output that describes the CPP solution (Eulerian circuit) through
 ('A', 'D', {'trail': 'e', 'distance': 1, 'id': 4})
 ```
 
+The first two values of each tuple are the "from" and the "to" node respectively.  
+
+The third value contains the edge attributes for each edge walked.  These are mostly grabbed from the starting graph, 
+with two exceptions:
+  - `augmented ` is added to edges after their first walk (double backing... the thing we want to minimize)
+  - `id` is generated to aid computation in the case of parallel edges.  This can generally be ignored.
+ 
+ 
+### 2. Python
+
+The postman solvers are modules that can also be imported and run within a Python environment.  This might interest you 
+if solving the CPP is just one step in your problem, you'd like to poke and prod at the output, or you'd like to tweak 
+the visualization or optimization parameters beyond what's provided from the CLI.
+
+The snippet below should produce exactly the same output as printed above in [CLI](#1.-cli).
+
+```python
+from postman_problems.graph import cpp
+
+# find CPP solution
+circuit, graph = cpp(edgelist_filename='postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv',
+                     start_node='D')
+
+# print solution
+for e in circuit:
+    print(e)
+```
+
+
+
 ## Examples
 
-Two examples are within this repo to demonstrate the usage.
+Two examples are within this repo to 
 
 ### Seven Bridges of Konigsberg
 

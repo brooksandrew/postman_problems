@@ -198,12 +198,15 @@ you need:
  
  ```
  pip install .[test]
+ pip install .[viz]
  ```
  
  Or do an editable install from the beginning.  This is my typical approach when developing. 
  
  ```
  pip install -e .
+ pip install -e .[viz]
+ pip install -e .[test]
  ```
  
  

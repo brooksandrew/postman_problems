@@ -1,11 +1,13 @@
 language: python
 python:
+  - "2.7"
   - "3.3"
   - "3.4"
   - "3.5"
   - "3.6"
 before_install:
   - pip install coveralls
+  - pip install codecov
 install:
   - sudo apt-get update
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
@@ -16,10 +18,13 @@ install:
   - pip install .
   - pip install .[viz]
   - pip install .[tests]
-script: python -m pytest
+script:
+  - python -m pytest
+  - py.test --cov=./
 branches:
   only:
     - master
     - dev
 after_success:
     - coveralls
+    # - codecov

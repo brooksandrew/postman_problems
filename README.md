@@ -205,7 +205,7 @@ you need:
  ```
  
  
- 2. <a href="http://www.troll.me?p=50341"><img src="http://troll.me/images/x-all-the-things/run-all-the-tests.jpg"></a>
+ 2. <a href="http://www.troll.me?p=50341"><img src="http://troll.me/images/x-all-the-things/run-all-the-tests.jpg" HEIGHT=138, WIDTH=184></a>
  ```
  python -m pytest
  ```

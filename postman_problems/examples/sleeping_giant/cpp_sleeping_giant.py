@@ -46,7 +46,7 @@ from postman_problems.viz import (
 def main():
     """Solve the CPP and save visualizations of the solution"""
 
-    # PARAMS / DATA -------------------------------------
+    # PARAMS / DATA ---------------------------------------------------------------------
 
     # inputs
     EDGELIST = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/edgelist_sleeping_giant.csv')
@@ -63,7 +63,7 @@ def main():
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
-    # SOLVE CPP -----------------------------------------
+    # SOLVE CPP -------------------------------------------------------------------------
 
     logger.info('Solve CPP')
     circuit, graph = cpp(EDGELIST, START_NODE)
@@ -72,36 +72,41 @@ def main():
     for e in circuit:
         logger.info(e)
 
-    # VIZ -----------------------------------------------
+    # VIZ -------------------------------------------------------------------------------
 
-    logger.info('Add node attributes to graph')
-    nodelist_df = pd.read_csv(NODELIST)
-    graph = add_node_attributes(graph, nodelist_df)  # add attributes
-    graph = add_pos_node_attribute(graph, origin='bottomleft')  # add X,Y positions in format for graphviz
+    try:
+        logger.info('Add node attributes to graph')
+        nodelist_df = pd.read_csv(NODELIST)
+        graph = add_node_attributes(graph, nodelist_df)  # add attributes
+        graph = add_pos_node_attribute(graph, origin='bottomleft')  # add X,Y positions in format for graphviz
 
-    logger.info('Creating single SVG of CPP solution')
-    graph_gv = make_circuit_graphviz(circuit=circuit,
-                                     graph=graph,
-                                     filename=CPP_SVG_FILENAME,
-                                     format='svg',
-                                     engine='neato',
-                                     node_attr=NODE_ATTR)
-
-    logger.info('Creating PNG files for GIF')
-    images_message = make_circuit_images(circuit=circuit,
+        logger.info('Creating single SVG of CPP solution')
+        graph_gv = make_circuit_graphviz(circuit=circuit,
                                          graph=graph,
-                                         outfile_dir=PNG_PATH,
-                                         format='png',
+                                         filename=CPP_SVG_FILENAME,
+                                         format='svg',
                                          engine='neato',
                                          node_attr=NODE_ATTR)
-    logger.info(images_message)
 
-    logger.info('Creating GIF')
-    video_message = make_circuit_video(infile_dir_images=PNG_PATH,
-                                       outfile_movie=CPP_GIF_FILENAME,
-                                       fps=2)
-    logger.info(video_message)
-    logger.info("and that's a wrap, checkout the output!")
+        logger.info('Creating PNG files for GIF')
+        images_message = make_circuit_images(circuit=circuit,
+                                             graph=graph,
+                                             outfile_dir=PNG_PATH,
+                                             format='png',
+                                             engine='neato',
+                                             node_attr=NODE_ATTR)
+        logger.info(images_message)
+
+        logger.info('Creating GIF')
+        video_message = make_circuit_video(infile_dir_images=PNG_PATH,
+                                           outfile_movie=CPP_GIF_FILENAME,
+                                           fps=2)
+        logger.info(video_message)
+        logger.info("and that's a wrap, checkout the output!")
+
+    except Exception as e:
+        print(e)
+        print("Sorry, looks like you don't have all the needed visualization dependencies.")
 
 
 if __name__ == '__main__':

@@ -115,7 +115,8 @@ def get_args():
 
 
 def main():
-    # parse arguments
+
+    # get args
     args = get_args()
 
     # setup logging
@@ -156,8 +157,5 @@ def main():
 if __name__ == '__main__':
     """Parse command line arguments and solve the CPP"""
     main()
-
-
-
 
 

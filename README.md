@@ -222,7 +222,6 @@ chinese_postman_sleeping_giant
  
 ![sleeping_giant_animation_example](https://gist.github.com/brooksandrew/1f3a2ce56a3ac0ea0ac2213bccb57e99/raw/08d063791540ef66d1de03603dec77fb2d32ab21/sleeping_giant_cpp_route_animation_using_graphviz.gif)
 
-![test](https://gist.githubusercontent.com/brooksandrew/2a70bbc88899791241cfb88be1372f44/raw/87d1a0ce438d6f4d9a23ce89df2984cbe30ba993/sleeping_giant_cpp_route_animation.gif)
 
 ## Developers
 

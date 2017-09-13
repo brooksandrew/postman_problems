@@ -1,7 +1,4 @@
 import sys
-import os
-import mock
-import argparse
 import pkg_resources
 from mock import patch
 from postman_problems.chinese_postman import main

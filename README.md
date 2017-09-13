@@ -220,8 +220,7 @@ chinese_postman_sleeping_giant
 
 `postman_problems/examples/sleeping_giant/cpp_graph.gif` (omitted from package due to size):  
  
-<script src="https://gist.github.com/brooksandrew/1f3a2ce56a3ac0ea0ac2213bccb57e99/raw/08d063791540ef66d1de03603dec77fb2d32ab21/sleeping_giant_cpp_route_animation_using_graphviz.gif"></script>
-
+<img alt="Alt Text" src="https://gist.github.com/brooksandrew/1f3a2ce56a3ac0ea0ac2213bccb57e99/raw/08d063791540ef66d1de03603dec77fb2d32ab21/sleeping_giant_cpp_route_animation_using_graphviz.gif">
 
 
 ## Developers

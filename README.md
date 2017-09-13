@@ -67,6 +67,7 @@ The easiest way to start is with the command line installed with this package, `
 
 There are several optional command line arguments, but the only one required is `--edgelist`.  For the complete list of
 optional arguments run:
+
 ```
 chinese_postman --help
 ```

@@ -112,3 +112,7 @@ postman_problems/examples/sleeping_giant/output/png/
 
 # Coveralls config (do not share repo token)
 .coveralls.yml
+
+# Large project specific files
+postman_problems/examples/sleeping_giant/output/cpp_graph.gif
+

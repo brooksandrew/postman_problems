@@ -183,9 +183,9 @@ chinese_postman_sleeping_giant
 
 ![sleeping_giant_cpp_graph](./postman_problems/examples/sleeping_giant/output/cpp_graph.svg)
 
-`postman_problems/examples/sleeping_giant/cpp_graph.gif`:  
+`postman_problems/examples/sleeping_giant/cpp_graph.gif` (omitted from package due to size):  
  
-![sleeping_giant_cpp_gif](./postman_problems/examples/sleeping_giant/output/cpp_graph.gif)
+<script src="https://gist.github.com/brooksandrew/1f3a2ce56a3ac0ea0ac2213bccb57e99.js"></script>
 
 
 

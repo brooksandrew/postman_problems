@@ -31,7 +31,7 @@ Install the `postman_problems` package:
     cd postman_problems
     ```
 
-2. Install with pip.  Builds are tested on Python Python 2.7, 3.3, 3.4, 3.5, 3.6.  
+2. Install with pip.  Builds are tested on Python 2.7, 3.3, 3.4, 3.5, 3.6.  
     ```
     pip install .
     ```
@@ -39,7 +39,7 @@ Install the `postman_problems` package:
 ### Viz 
 
 `postman_problems` leverages [Graphviz] for visualization which unlocks more robust visualizations than just networkx and 
-matplotlib.  However, it also comes with several dependencies.  These are managed separately from the 
+matplotlib.  However, this also comes with several dependencies.  These are managed separately from the 
 base package, so users can optimize graphs to their heart's content unencumbered from the weight and hassle of 
 installing viz dependencies, if they so choose.
 
@@ -65,15 +65,29 @@ installing viz dependencies, if they so choose.
 
 The easiest way to start is with the command line installed with this package, `chinese_postman`.  
 
-There are several optional command line arguments, but the only one required is `--edgelist`.  More on those later.
+There are several optional command line arguments, but the only one required is `--edgelist`.  For the complete list of
+optional arguments run:
+```
+chinese_postman --help
+```
+
+The big ones are `--viz_static` and `--viz_animation` which when present will create the static (single) and animation 
+of the CPP solution.  Most of the other arguments control the visualizations with default values.  
   
 Below we solve the CPP on the [Seven Bridges of Konigsberg] network.  The edgelist is provided in this repo, but you
 can swap this out for any comma delimited text file where the first two columns represent the node pairs in your network.
+The columns should have headers.  Columns after the first two are treated as edge attributes.
 
 ```bash
 chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv
 ```
 
+If the `chinese_postman` entry point is not working for whatever reason, you can run the script directly with:
+
+```
+python postman_problems/chinese_postman.py --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv
+```
+ 
 You should see output that describes the CPP solution (Eulerian circuit) through each edge.  Something like this:
 
 ```
@@ -148,19 +162,39 @@ The Seven Bridges of Konigsberg is rather simple network with just 4 nodes and 7
 each edge exactly once if all nodes have even degree. Although this wasn't proven until the 1870s by Carl Hierholzer,
 Euler was right and this property is a key part of solving the Postman Problems. 
 
-
+This contrived example has been bundled and parameterized into a script that can be run with: 
 ```
 chinese_postman_seven_bridges
 ```
 
+The example can also be run using the verbose method below which allows you to more easily parameterize more pieces.  
+Many of the options provided below are defaults and can be excluded in practice. They are included here simply to convey 
+what the possibilities are.
+```
+chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv \
+--viz_static \
+--viz_static_filename 'postman_problems/examples/seven_bridges/output/cpp_graph' \
+--viz_static_engine 'dot' \
+--viz_static_format 'svg' \
+--viz_animation \
+--viz_animation_filename 'postman_problems/examples/seven_bridges/output/cpp_graph.gif' \
+--viz_images_dir 'postman_problems/examples/seven_bridges/output/img' \
+--viz_animation_engine 'dot' \
+--viz_animation_format 'png' \
+--fps 2
+```
+
 `cpp_graph.svg`: Edges are annotated with the order in which they are walked, starting at 0.  Edges walked more than 
-once are annotated by a sequence and edges **bolded**.
+once are annotated by a sequence of numbers (walk order) and **bolded**.
 
 ![seven_bridges_cpp_graph](./postman_problems/examples/seven_bridges/output/cpp_graph.svg)
 
 `cpp_graph.gif`: The nodes and edges in red indicate the current direction.  
  
 ![seven_bridges_cpp_gif](./postman_problems/examples/seven_bridges/output/cpp_graph.gif)
+
+`cpp_graph`: dot representation of the graph is also provided.  This is mostly for reference, but in rare cases you may 
+want to tweak graphviz parameters directly here.
 
 
 ### 2. Sleeping Giant
@@ -172,7 +206,7 @@ This example is near and dear to my heart and the motivation for this project in
  on the [Giantmaster roster] and the glory of a red highlight on their name.
   
 That's all I'll say here.  I wrote more about the personal motivation and Sleeping Giant specific data/problem in a 
-DataCamp tutorial (link forthcoming upon publication) which also helped motivate this project.
+[DataCamp tutorial] which also helped motivate this project.
 
 
 ```
@@ -216,6 +250,15 @@ you need:
     python -m pytest
     pytest --cov
     ```
+
+## License
+
+Released under the MIT License (see LICENSE).
+
+Copyright (C) 2017 Andrew Brooks.
+
+
+
  
  
 [Postman Problems]: https://en.wikipedia.org/wiki/Route_inspection_problem
@@ -227,5 +270,6 @@ you need:
 [Giant Master Program]:http://www.sgpa.org/hikes/masters.html
 [trail map]:http://www.ct.gov/deep/lib/deep/stateparks/maps/sleepgiant.pdf
 [Giantmaster roster]:http://www.sgpa.org/hikes/master-list.htm
+[Datacamp tutorial]:https://www.datacamp.com/community/tutorials/networkx-python-graph-tutorial
 [DOT]:https://en.wikipedia.org/wiki/DOT_(graph_description_language)
 

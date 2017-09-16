@@ -54,7 +54,10 @@ def main():
     START_NODE = "b_end_east"
 
     # outputs
-    NODE_ATTR = {'shape': 'point', 'color': 'black', 'width': '0.1'}
+    GRAPH_ATTR = {'dpi': '65'}
+    EDGE_ATTR = {'fontsize': '20'}
+    NODE_ATTR = {'shape': 'point', 'color': 'black', 'width': '0.1', 'fixedsize': 'true'}
+
     PNG_PATH = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/png/')
     CPP_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/cpp_graph')
     CPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/cpp_graph.gif')
@@ -78,7 +81,7 @@ def main():
         logger.info('Add node attributes to graph')
         nodelist_df = pd.read_csv(NODELIST)
         graph = add_node_attributes(graph, nodelist_df)  # add attributes
-        graph = add_pos_node_attribute(graph, origin='bottomleft')  # add X,Y positions in format for graphviz
+        graph = add_pos_node_attribute(graph, origin='topleft')  # add X,Y positions in format for graphviz
 
         logger.info('Creating single SVG of CPP solution')
         graph_gv = make_circuit_graphviz(circuit=circuit,
@@ -86,6 +89,8 @@ def main():
                                          filename=CPP_SVG_FILENAME,
                                          format='svg',
                                          engine='neato',
+                                         graph_attr=GRAPH_ATTR,
+                                         edge_attr=EDGE_ATTR,
                                          node_attr=NODE_ATTR)
 
         logger.info('Creating PNG files for GIF')
@@ -94,6 +99,8 @@ def main():
                                              outfile_dir=PNG_PATH,
                                              format='png',
                                              engine='neato',
+                                             graph_attr=GRAPH_ATTR,
+                                             edge_attr=EDGE_ATTR,
                                              node_attr=NODE_ATTR)
         logger.info(images_message)
 
@@ -106,7 +113,8 @@ def main():
 
     except Exception as e:
         print(e)
-        print("Sorry, looks like you don't have all the needed visualization dependencies.")
+        print("Sorry, could not create your visualizations."
+              "Perhaps you don't have all the required visualization dependencies.  Check for graphviz support.")
 
 
 if __name__ == '__main__':

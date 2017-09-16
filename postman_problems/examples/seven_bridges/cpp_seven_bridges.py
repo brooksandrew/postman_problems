@@ -37,6 +37,7 @@ def main():
     # outputs
     PNG_PATH = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/output/png/')
     CPP_VIZ_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/output/cpp_graph')
+    CPP_BASE_VIZ_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/output/base_cpp_graph')
     CPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/output/cpp_graph.gif')
 
     # setup logging
@@ -57,19 +58,27 @@ def main():
     try:
         from postman_problems.viz import make_circuit_graphviz, make_circuit_images, make_circuit_video
 
+        logger.info('Creating single SVG of base graph')
+        base_graph_gv = make_circuit_graphviz(circuit=circuit,
+                                              graph=graph,
+                                              filename=CPP_BASE_VIZ_FILENAME,
+                                              edge_label_attr='distance',
+                                              format='svg',
+                                              engine='circo')
+
         logger.info('Creating single SVG of CPP solution')
         graph_gv = make_circuit_graphviz(circuit=circuit,
                                          graph=graph,
                                          filename=CPP_VIZ_FILENAME,
                                          format='svg',
-                                         engine='dot')
+                                         engine='circo')
 
         logger.info('Creating PNG files for GIF')
         make_circuit_images(circuit=circuit,
                             graph=graph,
                             outfile_dir=PNG_PATH,
                             format='png',
-                            engine='dot')
+                            engine='circo')
 
         logger.info('Creating GIF')
         video_message = make_circuit_video(infile_dir_images=PNG_PATH,

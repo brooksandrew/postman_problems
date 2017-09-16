@@ -58,7 +58,7 @@ def add_pos_node_attribute(graph, origin='bottomleft'):
     return graph
 
 
-def prepare_networkx_graph_for_transformation_to_graphviz(circuit, graph):
+def prepare_networkx_graph_for_transformation_to_graphviz(circuit, graph, edge_label_attr=None):
     """
     Augment the original graph with information from the CPP solution (`circuit`) to get graph ready for conversion
     to a graphviz object.  We hardcode node and edge parameters that graphviz knows how to handle such as penwidth,
@@ -68,6 +68,7 @@ def prepare_networkx_graph_for_transformation_to_graphviz(circuit, graph):
     Args:
         circuit (list[tuple]): CPP solution from `graph.cpp`
         graph (networkx graph): original graph
+        edge_label_attr (str) optional name of graph edge attribute to use for label. Default None uses index from circuit.
 
     Returns:
         networkx graph: `graph` augmented with information from `circuit`
@@ -81,11 +82,12 @@ def prepare_networkx_graph_for_transformation_to_graphviz(circuit, graph):
         key = edge_id2key[eid]
 
         if eid not in edge_cnter:
-            graph[e[0]][e[1]][key]['label'] = str(i)
+            graph[e[0]][e[1]][key]['label'] = str(graph[e[0]][e[1]][key][edge_label_attr]) if edge_label_attr else str(i)
             graph[e[0]][e[1]][key]['penwidth'] = 1
             graph[e[0]][e[1]][key]['decorate'] = 'true'
         else:
-            graph[e[0]][e[1]][key]['label'] += ', ' + str(i)
+            if edge_label_attr is None:
+                graph[e[0]][e[1]][key]['label'] += ', ' + str(i)
             graph[e[0]][e[1]][key]['penwidth'] += 3
         edge_cnter[eid] += 1
 
@@ -124,7 +126,7 @@ def convert_networkx_graph_to_graphiz(graph, directed=False):
     return G
 
 
-def make_circuit_graphviz(circuit, graph, filename=None, format='svg', engine='dot',
+def make_circuit_graphviz(circuit, graph, filename=None, format='svg', engine='dot', edge_label_attr=None,
                           graph_attr={'strict': 'false', 'forcelabels': 'true'}, node_attr=None, edge_attr=None):
     """
     Builds single graphviz graph with CPP solution.
@@ -138,6 +140,7 @@ def make_circuit_graphviz(circuit, graph, filename=None, format='svg', engine='d
         filename (str): filename of viz output (leave off the file extension... this is appended from `format`)
         format (str): 'svg', 'png`, etc
         engine (str) : which graphviz engine to use: 'dot', 'neato'. 'circo', etc
+        edge_label_attr (str) optional name of graph edge attribute to use for label. Default None uses index from circuit.
         graph_attr (dict): of graphviz graph level attributes.
         node_attr (dict): of graphviz node attributes to pass to each node
         edge_attr (dict): of graphviz edge attributes to pass to each edge.
@@ -146,7 +149,7 @@ def make_circuit_graphviz(circuit, graph, filename=None, format='svg', engine='d
         graphviz.Graph or graphviz.DirectedGraph with enriched route and plotting data.
         Writes a visualization to disk if filename is provided.
     """
-    graph = prepare_networkx_graph_for_transformation_to_graphviz(circuit, graph)
+    graph = prepare_networkx_graph_for_transformation_to_graphviz(circuit, graph, edge_label_attr)
 
     # convert networkx object to graphviz object
     graph_gv = convert_networkx_graph_to_graphiz(graph, directed=False)
@@ -216,7 +219,7 @@ def make_circuit_images(circuit, graph, outfile_dir, format='png', engine='neato
         graph_white[e[0]][e[1]][key]['color'] = graph[e[0]][e[1]][key]['color'] if 'color' in graph[e[0]][e[1]][key] else 'red'
 
         png_filename = os.path.join(outfile_dir, 'img' + str(i))
-        graph_gv = make_circuit_graphviz(circuit[0:i+1], graph_white, png_filename, format, engine, graph_attr, node_attr, edge_attr)
+        graph_gv = make_circuit_graphviz(circuit[0:i+1], graph_white, png_filename, format, engine, None, graph_attr, node_attr, edge_attr)
 
         graph_white[e[0]][e[1]][key]['color'] = 'black'  # set walked edge back to black
 

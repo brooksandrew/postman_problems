@@ -18,6 +18,7 @@ NODELIST_SLEEPING_GIANT = pkg_resources.resource_filename('postman_problems', 'e
 OUT_SEVEN_BRIDGES_SVG = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/output/cpp_graph.svg')
 OUT_SEVEN_BRIDGES_GIF = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/output/cpp_graph.gif')
 OUT_SLEEPING_GIANT_SVG = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/cpp_graph.svg')
+OUT_SLEEPING_GIANT_GIF = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/cpp_graph.gif')
 
 
 def test_chinese_postman_seven_bridges():
@@ -77,8 +78,4 @@ def test_entry_point_example_chinese_postman_sleeping_giant(script_runner):
     ret = script_runner.run('chinese_postman_sleeping_giant')
     assert ret.success
     assert os.path.isfile(OUT_SLEEPING_GIANT_SVG)
-
-
-
-
-
+    assert os.path.isfile(OUT_SLEEPING_GIANT_GIF)

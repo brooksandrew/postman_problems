@@ -6,9 +6,8 @@ python:
   - "3.5"
   - "3.6"
 os:
-  - linux
   - osx
-  -
+  - linux
 before_install:
   - pip install coveralls
   - pip install codecov
@@ -18,7 +17,8 @@ install:
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
-  - sudo apt-get install graphviz
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install graphviz; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install graphviz; fi
   - pip install pytest pytest-cov
   - pip install .
   - pip install .[viz]

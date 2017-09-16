@@ -229,14 +229,12 @@ chinese_postman_sleeping_giant
 
 ![sleeping_giant_cpp_graph](./postman_problems/examples/sleeping_giant/output/cpp_graph.svg)
 
-`postman_problems/examples/sleeping_giant/cpp_graph.gif` (omitted from package due to size):  
- 
-![sleeping_giant_animation_example](https://gist.github.com/brooksandrew/1f3a2ce56a3ac0ea0ac2213bccb57e99/raw/7de3210cdbadc3266f891e96d964c8da6d098474/sleeping_giant_cpp_route_animation_using_graphviz.gif)
+`postman_problems/examples/sleeping_giant/cpp_graph.gif` (omitted from package due to size):  Can be viewed
+ [here](https://gist.github.com/brooksandrew/1f3a2ce56a3ac0ea0ac2213bccb57e99/08d063791540ef66d1de03603dec77fb2d32ab21).
 
 ## Developers
 
-If you'd like to fork or contribute directly to this project (PRs welcome), or simply want run the tests, here's what 
-you need:
+If you'd like to fork or contribute directly to this project (PRs welcome), or simply want run the tests, here's how:
  
  1. Install test dependencies.
  

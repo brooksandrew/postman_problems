@@ -256,6 +256,12 @@ you need:
     python -m pytest
     pytest --cov
     ```
+    
+    Some tests that take quite a while to run, namely the examples that write visualizations to the filesystem for 
+    large networks.  As I have limited patience while developing, but am too cautious to drop them completely, I've 
+    kept them and marked with the `@slow` and `@long` decorators.  I've configured `conftest.py` to exclude them by 
+    default when running `pytest` or `python -m pytest`.  You can always run each individual test on a case-by-case basis
+    by name.  Or, for a full complete run of the test suite, you can run `pytest --runslow`.
 
 ## License
 

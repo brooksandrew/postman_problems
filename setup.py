@@ -49,7 +49,7 @@ setup(
     ],
     extras_require={
         'viz': ['imageio', 'matplotlib', 'graphviz', 'tqdm'],
-        'test': ['pytest', 'mock']
+        'test': ['pytest', 'pytest-console-scripts']
     }
 )
 

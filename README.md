@@ -231,8 +231,7 @@ chinese_postman_sleeping_giant
 
 `postman_problems/examples/sleeping_giant/cpp_graph.gif` (omitted from package due to size):  
  
-![sleeping_giant_animation_example](https://gist.github.com/brooksandrew/1f3a2ce56a3ac0ea0ac2213bccb57e99/raw/08d063791540ef66d1de03603dec77fb2d32ab21/sleeping_giant_cpp_route_animation_using_graphviz.gif)
-
+![sleeping_giant_animation_example](https://gist.github.com/brooksandrew/1f3a2ce56a3ac0ea0ac2213bccb57e99/raw/7de3210cdbadc3266f891e96d964c8da6d098474/sleeping_giant_cpp_route_animation_using_graphviz.gif)
 
 ## Developers
 

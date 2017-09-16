@@ -6,7 +6,7 @@ import shutil
 import pkg_resources
 from unittest.mock import patch
 from postman_problems.chinese_postman import main
-# from pytest_console_scripts import script_runner
+from pytest_console_scripts import script_runner
 
 
 # input params

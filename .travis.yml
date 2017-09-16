@@ -19,8 +19,8 @@ install:
   - pip install .[viz]
   - pip install .[test]
 script:
-  - python -m pytest
-  - py.test --cov=./
+  - python -m pytest --runslow
+  - py.test --runslow --cov=./
 branches:
   only:
     - master

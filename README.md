@@ -10,6 +10,7 @@
 [Usage](#usage)  
 [Examples](#examples)  
 [Developers](#developers)
+[License](#license)
 
 ## Contents
 
@@ -191,6 +192,10 @@ chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seve
 --fps 2
 ```
 
+`base_cpp_graph.svg`: This is starting graph.  Edges are annotated with edge distance.
+
+![seven_bridges_base_cpp_graph](./postman_problems/examples/seven_bridges/output/base_cpp_graph.svg)
+
 `cpp_graph.svg`: Edges are annotated with the order in which they are walked, starting at 0.  Edges walked more than 
 once are annotated by a sequence of numbers (walk order) and **bolded**.
 
@@ -252,16 +257,24 @@ you need:
  
  
  2. <a href="http://www.troll.me?p=50341"><img src="http://troll.me/images/x-all-the-things/run-all-the-tests.jpg" HEIGHT=138, WIDTH=184></a>
+    
     ```
     python -m pytest
     pytest --cov
     ```
     
-    Some tests that take quite a while to run, namely the examples that write visualizations to the filesystem for 
-    large networks.  As I have limited patience while developing, but am too cautious to drop them completely, I've 
-    kept them and marked with the `@slow` and `@long` decorators.  I've configured `conftest.py` to exclude them by 
-    default when running `pytest` or `python -m pytest`.  You can always run each individual test on a case-by-case basis
-    by name.  Or, for a full complete run of the test suite, you can run `pytest --runslow`.
+    Some tests that take quite a while to run.  Namely the examples that write visualizations to the filesystem for 
+    large networks.  
+    
+    As I have limited patience while developing, but am too cautious to drop them completely, I've 
+    kept and marked them with the `@slow` and `@long` decorators.  `conftest.py` is configured to exclude them by 
+    default with a simple run of `pytest` or `python -m pytest`, but the full test suite can be run by:
+    
+    ```
+    python -m pytest --runslow
+    pytest --cov --runslow
+    ```
+    
 
 ## License
 

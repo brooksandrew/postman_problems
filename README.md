@@ -55,7 +55,13 @@ installing viz dependencies, if they so choose.
     ```
     brew install graphviz
     ```
-
+    
+    For Linux, 
+    ```
+    sudo apt-get install graphviz
+    ```
+    
+    These are the installs I'm currently using on my builds for the [tests on TravisCI] bYMMV
     For Windows, Linux and other users, I defer to the Graphviz download docs.
     
 
@@ -266,6 +272,7 @@ Copyright (C) 2017 Andrew Brooks.
 [Graphviz python package]: https://pypi.python.org/pypi/graphviz
 [Graphviz Download page]:http://www.graphviz.org/Download..php
 [Graphviz]:http://www.graphviz.org/
+[Tests on TravisCI]: https://github.com/brooksandrew/postman_problems/blob/master/.travis.yml
 [Sleeping Giant]:http://www.sgpa.org/
 [Giant Master Program]:http://www.sgpa.org/hikes/masters.html
 [trail map]:http://www.ct.gov/deep/lib/deep/stateparks/maps/sleepgiant.pdf

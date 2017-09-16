@@ -192,7 +192,7 @@ chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seve
 --fps 2
 ```
 
-`base_cpp_graph.svg`: This is starting graph.  Edges are annotated with edge distance.
+`base_cpp_graph.svg`: This is the starting graph.  Edges are annotated by distance.  
 
 ![seven_bridges_base_cpp_graph](./postman_problems/examples/seven_bridges/output/base_cpp_graph.svg)
 

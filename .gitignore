@@ -109,6 +109,12 @@ ENV/
 # PNGs
 postman_problems/examples/seven_bridges/output/png/
 postman_problems/examples/sleeping_giant/output/png/
+postman_problems/examples/seven_bridges/output/img/
+postman_problems/examples/sleeping_giant/output/img/
 
 # Coveralls config (do not share repo token)
 .coveralls.yml
+
+# Large project specific files
+postman_problems/examples/sleeping_giant/output/cpp_graph.gif
+

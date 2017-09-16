@@ -236,7 +236,7 @@ def make_circuit_video(infile_dir_images, outfile_movie, fps=3, format='png'):
         No return value.  Writes a movie/gif to disk
     """
     # sorting filenames in order
-    filenames = glob.glob(infile_dir_images + 'img*.%s' % format)
+    filenames = glob.glob(os.path.join(infile_dir_images, 'img*.%s' % format))
     filenames_sort_indices = np.argsort([int(os.path.basename(filename).split('.')[0][3:]) for filename in filenames])
     filenames = [filenames[i] for i in filenames_sort_indices]
 

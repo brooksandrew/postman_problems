@@ -14,10 +14,10 @@ install:
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
-  - pip install pytest pytest-cov
+  - sudo apt-get install graphviz
   - pip install .
   - pip install .[viz]
-  - pip install .[tests]
+  - pip install .[test]
 script:
   - python -m pytest
   - py.test --cov=./

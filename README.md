@@ -9,7 +9,7 @@
 [Install](#install)  
 [Usage](#usage)  
 [Examples](#examples)  
-[Developers](#developers)
+[Developers](#developers)  
 [License](#license)
 
 ## Contents

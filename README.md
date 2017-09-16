@@ -61,8 +61,8 @@ installing viz dependencies, if they so choose.
     sudo apt-get install graphviz
     ```
     
-    These are the installs I'm currently using on my builds for the [tests on TravisCI] bYMMV
-    For Windows, Linux and other users, I defer to the Graphviz download docs.
+    These are the installs I'm currently using on my builds for the [tests on TravisCI].  YMMV.  For Windows users and 
+    for those where these methods fail, I defer to the Graphviz download docs.
     
 
 ## Usage

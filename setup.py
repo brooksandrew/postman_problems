@@ -20,6 +20,7 @@ setup(
     license='MIT License',
     keywords='chinese postman problem networkx optimization network graph arc routing',
     url='https://github.com/brooksandrew/postman_problems',
+    download_url='https://github.com/brooksandrew/postman_problems/archive/v0.1.tar.gz',
     packages=find_packages(),
     long_description=read('README.md'),
     classifiers=[

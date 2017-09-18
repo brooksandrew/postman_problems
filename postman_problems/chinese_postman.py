@@ -1,3 +1,4 @@
+import os
 import argparse
 import logging
 from postman_problems.graph import cpp
@@ -107,7 +108,7 @@ def get_args():
     parser.add_argument('--viz_images_dir',
                         required=False,
                         type=str,
-                        default='img',
+                        default=None,
                         help='Directory where the series of static visualizations will be produced that get stitched '
                              'into the animation.')
 
@@ -139,15 +140,19 @@ def main():
                                          engine=args.viz_static_engine)
 
     if args.viz_animation:
+
+        viz_images_dir = args.viz_images_dir if args.viz_images_dir else os.path.join(
+            os.path.dirname(args.viz_animation_filename), 'img')
+
         logger.info('Creating individual files for animation...')
         make_circuit_images(circuit=cpp_solution,
                             graph=graph,
-                            outfile_dir=args.viz_images_dir,
+                            outfile_dir=viz_images_dir,
                             format=args.viz_animation_format,
                             engine=args.viz_animation_engine)
 
         logger.info('Creating animation...')
-        video_message = make_circuit_video(infile_dir_images=args.viz_images_dir,
+        video_message = make_circuit_video(infile_dir_images=viz_images_dir,
                                            outfile_movie=args.viz_animation_filename,
                                            fps=args.fps,
                                            format=args.viz_animation_format)

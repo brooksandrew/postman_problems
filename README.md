@@ -1,6 +1,6 @@
 [![Build Status](http://travis-ci.org/brooksandrew/postman_problems.svg?branch=master)](http://travis-ci.org/brooksandrew/postman_problems)
 
-[![Coverage Status](https://coveralls.io/repos/github/brooksandrew/postman_problems/badge.svg?branch=master)](https://coveralls.io/github/brooksandrew/postman_problems?branch=master)
+[![Coverage Status](http://coveralls.io/repos/github/brooksandrew/postman_problems/badge.svg?branch=master)](https://coveralls.io/github/brooksandrew/postman_problems?branch=master)
 
 
 ## Postman Problems:

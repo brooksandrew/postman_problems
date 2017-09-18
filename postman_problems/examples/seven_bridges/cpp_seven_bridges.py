@@ -1,19 +1,24 @@
 """
 Description:
     This example solves and visualizes the CPP on the network derived from the famous Seven Bridges of Konigsberg problem.
-    https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
+    See: https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
 
     This example produces the following in `/output`.  The output is contained within this repo for convenience,
-    and so I can embed the visualizations in the documentation throughout.
+    and so I can embed the visualizations in the documentation.
       - an SVG of the optimal route with edges annotated by order
-      - a GIF that demonstrates the
+      - a GIF that animates the static images with the walk order of each edge
       - a directory of static PNGs needed to create the GIF
       - a dot graph representation (file) of the static network augmented with Eulerian circuit info.
 
 Usage:
     The simplest way to run this example is at the command line with the code below.  To experiment within an
-    interactive python environment using an interpreter (ex, Jupyter notebook), remove the `if __name__ == '__main__':`
+    interactive python environment using an interpreter (ex: Jupyter notebook), remove the `if __name__ == '__main__':`
     line, and you should be good to go.
+    ```
+    chinese_postman_seven_bridges
+    ```
+    or
+
     ```
     python postman_problems/examples/seven_bridges/cpp_seven_bridges.py
     ```

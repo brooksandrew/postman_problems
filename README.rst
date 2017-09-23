@@ -9,7 +9,7 @@ Postman Problems:
 Contents
 ========
 
-This package contains implementations to solve the suite of [Postman Problems] from graph theory.
+This package contains implementations to solve the suite of `Postman Problems`_ from graph theory.
 
 
 Currently this is a suite of one: The Chinese Postman Problem, the most straightforward of the Postman Problems. 
@@ -50,8 +50,8 @@ installing viz dependencies, if they so choose.
     pip install .[viz]
     ```
 
-2. Install Graphviz.  You need this underlying software application in addition to the [graphviz python package] which
-   wraps around it.  Checkout the [Graphviz Download page] for the best way to install on your OS.
+2. Install Graphviz.  You need this underlying software application in addition to the `graphviz python package`_ which
+   wraps around it.  Checkout the `Graphviz Download page`_ for the best way to install on your OS.
   
     For Mac, this should be as easy as:
     ```
@@ -63,7 +63,7 @@ installing viz dependencies, if they so choose.
     sudo apt-get install graphviz
     ```
     
-    These are the installs I'm currently using on my builds for the [tests on TravisCI].  YMMV.  For Windows users and 
+    These are the installs I'm currently using on my builds for the `tests on TravisCI`_.  YMMV.  For Windows users and 
     for those where these methods fail, I defer to the Graphviz download docs.
     
 
@@ -85,7 +85,7 @@ chinese_postman --help
 The big ones are `--viz_static` and `--viz_animation` which when present will create the static (single) and animation 
 of the CPP solution.  Most of the other arguments control the visualizations with default values.  
   
-Below we solve the CPP on the [Seven Bridges of Konigsberg] network.  The edgelist is provided in this repo, but you
+Below we solve the CPP on the `Seven Bridges of Konigsberg`_ network.  The edgelist is provided in this repo, but you
 can swap this out for any comma delimited text file where the first two columns represent the node pairs in your network.
 The columns should have headers.  Columns after the first two are treated as edge attributes.
 
@@ -158,7 +158,7 @@ An expected exception will be thrown if you don't have the visualization depende
 the output is prepackaged into `/examples` and embedded below.  
 
 Files produced:
- - `cpp_graph`: representation of `cpp_graph.svg` in the [DOT] graph description language.  This is provided mostly for 
+ - `cpp_graph`: representation of `cpp_graph.svg` in the `DOT`_ graph description language.  This is provided mostly for 
  reference, or for tweaking.
  - `cpp_graph.svg`: static image with edge attributes annotating the walk sequence.
  - `cpp_graph.gif`: animation highlighting each edge in the Euler circuit (CPP solution) as it's walked.
@@ -220,12 +220,12 @@ want to tweak graphviz parameters directly here.
 
 This example is near and dear to my heart and the motivation for this project in the first place.  
   
-[Sleeping Giant] is a state park near my hometown in Hamden CT with a little challenge called the [Giant Master Program]. 
- Those who hike every trail (see [trail map]) are awarded the honor of Giantmaster Marathoner and earn themselves a spot 
- on the [Giantmaster roster] and the glory of a red highlight on their name.
+`Sleeping Giant`_ is a state park near my hometown in Hamden CT with a little challenge called the `Giant Master Program`_. 
+ Those who hike every trail (see `trail map`_) are awarded the honor of Giantmaster Marathoner and earn themselves a spot 
+ on the `Giantmaster roster`_ and the glory of a red highlight on their name.
   
 That's all I'll say here.  I wrote more about the personal motivation and Sleeping Giant specific data/problem in a 
-[DataCamp tutorial] which also helped motivate this project.
+`DataCamp tutorial`_ which also helped motivate this project.
 
 
 ```
@@ -284,7 +284,7 @@ If you'd like to fork or contribute directly to this project (PRs welcome), or s
 License
 =======
 
-Released under the MIT License (see LICENSE).
+Released under the MIT License (see LICENSE.txt).
 
 Copyright (C) 2017 Andrew Brooks.
 
@@ -292,17 +292,15 @@ Copyright (C) 2017 Andrew Brooks.
 
  
  
-[Postman Problems]: https://en.wikipedia.org/wiki/Route_inspection_problem
-[Seven Bridges of Konigsberg]:https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
-[Graphviz python package]: https://pypi.python.org/pypi/graphviz
-[Graphviz Download page]:http://www.graphviz.org/Download..php
-
-[Tests on TravisCI]: https://github.com/brooksandrew/postman_problems/blob/master/.travis.yml
-[Sleeping Giant]:http://www.sgpa.org/
-[Giant Master Program]:http://www.sgpa.org/hikes/masters.html
-[trail map]:http://www.ct.gov/deep/lib/deep/stateparks/maps/sleepgiant.pdf
-[Giantmaster roster]:http://www.sgpa.org/hikes/master-list.htm
-[Datacamp tutorial]:https://www.datacamp.com/community/tutorials/networkx-python-graph-tutorial
-[DOT]:https://en.wikipedia.org/wiki/DOT_(graph_description_language)
-
+.. _`Postman Problems`: https://en.wikipedia.org/wiki/Route_inspection_problem
+.. _`Seven Bridges of Konigsberg`:https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
+.. _`Graphviz python package`: https://pypi.python.org/pypi/graphviz
+.. _`Graphviz Download page`:http://www.graphviz.org/Download..php
 .. _`Graphviz`: http://www.graphviz.org/
+.. _`Tests on TravisCI`: https://github.com/brooksandrew/postman_problems/blob/master/.travis.yml
+.. _`Sleeping Giant`:http://www.sgpa.org/
+.. _`Giant Master Program`:http://www.sgpa.org/hikes/masters.html
+.. _`trail map`:http://www.ct.gov/deep/lib/deep/stateparks/maps/sleepgiant.pdf
+.. _`Giantmaster roster`:http://www.sgpa.org/hikes/master-list.htm
+.. _`Datacamp tutorial`:https://www.datacamp.com/community/tutorials/networkx-python-graph-tutorial
+.. _`DOT`:https://en.wikipedia.org/wiki/DOT_(graph_description_language)

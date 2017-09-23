@@ -46,26 +46,28 @@ base package, so users can optimize graphs to their heart's content unencumbered
 installing viz dependencies, if they so choose.
 
 1. Install optional Python visualization libraries.
-    ```
+
+.. code:: 
+
     pip install .[viz]
-    ```
+
 
 2. Install Graphviz.  You need this underlying software application in addition to the `graphviz python package`_ which
    wraps around it.  Checkout the `Graphviz Download page`_ for the best way to install on your OS.
   
-    For Mac, this should be as easy as:
-    ```
-    brew install graphviz
-    ```
+   For Mac, this should be as easy as:
     
-    For Linux, 
-    ```
+   .. code:: 
+   
+     brew install graphviz
+ 
+  For Linux, 
+
+  .. code:: 
     sudo apt-get install graphviz
-    ```
-    
-    These are the installs I'm currently using on my builds for the `tests on TravisCI`_.  YMMV.  For Windows users and 
-    for those where these methods fail, I defer to the Graphviz download docs.
-    
+   
+   These are the installs I'm currently using on my builds for the `tests on TravisCI`_.  YMMV.  For Windows users and for those where these methods fail, I defer to the Graphviz download docs.
+
 
 Usage
 =====

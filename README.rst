@@ -2,17 +2,12 @@
 
 [![Coverage Status](http://coveralls.io/repos/github/brooksandrew/postman_problems/badge.svg?branch=master)](https://coveralls.io/github/brooksandrew/postman_problems?branch=master)
 
+=================
+Postman Problems:
+=================
 
-## Postman Problems:
-
-[Contents](#contents)  
-[Install](#install)  
-[Usage](#usage)  
-[Examples](#examples)  
-[Developers](#developers)  
-[License](#license)
-
-## Contents
+Contents
+========
 
 This package contains implementations to solve the suite of [Postman Problems] from graph theory.
 
@@ -20,9 +15,11 @@ This package contains implementations to solve the suite of [Postman Problems] f
 Currently this is a suite of one: The Chinese Postman Problem, the most straightforward of the Postman Problems. 
 Plans are to implement the Rural Postman Problem next.
 
-## Install
+Install
+=======
 
-### Basic
+Basic Install
+-------------
 
 Install the `postman_problems` package:
 
@@ -37,7 +34,8 @@ Install the `postman_problems` package:
     pip install .
     ```
 
-### Viz 
+Install w Viz
+-------------
 
 `postman_problems` leverages [Graphviz] for visualization which unlocks more robust visualizations than just networkx and 
 matplotlib.  However, this also comes with several dependencies.  These are managed separately from the 
@@ -66,9 +64,11 @@ installing viz dependencies, if they so choose.
     for those where these methods fail, I defer to the Graphviz download docs.
     
 
-## Usage
+Usage
+=====
 
-### 1. CLI
+1. CLI
+------
 
 The easiest way to start is with the command line installed with this package, `chinese_postman`.  
 
@@ -118,7 +118,8 @@ with two exceptions:
   - `id` is generated to aid computation in the case of parallel edges.  This can generally be ignored.
  
  
-### 2. Python
+2. Python
+---------
 
 The postman solvers are modules that can also be imported and run within a Python environment.  This might interest you 
 if solving the CPP is just one step in your problem, you'd like to poke and prod at the output, or you'd like to tweak 
@@ -138,7 +139,8 @@ for e in circuit:
     print(e)
 ```
 
-## Examples
+Examples
+========
 
 Two examples are included in `postman_problems` which demonstrate end-to-end usage: raw edgelist & nodelist => 
 optimization and visualization.
@@ -161,7 +163,8 @@ Files produced:
  run the examples).
  
 
-### 1. Seven Bridges of Konigsberg
+1. Seven Bridges of Konigsberg
+------------------------------
 
 The Seven Bridges of Konigsberg is rather simple network with just 4 nodes and 7 edges.  Although small, it does contain
  2 parallel edges which introduce some complexity to the CPP computation.
@@ -209,7 +212,8 @@ once are annotated by a sequence of numbers (walk order) and **bolded**.
 want to tweak graphviz parameters directly here.
 
 
-### 2. Sleeping Giant
+2. Sleeping Giant
+-----------------
 
 This example is near and dear to my heart and the motivation for this project in the first place.  
   
@@ -232,7 +236,8 @@ chinese_postman_sleeping_giant
 `postman_problems/examples/sleeping_giant/cpp_graph.gif` (omitted from package due to size):  Can be viewed
  [here](https://gist.github.com/brooksandrew/1f3a2ce56a3ac0ea0ac2213bccb57e99/08d063791540ef66d1de03603dec77fb2d32ab21).
 
-## Developers
+Developers
+==========
 
 If you'd like to fork or contribute directly to this project (PRs welcome), or simply want run the tests, here's how:
  
@@ -273,7 +278,8 @@ If you'd like to fork or contribute directly to this project (PRs welcome), or s
     ```
     
 
-## License
+License
+=======
 
 Released under the MIT License (see LICENSE).
 

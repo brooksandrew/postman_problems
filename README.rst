@@ -24,10 +24,11 @@ Basic Install
 Install the `postman_problems` package:
 
 1. Clone the repo.  For now, just grab the master branch from GitHub.  When I release to PyPI, I'll make proper 0.1 release.
-    ```
-    git clone https://github.com/brooksandrew/postman_problems.git
-    cd postman_problems
-    ```
+
+.. code-block:: bash
+   git clone https://github.com/brooksandrew/postman_problems.git
+   cd postman_problems
+
 
 2. Install with pip.  Builds are tested on Python 2.7, 3.3, 3.4, 3.5, 3.6.  
     ```

@@ -141,7 +141,7 @@ The postman solvers are modules that can also be imported and run within a Pytho
 if solving the CPP is just one step in your problem, you'd like to poke and prod at the output, or you'd like to tweak 
 the visualization or optimization parameters beyond what's provided from the CLI.
 
-The snippet below should produce exactly the same output as printed above in [CLI](#1.-cli).
+The snippet below should produce exactly the same output as printed above in `CLI`_.
 
 .. code:: python
 
@@ -218,18 +218,21 @@ what the possibilities are.
 
 ``base_cpp_graph.svg``: This is the starting graph.  Edges are annotated by distance.  
 
-![seven_bridges_base_cpp_graph](./postman_problems/examples/seven_bridges/output/base_cpp_graph.svg)
+.. image:: ./postman_problems/examples/seven_bridges/output/base_cpp_graph.svg
 
-`cpp_graph.svg`: Edges are annotated with the order in which they are walked, starting at 0.  Edges walked more than 
+
+
+``cpp_graph.svg``: Edges are annotated with the order in which they are walked, starting at 0.  Edges walked more than 
 once are annotated by a sequence of numbers (walk order) and **bolded**.
 
-![seven_bridges_cpp_graph](./postman_problems/examples/seven_bridges/output/cpp_graph.svg)
+.. image:: ./postman_problems/examples/seven_bridges/output/cpp_graph.svg
 
-`cpp_graph.gif`: The nodes and edges in red indicate the current direction.  
+
+``cpp_graph.gif``: The nodes and edges in red indicate the current direction.  
  
-![seven_bridges_cpp_gif](./postman_problems/examples/seven_bridges/output/cpp_graph.gif)
+.. image:: ./postman_problems/examples/seven_bridges/output/cpp_graph.gif
 
-`cpp_graph`: dot representation of the graph is also provided.  This is mostly for reference, but in rare cases you may 
+``cpp_graph``: dot representation of the graph is also provided.  This is mostly for reference, but in rare cases you may 
 want to tweak graphviz parameters directly here.
 
 
@@ -251,11 +254,11 @@ That's all I'll say here.  I wrote more about the personal motivation and Sleepi
    chinese_postman_sleeping_giant
 
 
-`postman_problems/examples/sleeping_giant/cpp_graph.svg`:
+``postman_problems/examples/sleeping_giant/cpp_graph.svg``:
 
-![sleeping_giant_cpp_graph](./postman_problems/examples/sleeping_giant/output/cpp_graph.svg)
+.. image:: ./postman_problems/examples/sleeping_giant/output/cpp_graph.svg
 
-`postman_problems/examples/sleeping_giant/cpp_graph.gif` (omitted from package due to size):  Can be viewed
+``postman_problems/examples/sleeping_giant/cpp_graph.gif`` (omitted from package due to size):  Can be viewed
  [here](https://gist.github.com/brooksandrew/1f3a2ce56a3ac0ea0ac2213bccb57e99/08d063791540ef66d1de03603dec77fb2d32ab21).
 
 Developers

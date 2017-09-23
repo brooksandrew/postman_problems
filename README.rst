@@ -257,7 +257,7 @@ Developers
 
 If you'd like to fork or contribute directly to this project (PRs welcome), or simply want run the tests, here's how:
  
-1. Install test dependencies.
+ 1. Install test dependencies.
  
    .. code::
     
@@ -272,26 +272,23 @@ If you'd like to fork or contribute directly to this project (PRs welcome), or s
       pip install -e .[viz]
       pip install -e .[test] 
  
- 2. .. image:: http://troll.me/images/x-all-the-things/run-all-the-tests.jpg
-    :width: 184px
-    :height: 138px
+2. .. image:: http://troll.me/images/x-all-the-things/run-all-the-tests.jpg
+      :width: 184
+      :height: 138
     
-    .. code::
+   .. code::
     
-       python -m pytest
-       pytest --cov
+      python -m pytest
+      pytest --cov
     
-    Some tests that take quite a while to run.  Namely the examples that write visualizations to the filesystem for 
-    large networks.  
+   Some tests that take quite a while to run.  Namely the examples that write visualizations to the filesystem for large networks.  
     
-    As I have limited patience while developing, but am too cautious to drop them completely, I've 
-    kept and marked them with the `@slow` and `@long` decorators.  `conftest.py` is configured to exclude them by 
-    default with a simple run of `pytest` or `python -m pytest`, but the full test suite can be run by:
+   As I have limited patience while developing, but am too cautious to drop them completely, I've kept and marked them with the `@slow` and `@long` decorators.  `conftest.py` is configured to exclude them by default with a simple run of `pytest` or `python -m pytest`, but the full test suite can be run by:
     
-    .. code::
+   .. code::
     
-       python -m pytest --runslow
-       pytest --cov --runslow
+      python -m pytest --runslow
+      pytest --cov --runslow
 
     
 
@@ -303,9 +300,6 @@ Released under the MIT License (see LICENSE.txt).
 Copyright (C) 2017 Andrew Brooks.
 
 
-
- 
- 
 .. _`Postman Problems`: https://en.wikipedia.org/wiki/Route_inspection_problem
 .. _`Seven Bridges of Konigsberg`: https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
 .. _`Graphviz python package`: https://pypi.python.org/pypi/graphviz

@@ -305,4 +305,4 @@ Copyright (C) 2017 Andrew Brooks.
 [Datacamp tutorial]:https://www.datacamp.com/community/tutorials/networkx-python-graph-tutorial
 [DOT]:https://en.wikipedia.org/wiki/DOT_(graph_description_language)
 
-.. `Graphviz`_: http://www.graphviz.org/
+.. _`Graphviz`: http://www.graphviz.org/

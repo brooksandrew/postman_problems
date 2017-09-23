@@ -172,12 +172,11 @@ An expected exception will be thrown if you don't have the visualization depende
 the output is prepackaged into `/examples` and embedded below.  
 
 Files produced:
- - ``cpp_graph``: representation of `cpp_graph.svg` in the `DOT`_ graph description language.  This is provided mostly for 
- reference, or for tweaking.
- - ``cpp_graph.svg``: static image with edge attributes annotating the walk sequence.
- - ``cpp_graph.gif``: animation highlighting each edge in the Euler circuit (CPP solution) as it's walked.
- - ``png/img*.png``: PNGs generated for each frame of the GIF (omitted from package, but will hit your filesystem when you 
- run the examples).
+
+- ``cpp_graph``: representation of `cpp_graph.svg` in the `DOT`_ graph description language.  This is provided mostly for reference, or for tweaking.
+- ``cpp_graph.svg``: static image with edge attributes annotating the walk sequence.
+- ``cpp_graph.gif``: animation highlighting each edge in the Euler circuit (CPP solution) as it's walked.
+- ``png/img*.png``: PNGs generated for each frame of the GIF (omitted from package, but will hit your filesystem when you run the examples).
  
 
 Seven Bridges of Konigsberg
@@ -221,7 +220,6 @@ what the possibilities are.
 .. image:: ./postman_problems/examples/seven_bridges/output/base_cpp_graph.svg
 
 
-
 ``cpp_graph.svg``: Edges are annotated with the order in which they are walked, starting at 0.  Edges walked more than 
 once are annotated by a sequence of numbers (walk order) and **bolded**.
 
@@ -231,6 +229,7 @@ once are annotated by a sequence of numbers (walk order) and **bolded**.
 ``cpp_graph.gif``: The nodes and edges in red indicate the current direction.  
  
 .. image:: ./postman_problems/examples/seven_bridges/output/cpp_graph.gif
+
 
 ``cpp_graph``: dot representation of the graph is also provided.  This is mostly for reference, but in rare cases you may 
 want to tweak graphviz parameters directly here.
@@ -260,6 +259,7 @@ That's all I'll say here.  I wrote more about the personal motivation and Sleepi
 
 ``postman_problems/examples/sleeping_giant/cpp_graph.gif`` (omitted from package due to size):  Can be viewed
  [here](https://gist.github.com/brooksandrew/1f3a2ce56a3ac0ea0ac2213bccb57e99/08d063791540ef66d1de03603dec77fb2d32ab21).
+
 
 Developers
 ==========

@@ -257,7 +257,7 @@ Developers
 
 If you'd like to fork or contribute directly to this project (PRs welcome), or simply want run the tests, here's how:
  
- 1. Install test dependencies.
+1. Install test dependencies.
  
    .. code::
     
@@ -272,9 +272,10 @@ If you'd like to fork or contribute directly to this project (PRs welcome), or s
       pip install -e .[viz]
       pip install -e .[test] 
  
-2. .. image:: http://troll.me/images/x-all-the-things/run-all-the-tests.jpg
-      :width: 184
-      :height: 138
+2. 
+
+   .. image:: http://troll.me/images/x-all-the-things/run-all-the-tests.jpg 
+      :scale: 10
     
    .. code::
     

@@ -164,12 +164,10 @@ optimization and visualization.
   
 Both examples are added as entry points and pre-configured arguments, so they can be executed with the single commands below.
  
-Note, the visualization step will write a GIF and a series of PNGs to your filesystem.  The paths are locked into the 
-  *postman_problems/examples/[example_name]/output/*, so they should not be capable of writing rogue files on your 
-  machine.
+Note, the visualization step will write a GIF and a series of PNGs to your filesystem.  The paths are locked into *postman_problems/examples/[example_name]/output/*, so they should not be capable of writing rogue files on your machine.
   
 An expected exception will be thrown if you don't have the visualization dependencies.  But no worries, 
-the output is prepackaged into `/examples` and embedded below.  
+the output is prepackaged into ``/examples`` and embedded below.  
 
 Files produced:
 
@@ -182,12 +180,9 @@ Files produced:
 Seven Bridges of Konigsberg
 ------------------------------
 
-The Seven Bridges of Konigsberg is rather simple network with just 4 nodes and 7 edges.  Although small, it does contain
- 2 parallel edges which introduce some complexity to the CPP computation.
+The Seven Bridges of Konigsberg is rather simple network with just 4 nodes and 7 edges.  Although small, it does contain 2 parallel edges which introduce some complexity to the CPP computation.
  
- This was the graph with which Leonhard Euler famously postulated in 1736 that there exists a path which visits 
-each edge exactly once if all nodes have even degree. Although this wasn't proven until the 1870s by Carl Hierholzer,
-Euler was right and this property is a key part of solving the Postman Problems. 
+This was the graph with which Leonhard Euler famously postulated in 1736 that there exists a path which visits each edge exactly once if all nodes have even degree. Although this wasn't proven until the 1870s by Carl Hierholzer, Euler was right and this property is a key part of solving the Postman Problems. 
 
 This contrived example has been bundled and parameterized into a script that can be run with: 
 

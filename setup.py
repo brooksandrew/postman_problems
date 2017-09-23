@@ -13,7 +13,7 @@ def read(fname):
 
 setup(
     name='postman_problems',
-    version='0.1',
+    version='0.1.1',
     author='Andrew Brooks',
     author_email='andrewbrooks@gmail.com',
     description='Solutions to Postman graph optimization problems: Chinese and Rural Postman problems',
@@ -22,7 +22,7 @@ setup(
     url='https://github.com/brooksandrew/postman_problems',
     download_url='https://github.com/brooksandrew/postman_problems/archive/v0.1.tar.gz',
     packages=find_packages(),
-    long_description=read('README.md'),
+    long_description=read('README.rst'),
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Topic :: Scientific/Engineering :: Mathematics',

@@ -26,9 +26,16 @@ Install
 Basic
 -----
 
-Install the ``postman_problems`` package:
+**Option 1. Install from PyPI:** Stable release.
 
-1. Clone the repo.  For now, just grab the master branch from GitHub.  When I release to PyPI, I'll make proper 0.1 release.
+.. code::
+
+   pip install postman_packages
+
+**Option 2. Install from GitHub:**  As this project develops, GitHub will have the most recent features, but no guarantees they'll be stable.  
+
+
+1. Clone the repo.  
 
    .. code:: 
 
@@ -45,7 +52,7 @@ Install the ``postman_problems`` package:
 Viz
 ---
 
-``postman_problems`` leverages `Graphviz`_ for visualization which unlocks more robust visualizations than just networkx and 
+``postman_problems`` leverages `Graphviz`_ for visualization which unlocks more robust visualizations than just NetworkX and 
 matplotlib.  However, this also comes with several dependencies.  These are managed separately from the 
 base package, so users can optimize graphs to their heart's content unencumbered from the weight and hassle of 
 installing viz dependencies, if they so choose.
@@ -275,7 +282,6 @@ If you'd like to fork or contribute directly to this project (PRs welcome), or s
 2. 
 
    .. image:: http://troll.me/images/x-all-the-things/run-all-the-tests.jpg 
-      :scale: 10
     
    .. code::
     
@@ -284,7 +290,7 @@ If you'd like to fork or contribute directly to this project (PRs welcome), or s
     
    Some tests that take quite a while to run.  Namely the examples that write visualizations to the filesystem for large networks.  
     
-   As I have limited patience while developing, but am too cautious to drop them completely, I've kept and marked them with the `@slow` and `@long` decorators.  `conftest.py` is configured to exclude them by default with a simple run of `pytest` or `python -m pytest`, but the full test suite can be run by:
+   As I have limited patience while developing, but am too cautious to drop them completely, I've kept and marked them with the ``@slow`` and ``@long`` decorators.  `conftest.py` is configured to exclude them by default with a simple run of ``pytest`` or ``python -m pytest``, but the full test suite can be run by:
     
    .. code::
     

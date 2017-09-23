@@ -3,6 +3,10 @@
 [![Coverage Status](http://coveralls.io/repos/github/brooksandrew/postman_problems/badge.svg?branch=master)](https://coveralls.io/github/brooksandrew/postman_problems?branch=master)
 
 
+.. sectnum::
+
+.. contents:: TOC
+
 Postman Problems
 ================
 
@@ -124,8 +128,9 @@ The first two values of each tuple are the "from" and the "to" node respectively
 
 The third value contains the edge attributes for each edge walked.  These are mostly grabbed from the starting graph, 
 with two exceptions:
-  - ``augmented`` is added to edges after their first walk (double backing... the thing we want to minimize)
-  - ``id`` is generated to aid computation in the case of parallel edges.  This can generally be ignored.
+
+- ``augmented`` is added to edges after their first walk (double backing... the thing we want to minimize)
+- ``id`` is generated to aid computation in the case of parallel edges.  This can generally be ignored.
  
  
 2. Python

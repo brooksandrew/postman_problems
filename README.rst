@@ -233,14 +233,11 @@ want to tweak graphviz parameters directly here.
 Sleeping Giant
 -----------------
 
-This example is near and dear to my heart and the motivation for this project in the first place.  
+This example is near and dear to my heart and the motivation for this project in the first place.
   
-`Sleeping Giant`_ is a state park near my hometown in Hamden CT with a little challenge called the `Giant Master Program`_. 
- Those who hike every trail (see `trail map`_) are awarded the honor of Giantmaster Marathoner and earn themselves a spot 
- on the `Giantmaster roster`_ and the glory of a red highlight on their name.
+`Sleeping Giant`_ is a state park near my hometown in Hamden CT with a little challenge called the `Giant Master Program`_.  Those who hike every trail (see `trail map`_) are awarded the honor of Giantmaster Marathoner and earn themselves a spot on the `Giantmaster roster`_ and the glory of a red highlight on their name.
   
-That's all I'll say here.  I wrote more about the personal motivation and Sleeping Giant specific data/problem in a 
-`DataCamp tutorial`_ which also helped motivate this project.
+That's all I'll say here.  I wrote more about the personal motivation and Sleeping Giant specific data/problem in a `DataCamp tutorial`_ which also helped motivate this project.
 
 
 .. code::
@@ -252,8 +249,7 @@ That's all I'll say here.  I wrote more about the personal motivation and Sleepi
 
 .. image:: ./postman_problems/examples/sleeping_giant/output/cpp_graph.svg
 
-``postman_problems/examples/sleeping_giant/cpp_graph.gif`` (omitted from package due to size):  Can be viewed
- [here](https://gist.github.com/brooksandrew/1f3a2ce56a3ac0ea0ac2213bccb57e99/08d063791540ef66d1de03603dec77fb2d32ab21).
+``postman_problems/examples/sleeping_giant/cpp_graph.gif`` (omitted from package due to size):  Can be viewed `here <https://gist.github.com/brooksandrew/1f3a2ce56a3ac0ea0ac2213bccb57e99/08d063791540ef66d1de03603dec77fb2d32ab21>`__ 
 
 
 Developers
@@ -261,23 +257,24 @@ Developers
 
 If you'd like to fork or contribute directly to this project (PRs welcome), or simply want run the tests, here's how:
  
- 1. Install test dependencies.
+1. Install test dependencies.
  
-    .. code::
+   .. code::
     
-        pip install .[test]
-        pip install .[viz]
+       pip install .[test]
+       pip install .[viz]
    
- 
-    Or do an editable install from the beginning.  This is my typical approach when developing.
+   Or do an editable install from the beginning.  This is my typical approach when developing.
     
-    .. code::
+   .. code::
     
-       pip install -e .
-       pip install -e .[viz]
-       pip install -e .[test] 
+      pip install -e .
+      pip install -e .[viz]
+      pip install -e .[test] 
  
- 2. <a href="http://www.troll.me?p=50341"><img src="http://troll.me/images/x-all-the-things/run-all-the-tests.jpg" HEIGHT=138, WIDTH=184></a>
+ 2. .. image:: http://troll.me/images/x-all-the-things/run-all-the-tests.jpg
+    :width: 184px
+    :height: 138px
     
     .. code::
     

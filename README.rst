@@ -78,7 +78,7 @@ installing viz dependencies, if they so choose.
 Usage
 =====
 
-1. CLI
+CLI
 ------
 
 The easiest way to start is with the command line installed with this package, `chinese_postman`.  
@@ -134,7 +134,7 @@ with two exceptions:
 - ``id`` is generated to aid computation in the case of parallel edges.  This can generally be ignored.
  
  
-2. Python
+Python
 ---------
 
 The postman solvers are modules that can also be imported and run within a Python environment.  This might interest you 
@@ -180,7 +180,7 @@ Files produced:
  run the examples).
  
 
-1. Seven Bridges of Konigsberg
+Seven Bridges of Konigsberg
 ------------------------------
 
 The Seven Bridges of Konigsberg is rather simple network with just 4 nodes and 7 edges.  Although small, it does contain
@@ -233,7 +233,7 @@ once are annotated by a sequence of numbers (walk order) and **bolded**.
 want to tweak graphviz parameters directly here.
 
 
-2. Sleeping Giant
+Sleeping Giant
 -----------------
 
 This example is near and dear to my heart and the motivation for this project in the first place.  

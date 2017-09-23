@@ -26,7 +26,7 @@ Install
 Basic
 -----
 
-Install the `postman_problems` package:
+Install the ``postman_problems`` package:
 
 1. Clone the repo.  For now, just grab the master branch from GitHub.  When I release to PyPI, I'll make proper 0.1 release.
 

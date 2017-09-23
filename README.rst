@@ -40,7 +40,7 @@ Install the `postman_problems` package:
 Viz
 ---
 
-`postman_problems` leverages `Graphviz`_ for visualization which unlocks more robust visualizations than just networkx and 
+``postman_problems`` leverages `Graphviz`_ for visualization which unlocks more robust visualizations than just networkx and 
 matplotlib.  However, this also comes with several dependencies.  These are managed separately from the 
 base package, so users can optimize graphs to their heart's content unencumbered from the weight and hassle of 
 installing viz dependencies, if they so choose.
@@ -78,7 +78,7 @@ Usage
 
 The easiest way to start is with the command line installed with this package, `chinese_postman`.  
 
-There are several optional command line arguments, but the only one required is `--edgelist`.  For the complete list of
+There are several optional command line arguments, but the only one required is ``--edgelist``.  For the complete list of
 optional arguments run:
 
 .. code::
@@ -86,7 +86,7 @@ optional arguments run:
    chinese_postman --help
 
 
-The big ones are `--viz_static` and `--viz_animation` which when present will create the static (single) and animation 
+The big ones are ``--viz_static`` and ``--viz_animation`` which when present will create the static (single) and animation 
 of the CPP solution.  Most of the other arguments control the visualizations with default values.  
   
 Below we solve the CPP on the `Seven Bridges of Konigsberg`_ network.  The edgelist is provided in this repo, but you
@@ -98,7 +98,7 @@ The columns should have headers.  Columns after the first two are treated as edg
    chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv
 
 
-If the `chinese_postman` entry point is not working for whatever reason, you can run the script directly with:
+If the ``chinese_postman`` entry point is not working for whatever reason, you can run the script directly with:
 
 .. code::
 
@@ -124,8 +124,8 @@ The first two values of each tuple are the "from" and the "to" node respectively
 
 The third value contains the edge attributes for each edge walked.  These are mostly grabbed from the starting graph, 
 with two exceptions:
-  - `augmented ` is added to edges after their first walk (double backing... the thing we want to minimize)
-  - `id` is generated to aid computation in the case of parallel edges.  This can generally be ignored.
+  - ``augmented`` is added to edges after their first walk (double backing... the thing we want to minimize)
+  - ``id`` is generated to aid computation in the case of parallel edges.  This can generally be ignored.
  
  
 2. Python
@@ -153,7 +153,7 @@ The snippet below should produce exactly the same output as printed above in [CL
 Examples
 ========
 
-Two examples are included in `postman_problems` which demonstrate end-to-end usage: raw edgelist & nodelist => 
+Two examples are included in ``postman_problems`` which demonstrate end-to-end usage: raw edgelist & nodelist => 
 optimization and visualization.
   
 Both examples are added as entry points and pre-configured arguments, so they can be executed with the single commands below.
@@ -166,11 +166,11 @@ An expected exception will be thrown if you don't have the visualization depende
 the output is prepackaged into `/examples` and embedded below.  
 
 Files produced:
- - `cpp_graph`: representation of `cpp_graph.svg` in the `DOT`_ graph description language.  This is provided mostly for 
+ - ``cpp_graph``: representation of `cpp_graph.svg` in the `DOT`_ graph description language.  This is provided mostly for 
  reference, or for tweaking.
- - `cpp_graph.svg`: static image with edge attributes annotating the walk sequence.
- - `cpp_graph.gif`: animation highlighting each edge in the Euler circuit (CPP solution) as it's walked.
- - `png/img*.png`: PNGs generated for each frame of the GIF (omitted from package, but will hit your filesystem when you 
+ - ``cpp_graph.svg``: static image with edge attributes annotating the walk sequence.
+ - ``cpp_graph.gif``: animation highlighting each edge in the Euler circuit (CPP solution) as it's walked.
+ - ``png/img*.png``: PNGs generated for each frame of the GIF (omitted from package, but will hit your filesystem when you 
  run the examples).
  
 
@@ -210,7 +210,7 @@ what the possibilities are.
     --fps 2
 
 
-`base_cpp_graph.svg`: This is the starting graph.  Edges are annotated by distance.  
+``base_cpp_graph.svg``: This is the starting graph.  Edges are annotated by distance.  
 
 ![seven_bridges_base_cpp_graph](./postman_problems/examples/seven_bridges/output/base_cpp_graph.svg)
 

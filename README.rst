@@ -1,11 +1,11 @@
-[![Build Status](http://travis-ci.org/brooksandrew/postman_problems.svg?branch=master)](http://travis-ci.org/brooksandrew/postman_problems)
+.. image:: https://travis-ci.org/brooksandrew/postman_problems.svg?branch=master
+    :target: https://travis-ci.org/brooksandrew/postman_problems
 
-[![Coverage Status](http://coveralls.io/repos/github/brooksandrew/postman_problems/badge.svg?branch=master)](https://coveralls.io/github/brooksandrew/postman_problems?branch=master)
 
+.. image:: http://coveralls.io/repos/github/brooksandrew/postman_problems/badge.svg?branch=master
+    :target: https://coveralls.io/github/brooksandrew/postman_problems?branch=master
 
-.. sectnum::
-
-.. contents:: TOC
+.. contents::  
 
 Postman Problems
 ================

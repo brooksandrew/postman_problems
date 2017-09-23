@@ -47,9 +47,9 @@ installing viz dependencies, if they so choose.
 
 1. Install optional Python visualization libraries.
 
-.. code:: 
+   .. code:: 
 
-    pip install .[viz]
+      pip install .[viz]
 
 
 2. Install Graphviz.  You need this underlying software application in addition to the `graphviz python package`_ which
@@ -61,9 +61,9 @@ installing viz dependencies, if they so choose.
    
      brew install graphviz
  
-  For Linux, 
+   For Linux, 
 
-  .. code:: 
+   .. code:: 
   
     sudo apt-get install graphviz
    

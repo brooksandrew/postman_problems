@@ -5,7 +5,10 @@
 .. image:: http://coveralls.io/repos/github/brooksandrew/postman_problems/badge.svg?branch=master
     :target: https://coveralls.io/github/brooksandrew/postman_problems?branch=master
 
-.. contents:: :depth: 1
+.. sectnum::
+
+.. contents:: :depth: 1 . 
+
 
 Postman Problems
 ================

@@ -18,27 +18,29 @@ Plans are to implement the Rural Postman Problem next.
 Install
 =======
 
-Basic Install
--------------
+Basic
+-----
 
 Install the `postman_problems` package:
 
 1. Clone the repo.  For now, just grab the master branch from GitHub.  When I release to PyPI, I'll make proper 0.1 release.
 
-.. code-block:: bash
-   git clone https://github.com/brooksandrew/postman_problems.git
-   cd postman_problems
+.. code:: 
 
+    git clone https://github.com/brooksandrew/postman_problems.git
+    cd postman_problems
 
 2. Install with pip.  Builds are tested on Python 2.7, 3.3, 3.4, 3.5, 3.6.  
-    ```
-    pip install .
-    ```
 
-Install w Viz
--------------
+.. code:: 
 
-`postman_problems` leverages [Graphviz] for visualization which unlocks more robust visualizations than just networkx and 
+   pip install .
+   
+
+Viz
+---
+
+`postman_problems` leverages `Graphviz`_ for visualization which unlocks more robust visualizations than just networkx and 
 matplotlib.  However, this also comes with several dependencies.  These are managed separately from the 
 base package, so users can optimize graphs to their heart's content unencumbered from the weight and hassle of 
 installing viz dependencies, if they so choose.
@@ -294,7 +296,7 @@ Copyright (C) 2017 Andrew Brooks.
 [Seven Bridges of Konigsberg]:https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
 [Graphviz python package]: https://pypi.python.org/pypi/graphviz
 [Graphviz Download page]:http://www.graphviz.org/Download..php
-[Graphviz]:http://www.graphviz.org/
+.. `Graphviz`_: http://www.graphviz.org/
 [Tests on TravisCI]: https://github.com/brooksandrew/postman_problems/blob/master/.travis.yml
 [Sleeping Giant]:http://www.sgpa.org/
 [Giant Master Program]:http://www.sgpa.org/hikes/masters.html

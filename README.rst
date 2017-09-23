@@ -2,9 +2,9 @@
 
 [![Coverage Status](http://coveralls.io/repos/github/brooksandrew/postman_problems/badge.svg?branch=master)](https://coveralls.io/github/brooksandrew/postman_problems?branch=master)
 
-=================
-Postman Problems:
-=================
+
+Postman Problems
+================
 
 Contents
 ========
@@ -25,16 +25,16 @@ Install the `postman_problems` package:
 
 1. Clone the repo.  For now, just grab the master branch from GitHub.  When I release to PyPI, I'll make proper 0.1 release.
 
-.. code:: 
+   .. code:: 
 
-    git clone https://github.com/brooksandrew/postman_problems.git
-    cd postman_problems
+      git clone https://github.com/brooksandrew/postman_problems.git
+      cd postman_problems
 
 2. Install with pip.  Builds are tested on Python 2.7, 3.3, 3.4, 3.5, 3.6.  
 
-.. code:: 
+   .. code:: 
 
-   pip install .
+      pip install .
    
 
 Viz

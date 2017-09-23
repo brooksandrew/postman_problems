@@ -296,7 +296,7 @@ Copyright (C) 2017 Andrew Brooks.
 [Seven Bridges of Konigsberg]:https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
 [Graphviz python package]: https://pypi.python.org/pypi/graphviz
 [Graphviz Download page]:http://www.graphviz.org/Download..php
-.. `Graphviz`_: http://www.graphviz.org/
+
 [Tests on TravisCI]: https://github.com/brooksandrew/postman_problems/blob/master/.travis.yml
 [Sleeping Giant]:http://www.sgpa.org/
 [Giant Master Program]:http://www.sgpa.org/hikes/masters.html
@@ -305,3 +305,4 @@ Copyright (C) 2017 Andrew Brooks.
 [Datacamp tutorial]:https://www.datacamp.com/community/tutorials/networkx-python-graph-tutorial
 [DOT]:https://en.wikipedia.org/wiki/DOT_(graph_description_language)
 
+.. `Graphviz`_: http://www.graphviz.org/

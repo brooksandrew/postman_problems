@@ -64,6 +64,7 @@ installing viz dependencies, if they so choose.
   For Linux, 
 
   .. code:: 
+  
     sudo apt-get install graphviz
    
    These are the installs I'm currently using on my builds for the `tests on TravisCI`_.  YMMV.  For Windows users and for those where these methods fail, I defer to the Graphviz download docs.
@@ -80,9 +81,10 @@ The easiest way to start is with the command line installed with this package, `
 There are several optional command line arguments, but the only one required is `--edgelist`.  For the complete list of
 optional arguments run:
 
-```
-chinese_postman --help
-```
+.. code::
+
+   chinese_postman --help
+
 
 The big ones are `--viz_static` and `--viz_animation` which when present will create the static (single) and animation 
 of the CPP solution.  Most of the other arguments control the visualizations with default values.  
@@ -91,29 +93,32 @@ Below we solve the CPP on the `Seven Bridges of Konigsberg`_ network.  The edgel
 can swap this out for any comma delimited text file where the first two columns represent the node pairs in your network.
 The columns should have headers.  Columns after the first two are treated as edge attributes.
 
-```bash
-chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv
-```
+.. code::
+
+   chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv
+
 
 If the `chinese_postman` entry point is not working for whatever reason, you can run the script directly with:
 
-```
-python postman_problems/chinese_postman.py --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv
-```
+.. code::
+
+   python postman_problems/chinese_postman.py --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv
+
  
 You should see output that describes the CPP solution (Eulerian circuit) through each edge.  Something like this:
 
-```
-('A', 'C', {'trail': 'c', 'distance': 2, 'id': 2})
-('C', 'D', {'trail': 'g', 'distance': 3, 'id': 6})
-('D', 'C', {'trail': 'g', 'distance': 3, 'id': 6, 'augmented': True})
-('C', 'A', {'trail': 'd', 'distance': 10, 'id': 3})
-('A', 'D', {'trail': 'e', 'distance': 1, 'id': 4})
-('D', 'B', {'trail': 'f', 'distance': 9, 'id': 5})
-('B', 'A', {'trail': 'a', 'distance': 3, 'id': 0})
-('A', 'B', {'trail': 'b', 'distance': 5, 'id': 1})
-('B', 'A', {'trail': 'a', 'distance': 3, 'id': 0, 'augmented': True})
-```
+.. code::
+
+    ('A', 'C', {'trail': 'c', 'distance': 2, 'id': 2})
+    ('C', 'D', {'trail': 'g', 'distance': 3, 'id': 6})
+    ('D', 'C', {'trail': 'g', 'distance': 3, 'id': 6, 'augmented': True})
+    ('C', 'A', {'trail': 'd', 'distance': 10, 'id': 3})
+    ('A', 'D', {'trail': 'e', 'distance': 1, 'id': 4})
+    ('D', 'B', {'trail': 'f', 'distance': 9, 'id': 5})
+    ('B', 'A', {'trail': 'a', 'distance': 3, 'id': 0})
+    ('A', 'B', {'trail': 'b', 'distance': 5, 'id': 1})
+    ('B', 'A', {'trail': 'a', 'distance': 3, 'id': 0, 'augmented': True})
+
 
 The first two values of each tuple are the "from" and the "to" node respectively for each edge in the circuit.  
 
@@ -132,17 +137,18 @@ the visualization or optimization parameters beyond what's provided from the CLI
 
 The snippet below should produce exactly the same output as printed above in [CLI](#1.-cli).
 
-```python
-from postman_problems.graph import cpp
+.. code:: python
 
-# find CPP solution
-circuit, graph = cpp(edgelist_filename='postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv',
-                     start_node='D')
+    from postman_problems.graph import cpp
 
-# print solution
-for e in circuit:
-    print(e)
-```
+    # find CPP solution
+    circuit, graph = cpp(edgelist_filename='postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv',
+                         start_node='D')
+
+    # print solution
+    for e in circuit:
+        print(e)
+
 
 Examples
 ========
@@ -179,26 +185,30 @@ each edge exactly once if all nodes have even degree. Although this wasn't prove
 Euler was right and this property is a key part of solving the Postman Problems. 
 
 This contrived example has been bundled and parameterized into a script that can be run with: 
-```
-chinese_postman_seven_bridges
-```
+
+.. code::
+
+   chinese_postman_seven_bridges
+
 
 The example can also be run using the verbose method below which allows you to more easily parameterize more pieces.  
 Many of the options provided below are defaults and can be excluded in practice. They are included here simply to convey 
 what the possibilities are.
-```
-chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv \
---viz_static \
---viz_static_filename 'postman_problems/examples/seven_bridges/output/cpp_graph' \
---viz_static_engine 'dot' \
---viz_static_format 'svg' \
---viz_animation \
---viz_animation_filename 'postman_problems/examples/seven_bridges/output/cpp_graph.gif' \
---viz_images_dir 'postman_problems/examples/seven_bridges/output/img' \
---viz_animation_engine 'dot' \
---viz_animation_format 'png' \
---fps 2
-```
+
+.. code::
+
+    chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv \
+    --viz_static \
+    --viz_static_filename 'postman_problems/examples/seven_bridges/output/cpp_graph' \
+    --viz_static_engine 'dot' \
+    --viz_static_format 'svg' \
+    --viz_animation \
+    --viz_animation_filename 'postman_problems/examples/seven_bridges/output/cpp_graph.gif' \
+    --viz_images_dir 'postman_problems/examples/seven_bridges/output/img' \
+    --viz_animation_engine 'dot' \
+    --viz_animation_format 'png' \
+    --fps 2
+
 
 `base_cpp_graph.svg`: This is the starting graph.  Edges are annotated by distance.  
 
@@ -230,9 +240,10 @@ That's all I'll say here.  I wrote more about the personal motivation and Sleepi
 `DataCamp tutorial`_ which also helped motivate this project.
 
 
-```
-chinese_postman_sleeping_giant
-```
+.. code::
+
+   chinese_postman_sleeping_giant
+
 
 `postman_problems/examples/sleeping_giant/cpp_graph.svg`:
 
@@ -248,27 +259,26 @@ If you'd like to fork or contribute directly to this project (PRs welcome), or s
  
  1. Install test dependencies.
  
-    ```
-    pip install .[test]
-    pip install .[viz]
-    ```
+    .. code::
+    
+        pip install .[test]
+        pip install .[viz]
+   
  
     Or do an editable install from the beginning.  This is my typical approach when developing.
     
-    ```
-    pip install -e .
-    pip install -e .[viz]
-    pip install -e .[test]
-    ```    
-
- 
+    .. code::
+    
+       pip install -e .
+       pip install -e .[viz]
+       pip install -e .[test] 
  
  2. <a href="http://www.troll.me?p=50341"><img src="http://troll.me/images/x-all-the-things/run-all-the-tests.jpg" HEIGHT=138, WIDTH=184></a>
     
-    ```
-    python -m pytest
-    pytest --cov
-    ```
+    .. code::
+    
+       python -m pytest
+       pytest --cov
     
     Some tests that take quite a while to run.  Namely the examples that write visualizations to the filesystem for 
     large networks.  
@@ -277,10 +287,11 @@ If you'd like to fork or contribute directly to this project (PRs welcome), or s
     kept and marked them with the `@slow` and `@long` decorators.  `conftest.py` is configured to exclude them by 
     default with a simple run of `pytest` or `python -m pytest`, but the full test suite can be run by:
     
-    ```
-    python -m pytest --runslow
-    pytest --cov --runslow
-    ```
+    .. code::
+    
+       python -m pytest --runslow
+       pytest --cov --runslow
+
     
 
 License

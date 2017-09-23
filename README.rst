@@ -295,14 +295,14 @@ Copyright (C) 2017 Andrew Brooks.
  
  
 .. _`Postman Problems`: https://en.wikipedia.org/wiki/Route_inspection_problem
-.. _`Seven Bridges of Konigsberg`:https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
+.. _`Seven Bridges of Konigsberg`: https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
 .. _`Graphviz python package`: https://pypi.python.org/pypi/graphviz
-.. _`Graphviz Download page`:http://www.graphviz.org/Download..php
+.. _`Graphviz Download page`: http://www.graphviz.org/Download..php
 .. _`Graphviz`: http://www.graphviz.org/
 .. _`Tests on TravisCI`: https://github.com/brooksandrew/postman_problems/blob/master/.travis.yml
-.. _`Sleeping Giant`:http://www.sgpa.org/
-.. _`Giant Master Program`:http://www.sgpa.org/hikes/masters.html
-.. _`trail map`:http://www.ct.gov/deep/lib/deep/stateparks/maps/sleepgiant.pdf
-.. _`Giantmaster roster`:http://www.sgpa.org/hikes/master-list.htm
-.. _`Datacamp tutorial`:https://www.datacamp.com/community/tutorials/networkx-python-graph-tutorial
-.. _`DOT`:https://en.wikipedia.org/wiki/DOT_(graph_description_language)
+.. _`Sleeping Giant`: http://www.sgpa.org/
+.. _`Giant Master Program`: http://www.sgpa.org/hikes/masters.html
+.. _`trail map`: http://www.ct.gov/deep/lib/deep/stateparks/maps/sleepgiant.pdf
+.. _`Giantmaster roster`: http://www.sgpa.org/hikes/master-list.htm
+.. _`Datacamp tutorial`: https://www.datacamp.com/community/tutorials/networkx-python-graph-tutorial
+.. _`DOT`: https://en.wikipedia.org/wiki/DOT_(graph_description_language)

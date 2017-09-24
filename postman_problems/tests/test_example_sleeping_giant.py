@@ -98,3 +98,22 @@ def test_sleeping_giant_cpp_solution():
     assert len(graph.edges()) == 119
     [e[2].get('augmented') for e in graph.edges(data=True)].count(True) == 35
 
+
+def test_nodelist_edgelist_overlap():
+    """
+    Test that the nodelist and the edgelist contain the same node names.  If using X,Y coordinates for plotting and
+    not all nodes have attributes, this could get messy.
+    """
+    eldf = read_edgelist(EDGELIST)
+    nldf = pd.read_csv(NODELIST)
+    edgelist_nodes = set(eldf['node1'].append(eldf['node2']))
+    nodelist_nodes = set(nldf['id'])
+
+    nodes_in_el_but_not_nl = edgelist_nodes - nodelist_nodes
+    assert nodes_in_el_but_not_nl == set(), \
+        "Warning: The following nodes are in the edgelist, but not the nodelist: {}".format(nodes_in_el_but_not_nl)
+
+    nodes_in_nl_but_not_el = nodelist_nodes - edgelist_nodes
+    assert nodes_in_nl_but_not_el == set(), \
+        "Warning: The following nodes are in the nodelist, but not the edgelist: {}".format(nodes_in_nl_but_not_el)
+

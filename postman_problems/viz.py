@@ -3,6 +3,7 @@ import glob
 import imageio
 import tqdm
 import numpy as np
+import networkx as nx
 import graphviz as gv
 from collections import defaultdict
 
@@ -22,7 +23,7 @@ def add_node_attributes(graph, nodelist):
         networkx graph: original `graph` augmented w node attributes
     """
     for i, row in nodelist.iterrows():
-        graph.node[row['id']] = row.to_dict()
+        nx.set_node_attributes(graph, {row['id']: row.to_dict()})
     return graph
 
 

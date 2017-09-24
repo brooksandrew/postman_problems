@@ -287,9 +287,9 @@ If you'd like to fork or contribute directly to this project (PRs welcome), or s
       python -m pytest
       pytest --cov
     
-   Some tests that take quite a while to run.  Namely the examples that write visualizations to the filesystem for large networks.  
+   Some tests take quite a while to run.  Namely the examples that write visualizations to the filesystem for large networks.
     
-   As I have limited patience while developing, but am too cautious to drop them completely, I've kept and marked them with the ``@slow`` and ``@long`` decorators.  `conftest.py` is configured to exclude them by default with a simple run of ``pytest`` or ``python -m pytest``, but the full test suite can be run by:
+   As I have limited patience while developing, but am too cautious to drop them completely, I've kept and marked them with the ``@slow`` and ``@long`` decorators.  ``conftest.py`` is configured to exclude them by default with a simple run of ``pytest`` or ``python -m pytest``, but the full test suite can be run by:
     
    .. code::
     

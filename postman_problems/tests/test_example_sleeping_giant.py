@@ -58,10 +58,10 @@ def test_add_node_attributes():
         assert 'Y' in v
 
     # spot check node attributes for first node
-    print(graph_node_attrs.nodes(data=True)[0][0])
-    assert graph_node_attrs.nodes(data=True)[0][0] == 'rs_end_north'
-    assert graph_node_attrs.nodes(data=True)[0][1]['X'] == 1772
-    assert graph_node_attrs.nodes(data=True)[0][1]['Y'] == 172
+    node_data_from_graph = list(graph_node_attrs.nodes(data=True))
+    assert node_data_from_graph[0][0] == 'rs_end_north'
+    assert node_data_from_graph[0][1]['X'] == 1772
+    assert node_data_from_graph[0][1]['Y'] == 172
 
 
 def test_get_shortest_paths_distances():

@@ -129,6 +129,6 @@ park_east,b_hs,hs,lightgray,0.13,0,0
 b_hs,hs_y,hs,lightgray,0.05,1,0
 hs_y,hs_end_east,hs,lightgray,0.49,0,0
 rt_end_north,rd_end_north,road_tuttle,lightgray,0.6,1,0
-rc_end_south,rt_end_south,road_mtcarmel,lightgray,0.25,1,0
+rh_end_south,rt_end_south,road_mtcarmel,lightgray,0.25,1,0
 rt_end_south,rc_end_south,road_mtcarmel,lightgray,0.4,1,0
-rc_end_south,rt_end_south,road_mtcarmel,lightgray,0.4,1,0
+rc_end_south,rs_end_south,road_mtcarmel,lightgray,0.4,1,0

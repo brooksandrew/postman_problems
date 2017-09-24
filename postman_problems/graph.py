@@ -4,16 +4,21 @@ import pandas as pd
 import networkx as nx
 
 
-def read_edgelist(edgelist_filename):
+def read_edgelist(edgelist_filename, keep_optional=False):
     """
     Read an edgelist table into a pandas dataframe
     Args:
         edgelist_filename (str): filename of edgelist.  See cpp.py for more details.
+        keep_optional (Boolean): keep or discard optional edges (used for RPP)
+
     Returns:
         pandas dataframe of edgelist
     """
     el = pd.read_csv(edgelist_filename)
     el = el.dropna()  # drop rows with all NAs... as I find CSVs created w Numbers annoyingly do.
+
+    if (not keep_optional) & ('required' in el.columns):
+        el = el[el['required'] == 1]
 
     assert 'augmented' not in el.columns, \
         'Edgelist cannot contain a column named "augmented", sorry. This will cause computation problems'
@@ -257,4 +262,80 @@ def cpp(edgelist_filename, start_node=None, edge_weight='distance'):
 
     return circuit, g
 
+
+def create_required_graph(graph):
+    """
+    Strip a graph down to just the required nodes and edges.  Used for RPP.  Expected edge attribute "required"
+
+    Args:
+        graph (networkx MultiGraph):
+
+    Returns:
+        networkx MultiGraph with optional nodes and edges deleted
+    """
+
+    graph = graph.copy()  # preserve original structure
+
+    # remove optional edges
+    for e in list(graph.edges(data=True, keys=True)):
+        if e[3]['required'] == 0:
+            graph.remove_edge(e[0], e[1], key=e[2])
+
+    # remove any nodes left isolated after optional edges are removed (no required incident edges)
+    for n in list(nx.isolates(graph)):
+        graph.remove_node(n)
+
+    return graph
+
+
+def check_graph_is_connected(graph):
+    """
+    Ensure that the graph is still a connected graph after the optional edges are removed.
+
+    Args:
+        graph (networkx MultiGraph):
+
+    Returns:
+        None
+    """
+
+    assert nx.algorithms.connected.is_connected(graph), "Sorry, the required graph is not a connected graph after " \
+                                                        "the optional edges are removed.  This is a requirement for " \
+                                                        "this implementation of the RPP here which generalizes to the " \
+                                                        "CPP."
+
+
+def rpp(edgelist_filename, start_node=None, edge_weight='distance'):
+    """
+    Rural Postman Problem
+    Args:
+        edgelist_filename:
+        start_node:
+        edge_weight:
+
+    Returns:
+    """
+
+    el = read_edgelist(edgelist_filename, keep_optional=True)
+    g_full = create_networkx_graph_from_edgelist(el)
+    g_req = create_required_graph(g_full)
+    check_graph_is_connected(g_req)
+
+    # get augmenting path for odd nodes
+    odd_nodes = get_odd_nodes(g_req)
+    odd_node_pairs = list(itertools.combinations(odd_nodes, 2))
+    odd_node_pairs_shortest_paths = get_shortest_paths_distances(g_full, odd_node_pairs, edge_weight)
+    g_odd_complete = create_complete_graph(odd_node_pairs_shortest_paths, flip_weights=True)
+
+    # best solution using blossom algorithm
+    odd_matching = dedupe_matching(nx.algorithms.max_weight_matching(g_odd_complete, True))
+
+    # add the min weight matching edges to g
+    g_aug = add_augmenting_path_to_graph(g_req, odd_matching)
+    pd.value_counts([e[1] for e in list(g_aug.degree())])  # The problem is these are not all even
+
+    # get eulerian circuit route.
+    circuit = list(create_eulerian_circuit(g_aug, g_full, start_node))
+
+    return circuit, g_full
 

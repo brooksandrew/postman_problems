@@ -51,7 +51,7 @@ def create_networkx_graph_from_edgelist(edgelist, edge_id='id'):
         edge_attr_dict = row[1][2:].to_dict()
         if edge_id not in edge_attr_dict:
             edge_attr_dict[edge_id] = i
-        g.add_edge(row[1][0], row[1][1], attr_dict=edge_attr_dict)
+        g.add_edge(row[1][0], row[1][1], **edge_attr_dict)
     return g
 
 
@@ -66,7 +66,7 @@ def _get_even_or_odd_nodes(graph, mod):
         list[str]: list of node names of odd or even degree
     """
     degree_nodes = []
-    for v, d in graph.degree_iter():
+    for v, d in graph.degree():
         if d % 2 == mod:
             degree_nodes.append(v)
     return degree_nodes
@@ -132,7 +132,7 @@ def create_complete_graph(pair_weights, flip_weights=True):
     g = nx.Graph()
     for k, v in pair_weights.items():
         wt_i = -v if flip_weights else v
-        g.add_edge(k[0], k[1], attr_dict={'distance': v, 'weight': wt_i})
+        g.add_edge(k[0], k[1], **{'distance': v, 'weight': wt_i})
     return g
 
 
@@ -169,8 +169,8 @@ def add_augmenting_path_to_graph(graph, min_weight_pairs, edge_weight_name='weig
     for pair in min_weight_pairs:
         graph_aug.add_edge(pair[0],
                            pair[1],
-                           attr_dict={'distance': nx.dijkstra_path_length(graph, pair[0], pair[1], weight=edge_weight_name),
-                                      'augmented': True}
+                           **{'distance': nx.dijkstra_path_length(graph, pair[0], pair[1], weight=edge_weight_name),
+                              'augmented': True}
                            )
     return graph_aug
 
@@ -194,7 +194,7 @@ def create_eulerian_circuit(graph_augmented, graph_original, start_node=None):
 
     euler_circuit = list(nx.eulerian_circuit(graph_augmented, source=start_node))
     assert len(graph_augmented.edges()) == len(euler_circuit), 'graph and euler_circuit do not have equal number of edges.'
-    edge_data = graph_augmented.edges(data=True)
+    edge_data = list(graph_augmented.edges(data=True))
 
     for edge in euler_circuit:
         possible_edges = [e for e in edge_data if set([e[0], e[1]]) == set([edge[0], edge[1]])]
@@ -215,6 +215,7 @@ def create_eulerian_circuit(graph_augmented, graph_original, start_node=None):
                 yield(edge_aug + (edge_aug_shortest,))
         else:
             yield(edge + (possible_edges[edge_key][2],))
+
         edge_data.remove(possible_edges[edge_key])
 
 

@@ -47,7 +47,7 @@ setup(
     python_requires='>=2.7',
     install_requires=[
         'pandas',
-        'networkx'
+        'networkx==1.11'
     ],
     extras_require={
         'viz': ['imageio', 'matplotlib', 'graphviz', 'tqdm'],

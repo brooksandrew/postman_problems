@@ -61,7 +61,7 @@ installing viz dependencies, if they so choose.
 
    .. code:: 
 
-      pip install .[viz]
+      pip install postman_problems[viz]
 
 
 2. Install Graphviz.  You need this underlying software application in addition to the `graphviz python package`_ which
@@ -263,21 +263,20 @@ Developers
 ==========
 
 If you'd like to fork or contribute directly to this project (PRs welcome), or simply want run the tests, here's how:
- 
-1. Install test dependencies.
+
+0. Clone/Fork repo
+
+1. Full install with test and viz dependencies.
  
    .. code::
     
-       pip install .[test]
-       pip install .[viz]
+       pip install .[test,viz]
    
    Or do an editable install from the beginning.  This is my typical approach when developing.
     
    .. code::
     
-      pip install -e .
-      pip install -e .[viz]
-      pip install -e .[test] 
+      pip install -e .[test,viz]
  
 2. 
 

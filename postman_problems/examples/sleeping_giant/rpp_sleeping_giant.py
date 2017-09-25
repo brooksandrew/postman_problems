@@ -9,7 +9,7 @@ from postman_problems.graph import rpp
 
 
 def main():
-    """Solve the CPP and save visualizations of the solution"""
+    """Solve the RPP and save visualizations of the solution"""
 
     # PARAMS / DATA ---------------------------------------------------------------------
 
@@ -24,19 +24,19 @@ def main():
     NODE_ATTR = {'shape': 'point', 'color': 'black', 'width': '0.1', 'fixedsize': 'true'}
 
     PNG_PATH = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/png/')
-    CPP_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/rpp_graph')
-    CPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/rpp_graph.gif')
+    RPP_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/rpp_graph')
+    RPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/rpp_graph.gif')
 
     # setup logging
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
-    # SOLVE CPP -------------------------------------------------------------------------
+    # SOLVE RPP -------------------------------------------------------------------------
 
-    logger.info('Solve CPP')
+    logger.info('Solve RPP')
     circuit, graph = rpp(EDGELIST, START_NODE)
 
-    logger.info('Print the CPP solution:')
+    logger.info('Print the RPP solution:')
     for e in circuit:
         logger.info(e)
 
@@ -52,16 +52,15 @@ def main():
         graph = add_node_attributes(graph, nodelist_df)  # add attributes
         graph = add_pos_node_attribute(graph, origin='topleft')  # add X,Y positions in format for graphviz
 
-        logger.info('Creating single SVG of CPP solution')
+        logger.info('Creating single SVG of RPP solution')
         graph_gv = make_circuit_graphviz(circuit=circuit,
                                          graph=graph,
-                                         filename=CPP_SVG_FILENAME,
+                                         filename=RPP_SVG_FILENAME,
                                          format='svg',
                                          engine='neato',
                                          graph_attr=GRAPH_ATTR,
                                          edge_attr=EDGE_ATTR,
                                          node_attr=NODE_ATTR)
-
 
     except FileNotFoundError(OSError) as e:
         print(e)

@@ -117,12 +117,12 @@ def convert_networkx_graph_to_graphiz(graph, directed=False):
     for n in graph.nodes():
         n_attr = {k: str(v) for k, v in graph.node[n].items()}
         G.attr('node', n_attr)
-        G.node(n, n)
+        G.node(str(n), str(n))
 
     # add edges and their attributes to graphviz object
     for e in graph.edges(keys=True):
         e_attr = {k: str(v) for k, v in graph[e[0]][e[1]][e[2]].items()}
-        G.edge(e[0], e[1], **e_attr)
+        G.edge(str(e[0]), str(e[1]), **e_attr)
 
     return G
 

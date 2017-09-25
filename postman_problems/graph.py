@@ -242,7 +242,7 @@ def cpp(edgelist_filename, start_node=None, edge_weight='distance'):
           The third element is the dict of edge attributes for that edge.
         The original graph is returned as well.  This is needed for visualization
     """
-    el = read_edgelist(edgelist_filename)
+    el = read_edgelist(edgelist_filename, keep_optional=False)
     g = create_networkx_graph_from_edgelist(el)
 
     # get augmenting path for odd nodes
@@ -265,7 +265,8 @@ def cpp(edgelist_filename, start_node=None, edge_weight='distance'):
 
 def create_required_graph(graph):
     """
-    Strip a graph down to just the required nodes and edges.  Used for RPP.  Expected edge attribute "required"
+    Strip a graph down to just the required nodes and edges.  Used for RPP.  Expected edge attribute "required" with
+     True/False or 0/1 values.
 
     Args:
         graph (networkx MultiGraph):
@@ -274,21 +275,21 @@ def create_required_graph(graph):
         networkx MultiGraph with optional nodes and edges deleted
     """
 
-    graph = graph.copy()  # preserve original structure
+    graph_req = graph.copy()  # preserve original structure
 
     # remove optional edges
-    for e in list(graph.edges(data=True, keys=True)):
-        if e[3]['required'] == 0:
-            graph.remove_edge(e[0], e[1], key=e[2])
+    for e in list(graph_req.edges(data=True, keys=True)):
+        if not e[3]['required']:
+            graph_req.remove_edge(e[0], e[1], key=e[2])
 
     # remove any nodes left isolated after optional edges are removed (no required incident edges)
-    for n in list(nx.isolates(graph)):
-        graph.remove_node(n)
+    for n in list(nx.isolates(graph_req)):
+        graph_req.remove_node(n)
 
-    return graph
+    return graph_req
 
 
-def check_graph_is_connected(graph):
+def assert_graph_is_connected(graph):
     """
     Ensure that the graph is still a connected graph after the optional edges are removed.
 
@@ -296,30 +297,40 @@ def check_graph_is_connected(graph):
         graph (networkx MultiGraph):
 
     Returns:
-        None
+        True if graph is connected
     """
 
     assert nx.algorithms.connected.is_connected(graph), "Sorry, the required graph is not a connected graph after " \
                                                         "the optional edges are removed.  This is a requirement for " \
                                                         "this implementation of the RPP here which generalizes to the " \
                                                         "CPP."
+    return True
 
 
 def rpp(edgelist_filename, start_node=None, edge_weight='distance'):
     """
-    Rural Postman Problem
+    Solving the RPP from beginning (load network data) to end (finding optimal route).  This optimization makes a
+     relatively strong assumption: the starting graph must stay a connected graph when optional edges are removed.
+    If this is not so, an assertion is raised.  This class of RPP generalizes to the CPP strategy.
+
     Args:
-        edgelist_filename:
-        start_node:
-        edge_weight:
+        edgelist_filename (str): filename of edgelist.  See cpp.py for more details
+        start_node (str): name of starting node.  See cpp.py for more details
+        edge_weight (str): name edge attribute that indicates distance to minimize in CPP
 
     Returns:
+        tuple(list[tuple(str, str, dict)], networkx.MultiGraph]:
+        Each tuple is a direction (from one node to another) from the CPP solution route.
+          The first element is the starting ("from") node.
+          The second element is the end ("to") node.
+          The third element is the dict of edge attributes for that edge.
+        The original graph is returned as well.  This is needed for visualization
     """
 
     el = read_edgelist(edgelist_filename, keep_optional=True)
     g_full = create_networkx_graph_from_edgelist(el)
     g_req = create_required_graph(g_full)
-    check_graph_is_connected(g_req)
+    assert_graph_is_connected(g_req)
 
     # get augmenting path for odd nodes
     odd_nodes = get_odd_nodes(g_req)
@@ -332,7 +343,6 @@ def rpp(edgelist_filename, start_node=None, edge_weight='distance'):
 
     # add the min weight matching edges to g
     g_aug = add_augmenting_path_to_graph(g_req, odd_matching)
-    pd.value_counts([e[1] for e in list(g_aug.degree())])  # The problem is these are not all even
 
     # get eulerian circuit route.
     circuit = list(create_eulerian_circuit(g_aug, g_full, start_node))

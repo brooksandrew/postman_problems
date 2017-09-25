@@ -155,10 +155,12 @@ def test_create_required_graph():
     GRAPH_FULL = GRAPH.copy()
     nx.set_edge_attributes(GRAPH_FULL, 1, 'required')
     GRAPH_FULL['b']['d'][0]['required'] = 0
-    GRAPH_FULL['c']['d'][0]['required'] = 0
+    GRAPH_FULL['c']['d'][0]['required'] = False  # testing 0 and False values for 'required'
 
     GRAPH_REQ = create_required_graph(GRAPH_FULL)
     assert set(GRAPH_REQ.nodes()) == set(['a', 'b', 'c'])
+    assert set(GRAPH.nodes()) == set(['a', 'b', 'c', 'd'])
     assert len(GRAPH_REQ.edges()) == 3
+    assert len(GRAPH.edges()) == 5
 
 

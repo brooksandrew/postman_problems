@@ -61,10 +61,10 @@ def main():
     # VIZ -------------------------------------------------------------------------------
 
     try:
-        from postman_problems.viz import make_circuit_graphviz, make_circuit_images, make_circuit_video
+        from postman_problems.viz import plot_circuit_graphviz, make_circuit_images, make_circuit_video
 
         logger.info('Creating single SVG of base graph')
-        base_graph_gv = make_circuit_graphviz(circuit=circuit,
+        base_graph_gv = plot_circuit_graphviz(circuit=circuit,
                                               graph=graph,
                                               filename=CPP_BASE_VIZ_FILENAME,
                                               edge_label_attr='distance',
@@ -72,7 +72,7 @@ def main():
                                               engine='circo')
 
         logger.info('Creating single SVG of CPP solution')
-        graph_gv = make_circuit_graphviz(circuit=circuit,
+        graph_gv = plot_circuit_graphviz(circuit=circuit,
                                          graph=graph,
                                          filename=CPP_VIZ_FILENAME,
                                          format='svg',

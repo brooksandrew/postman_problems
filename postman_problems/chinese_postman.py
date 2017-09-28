@@ -2,7 +2,7 @@ import os
 import argparse
 import logging
 from postman_problems.graph import cpp
-from postman_problems.viz import make_circuit_graphviz, make_circuit_video, make_circuit_images
+from postman_problems.viz import plot_circuit_graphviz, make_circuit_video, make_circuit_images
 
 
 def get_args():
@@ -133,7 +133,7 @@ def main():
 
     if args.viz_static:
         logger.info('Creating single image of CPP solution...')
-        graph_gv = make_circuit_graphviz(circuit=cpp_solution,
+        graph_gv = plot_circuit_graphviz(circuit=cpp_solution,
                                          graph=graph,
                                          filename=args.viz_static_filename,
                                          format=args.viz_static_format,

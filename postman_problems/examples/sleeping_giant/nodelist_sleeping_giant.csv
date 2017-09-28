@@ -38,7 +38,7 @@ o_y_tt_end_west,459,1924
 park_east,2131,921
 rc_end_north,867,618
 rc_end_south,1450,1800
-rd_end_north,185,1561
+rd_end_north,212,1294
 rd_end_south,273,1869
 rh_end_north,205,1472
 rh_end_south,721,1925
@@ -72,3 +72,8 @@ y_rc,1429,1491
 y_rh,717,1852
 y_rs,1805,1246
 y_rt,977,1666
+hs_hs,1761,236
+hs_rs,1785,268
+hs_y,2089,1119
+b_hs,2096,1070
+hs_end_east,2366,1325

@@ -41,7 +41,9 @@ setup(
         'console_scripts': [
             'chinese_postman=postman_problems.chinese_postman:main',
             'chinese_postman_sleeping_giant=postman_problems.examples.sleeping_giant.cpp_sleeping_giant:main',
-            'chinese_postman_seven_bridges=postman_problems.examples.seven_bridges.cpp_seven_bridges:main'
+            'rural_postman_sleeping_giant=postman_problems.examples.sleeping_giant.rpp_sleeping_giant:main',
+            'chinese_postman_seven_bridges=postman_problems.examples.seven_bridges.cpp_seven_bridges:main',
+            'rural_postman_star=postman_problems.examples.star.rpp_star:main'
         ]
     },
     python_requires='>=2.7',

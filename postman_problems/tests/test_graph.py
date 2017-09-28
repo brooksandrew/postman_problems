@@ -1,11 +1,13 @@
 
 import itertools
 import warnings
+import pytest
 import pandas as pd
 import networkx as nx
 from postman_problems.graph import (
     read_edgelist, create_networkx_graph_from_edgelist, get_odd_nodes, get_even_nodes, get_shortest_paths_distances,
-    create_complete_graph, dedupe_matching, add_augmenting_path_to_graph, create_eulerian_circuit
+    create_complete_graph, dedupe_matching, add_augmenting_path_to_graph, create_eulerian_circuit,
+    assert_graph_is_connected, create_required_graph
 )
 from postman_problems.tests.utils import create_mock_csv_from_dataframe
 
@@ -139,5 +141,26 @@ def test_create_eulerian_circuit():
     assert circuit[-1][1] == 'a'
     assert [e[2]['id'] for e in circuit] == [2, 4, 5, 3, 4, 5, 1]
 
+
+def test_check_graph_is_connected():
+    assert assert_graph_is_connected(GRAPH)  # check that a connected graph is deemed as such
+
+    GRAPH_2_COMP = GRAPH.copy()
+    GRAPH_2_COMP.add_edge('e', 'f')
+    with pytest.raises(AssertionError):
+        assert_graph_is_connected(GRAPH_2_COMP)  # check that unconnected graph raises assertion
+
+
+def test_create_required_graph():
+    GRAPH_FULL = GRAPH.copy()
+    nx.set_edge_attributes(GRAPH_FULL, 1, 'required')
+    GRAPH_FULL['b']['d'][0]['required'] = 0
+    GRAPH_FULL['c']['d'][0]['required'] = False  # testing 0 and False values for 'required'
+
+    GRAPH_REQ = create_required_graph(GRAPH_FULL)
+    assert set(GRAPH_REQ.nodes()) == set(['a', 'b', 'c'])
+    assert set(GRAPH.nodes()) == set(['a', 'b', 'c', 'd'])
+    assert len(GRAPH_REQ.edges()) == 3
+    assert len(GRAPH.edges()) == 5
 
 

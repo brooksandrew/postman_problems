@@ -1,5 +1,6 @@
 import pkg_resources
 import logging
+import string
 import networkx as nx
 from postman_problems.tests.utils import create_mock_csv_from_dataframe
 from postman_problems.graph import rpp, cpp
@@ -17,12 +18,13 @@ def create_star_graph(n_nodes=10, ring=True):
 
     """
     graph = nx.MultiGraph()
-    graph.add_star(range(n_nodes))
+    node_names = list(string.ascii_lowercase)[:n_nodes]
+    graph.add_star(node_names)
     nx.set_edge_attributes(graph, 10, 'distance')
     nx.set_edge_attributes(graph, 1, 'required')
     nx.set_edge_attributes(graph, 'solid', 'style')
     if ring:
-        for e in list(zip(range(1, n_nodes), range(2, n_nodes+1))):
+        for e in list(zip(node_names[1:-1], node_names[2:])):
             graph.add_edge(e[0], e[1], distance=2, required=0, style='dashed')
     return graph
 
@@ -33,7 +35,7 @@ def main():
     # PARAMS / DATA ---------------------------------------------------------------------
 
     # inputs
-    START_NODE = 0
+    START_NODE = 'a'
     N_NODES = 10
 
     # filepaths

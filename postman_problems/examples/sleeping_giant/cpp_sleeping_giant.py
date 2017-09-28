@@ -74,7 +74,7 @@ def main():
 
     try:
         from postman_problems.viz import (
-            add_pos_node_attribute, add_node_attributes, make_circuit_graphviz, make_circuit_images, make_circuit_video
+            add_pos_node_attribute, add_node_attributes, plot_circuit_graphviz, make_circuit_images, make_circuit_video
         )
 
         logger.info('Add node attributes to graph')
@@ -83,7 +83,7 @@ def main():
         graph = add_pos_node_attribute(graph, origin='topleft')  # add X,Y positions in format for graphviz
 
         logger.info('Creating single SVG of CPP solution')
-        graph_gv = make_circuit_graphviz(circuit=circuit,
+        graph_gv = plot_circuit_graphviz(circuit=circuit,
                                          graph=graph,
                                          filename=CPP_SVG_FILENAME,
                                          format='svg',

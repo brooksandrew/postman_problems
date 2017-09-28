@@ -1,8 +1,5 @@
-import sys
 import os
 import pkg_resources
-from unittest.mock import patch
-from postman_problems.chinese_postman import main
 from pytest_console_scripts import script_runner
 
 
@@ -13,15 +10,6 @@ NODELIST_SLEEPING_GIANT = pkg_resources.resource_filename('postman_problems', 'e
 # output params
 OUT_SLEEPING_GIANT_SVG = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/rpp_graph.svg')
 OUT_STAR_SVG = pkg_resources.resource_filename('postman_problems', 'examples/star/output/rpp_graph.svg')
-
-
-def test_chinese_postman_sleeping_giant():
-    testargs = ["rural_postman",
-                "--edgelist", EDGELIST_SLEEPING_GIANT,
-                "--nodelist", NODELIST_SLEEPING_GIANT
-                ]
-    with patch.object(sys, 'argv', testargs):
-        main()
 
 
 def test_entry_point_example_rural_postman_problem_sleeping_giant(script_runner):

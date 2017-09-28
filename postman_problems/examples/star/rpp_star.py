@@ -20,9 +20,10 @@ def create_star_graph(n_nodes=10, ring=True):
     graph.add_star(range(n_nodes))
     nx.set_edge_attributes(graph, 10, 'distance')
     nx.set_edge_attributes(graph, 1, 'required')
+    nx.set_edge_attributes(graph, 'solid', 'style')
     if ring:
         for e in list(zip(range(1, n_nodes), range(2, n_nodes+1))):
-            graph.add_edge(e[0], e[1], distance=2, required=0)
+            graph.add_edge(e[0], e[1], distance=2, required=0, style='dashed')
     return graph
 
 
@@ -35,20 +36,22 @@ def main():
     START_NODE = 0
     N_NODES = 10
 
-    PNG_PATH = pkg_resources.resource_filename('postman_problems', 'examples/star/output/png/')
+    # filepaths
     RPP_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/rpp_graph')
-    RPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/rpp_graph.gif')
+    RPP_BASE_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/base_rpp_graph')
 
     # setup logging
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
-    # SOLVE RPP -------------------------------------------------------------------------
+    # CREATE GRAPH ----------------------------------------------------------------------
 
     logger.info('Solve RPP')
-    graph = create_star_graph(N_NODES)
-    edgelist = nx.to_pandas_edgelist(graph, source='_node1', target='_node2')
+    graph_base = create_star_graph(N_NODES)
+    edgelist = nx.to_pandas_edgelist(graph_base, source='_node1', target='_node2')
     edgelist_file = create_mock_csv_from_dataframe(edgelist)
+
+    # SOLVE RPP -------------------------------------------------------------------------
 
     circuit, graph = rpp(edgelist_file, start_node=START_NODE)
 
@@ -59,15 +62,26 @@ def main():
     # VIZ -------------------------------------------------------------------------------
 
     try:
-        from postman_problems.viz import make_circuit_graphviz, make_circuit_images, make_circuit_video
+        from postman_problems.viz import plot_circuit_graphviz, plot_graphviz, make_circuit_images, make_circuit_video
+
+        logger.info('Creating single SVG of base graph')
+        base_graph_gv = plot_graphviz(graph=graph_base,
+                                      filename=RPP_BASE_SVG_FILENAME,
+                                      edge_label_attr='distance',
+                                      format='svg',
+                                      engine='circo',
+                                      graph_attr={'label': 'Base Graph: Distances', 'labelloc': 't'}
+                                      )
 
         logger.info('Creating single SVG of RPP solution')
-        graph_gv = make_circuit_graphviz(circuit=circuit,
+        graph_gv = plot_circuit_graphviz(circuit=circuit,
                                          graph=graph,
                                          filename=RPP_SVG_FILENAME,
                                          format='svg',
-                                         engine='fdp'
+                                         engine='circo',
+                                         graph_attr={'label': 'Base Graph: RPP Solution', 'labelloc': 't'}
                                          )
+
     except FileNotFoundError(OSError) as e:
         print(e)
         print("Sorry, looks like you don't have all the needed visualization dependencies.")

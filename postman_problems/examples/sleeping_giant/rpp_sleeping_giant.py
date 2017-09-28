@@ -44,7 +44,7 @@ def main():
 
     try:
         from postman_problems.viz import (
-            add_pos_node_attribute, add_node_attributes, make_circuit_graphviz, make_circuit_images, make_circuit_video
+            add_pos_node_attribute, add_node_attributes, plot_circuit_graphviz, make_circuit_images, make_circuit_video
         )
 
         logger.info('Add node attributes to graph')
@@ -52,15 +52,20 @@ def main():
         graph = add_node_attributes(graph, nodelist_df)  # add attributes
         graph = add_pos_node_attribute(graph, origin='topleft')  # add X,Y positions in format for graphviz
 
+        logger.info('Add style edge attribute to make optional edges dotted')
+        for e in graph.edges(data=True, keys=True):
+            graph[e[0]][e[1]][e[2]]['style'] = 'solid' if graph[e[0]][e[1]][e[2]]['required'] else 'dashed'
+
         logger.info('Creating single SVG of RPP solution')
-        graph_gv = make_circuit_graphviz(circuit=circuit,
+        graph_gv = plot_circuit_graphviz(circuit=circuit,
                                          graph=graph,
                                          filename=RPP_SVG_FILENAME,
                                          format='svg',
                                          engine='neato',
                                          graph_attr=GRAPH_ATTR,
                                          edge_attr=EDGE_ATTR,
-                                         node_attr=NODE_ATTR)
+                                         node_attr=NODE_ATTR
+                                         )
 
     except FileNotFoundError(OSError) as e:
         print(e)

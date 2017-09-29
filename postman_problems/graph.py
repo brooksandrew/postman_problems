@@ -152,7 +152,7 @@ def dedupe_matching(matching):
         list[2tuples]: list of node pairs from `matching` deduped (ignoring order).
     """
     matched_pairs_w_dupes = [tuple(sorted([k, v])) for k, v in matching.items()]
-    return list(pd.unique(matched_pairs_w_dupes))
+    return list(set(matched_pairs_w_dupes))
 
 
 def add_augmenting_path_to_graph(graph, min_weight_pairs, edge_weight_name='weight'):

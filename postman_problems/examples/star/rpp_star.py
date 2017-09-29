@@ -107,7 +107,7 @@ def main():
 
         logger.info('Creating single SVG of CPP solution (with optional edges)')
         graph_gv = plot_circuit_graphviz(circuit=circuit_cpp_opt,
-                                         graph=circuit_cpp_opt,
+                                         graph=graph_cpp_opt,
                                          filename=CPP_OPTIONAL_SVG_FILENAME,
                                          format='svg',
                                          engine='circo',

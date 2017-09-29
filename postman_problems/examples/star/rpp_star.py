@@ -10,7 +10,7 @@ def create_star_graph(n_nodes=10, ring=True):
     """
     Create a star graph with the points connected by
     Args:
-        n_nodes (int): number of nodes in graph
+        n_nodes (int): number of nodes in graph (max 26)
         ring (Boolean): add ring around the border with low (distance=2) weights
 
     Returns:
@@ -24,7 +24,7 @@ def create_star_graph(n_nodes=10, ring=True):
     nx.set_edge_attributes(graph, 1, 'required')
     nx.set_edge_attributes(graph, 'solid', 'style')
     if ring:
-        for e in list(zip(node_names[1:-1], node_names[2:])):
+        for e in list(zip(node_names[1:-1] + [node_names[1]], node_names[2:] + [node_names[-1]])):
             graph.add_edge(e[0], e[1], distance=2, required=0, style='dashed')
     return graph
 
@@ -36,13 +36,15 @@ def main():
 
     # inputs
     START_NODE = 'a'
-    N_NODES = 10
+    N_NODES = 13
 
     # filepaths
     CPP_REQUIRED_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/cpp_graph_req')
     CPP_OPTIONAL_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/cpp_graph_opt')
     RPP_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/rpp_graph')
     RPP_BASE_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/base_rpp_graph')
+    PNG_PATH = pkg_resources.resource_filename('postman_problems', 'examples/star/output/png/')
+    RPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/rpp_graph.gif')
 
     # setup logging
     logging.basicConfig(level=logging.INFO)
@@ -95,23 +97,23 @@ def main():
                                       graph_attr={'label': 'Base Graph: Distances', 'labelloc': 't'}
                                       )
 
-        logger.info('Creating single SVG of CPP solution (without optional edges)')
+        logger.info('Creating single SVG of CPP solution (required edges only)')
         graph_gv = plot_circuit_graphviz(circuit=circuit_cpp_req,
                                          graph=graph_cpp_req,
                                          filename=CPP_REQUIRED_SVG_FILENAME,
                                          format='svg',
                                          engine='circo',
-                                         graph_attr={'label': 'Base Graph: Chinese Postman Solution (without optional edges)',
+                                         graph_attr={'label': 'Base Graph: Chinese Postman Solution (required edges only)',
                                                      'labelloc': 't'}
                                          )
 
-        logger.info('Creating single SVG of CPP solution (with optional edges)')
+        logger.info('Creating single SVG of CPP solution (required & optional edges)')
         graph_gv = plot_circuit_graphviz(circuit=circuit_cpp_opt,
                                          graph=graph_cpp_opt,
                                          filename=CPP_OPTIONAL_SVG_FILENAME,
                                          format='svg',
                                          engine='circo',
-                                         graph_attr={'label': 'Base Graph: Chinese Postman Solution (with optional edges)',
+                                         graph_attr={'label': 'Base Graph: Chinese Postman Solution (required & optional edges)',
                                                      'labelloc': 't'}
                                          )
 
@@ -123,6 +125,27 @@ def main():
                                          engine='circo',
                                          graph_attr={'label': 'Base Graph: Rural Postman Solution', 'labelloc': 't'}
                                          )
+
+        logger.info('Creating GIF of RPP solution')
+        graph_gv = plot_circuit_graphviz(circuit=circuit_rpp,
+                                         graph=graph_rpp,
+                                         filename=RPP_SVG_FILENAME,
+                                         format='svg',
+                                         engine='circo',
+                                         graph_attr={'label': 'Base Graph: Rural Postman Solution', 'labelloc': 't'}
+                                         )
+
+        logger.info('Creating PNG files for GIF')
+        make_circuit_images(circuit=circuit_rpp,
+                            graph=graph_rpp,
+                            outfile_dir=PNG_PATH,
+                            format='png',
+                            engine='circo')
+
+        logger.info('Creating GIF')
+        video_message = make_circuit_video(infile_dir_images=PNG_PATH,
+                                           outfile_movie=RPP_GIF_FILENAME,
+                                           fps=0.5)
 
     except FileNotFoundError(OSError) as e:
         print(e)

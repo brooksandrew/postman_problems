@@ -2,6 +2,7 @@
 import itertools
 import warnings
 import pytest
+import collections
 import pandas as pd
 import networkx as nx
 from postman_problems.graph import (
@@ -67,7 +68,7 @@ def _test_graph_structure(graph):
     assert len(graph.edges()) == 5
     assert len(graph.nodes()) == 4
     assert graph['a']['b'][0]['distance'] == 5
-    assert set([e[2]['distance'] for e in graph.edges(data=True)]) == set([5, 20, 10, 2, 3])
+    assert set([e[3]['distance'] for e in graph.edges(data=True, keys=True)]) == set([5, 20, 10, 2, 3])
 
 
 def test_create_networkx_graph_from_edgelist_w_ids():
@@ -128,7 +129,7 @@ def test_dedupe_matching():
 def test_add_augmenting_path_to_graph():
     graph_aug = add_augmenting_path_to_graph(GRAPH, [('b', 'c')], 'distance')
     assert len(graph_aug.edges()) == 6
-    assert sum([e[2]['distance'] for e in graph_aug.edges(data=True)]) == 45
+    assert sum([e[3]['distance'] for e in graph_aug.edges(data=True, keys=True)]) == 45
     assert [set([e[0], e[1]]) for e in graph_aug.edges(data=True)].count(set(['b', 'c'])) == 2
 
 
@@ -136,10 +137,10 @@ def test_create_eulerian_circuit():
     graph_aug = add_augmenting_path_to_graph(GRAPH, [('b', 'c')], 'distance')
     circuit = list(create_eulerian_circuit(graph_aug, GRAPH, 'a'))
     assert len(circuit) == 7
-    assert sum([e[2]['distance'] for e in circuit]) == 45
+    assert sum([e[3]['distance'] for e in circuit]) == 45
     assert circuit[0][0] == 'a'
     assert circuit[-1][1] == 'a'
-    assert [e[2]['id'] for e in circuit] == [2, 4, 5, 3, 4, 5, 1]
+    assert collections.Counter([e[3]['id'] for e in circuit]) == collections.Counter({4: 2, 5: 2, 2: 1, 3: 1, 1: 1})
 
 
 def test_check_graph_is_connected():

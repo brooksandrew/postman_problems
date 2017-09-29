@@ -14,7 +14,7 @@ def create_star_graph(n_nodes=10, ring=True):
         ring (Boolean): add ring around the border with low (distance=2) weights
 
     Returns:
-        networkx graph in the shape of a star
+        networkx MultiGraoh in the shape of a star
 
     """
     graph = nx.MultiGraph()
@@ -39,6 +39,8 @@ def main():
     N_NODES = 10
 
     # filepaths
+    CPP_REQUIRED_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/cpp_graph_req')
+    CPP_OPTIONAL_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/cpp_graph_opt')
     RPP_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/rpp_graph')
     RPP_BASE_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/base_rpp_graph')
 
@@ -51,14 +53,32 @@ def main():
     logger.info('Solve RPP')
     graph_base = create_star_graph(N_NODES)
     edgelist = nx.to_pandas_edgelist(graph_base, source='_node1', target='_node2')
+
+    # SOLVE CPP -------------------------------------------------------------------------
+
+    # with required edges only
     edgelist_file = create_mock_csv_from_dataframe(edgelist)
+    circuit_cpp_req, graph_cpp_req = cpp(edgelist_file, start_node=START_NODE)
+    logger.info('Print the CPP solution (required edges only):')
+    for e in circuit_cpp_req:
+        logger.info(e)
+
+    # with required and optional edges as required
+    edgelist_all_req = edgelist.copy()
+    edgelist_all_req.drop(['required'], axis=1, inplace=True)
+    edgelist_file = create_mock_csv_from_dataframe(edgelist_all_req)
+    circuit_cpp_opt, graph_cpp_opt = cpp(edgelist_file, start_node=START_NODE)
+    logger.info('Print the CPP solution (optional and required edges):')
+    for e in circuit_cpp_opt:
+        logger.info(e)
 
     # SOLVE RPP -------------------------------------------------------------------------
 
-    circuit, graph = rpp(edgelist_file, start_node=START_NODE)
+    edgelist_file = create_mock_csv_from_dataframe(edgelist)  # need to regenerate
+    circuit_rpp, graph_rpp = rpp(edgelist_file, start_node=START_NODE)
 
     logger.info('Print the RPP solution:')
-    for e in circuit:
+    for e in circuit_rpp:
         logger.info(e)
 
     # VIZ -------------------------------------------------------------------------------
@@ -75,13 +95,33 @@ def main():
                                       graph_attr={'label': 'Base Graph: Distances', 'labelloc': 't'}
                                       )
 
+        logger.info('Creating single SVG of CPP solution (without optional edges)')
+        graph_gv = plot_circuit_graphviz(circuit=circuit_cpp_req,
+                                         graph=graph_cpp_req,
+                                         filename=CPP_REQUIRED_SVG_FILENAME,
+                                         format='svg',
+                                         engine='circo',
+                                         graph_attr={'label': 'Base Graph: Chinese Postman Solution (without optional edges)',
+                                                     'labelloc': 't'}
+                                         )
+
+        logger.info('Creating single SVG of CPP solution (with optional edges)')
+        graph_gv = plot_circuit_graphviz(circuit=circuit_cpp_opt,
+                                         graph=circuit_cpp_opt,
+                                         filename=CPP_OPTIONAL_SVG_FILENAME,
+                                         format='svg',
+                                         engine='circo',
+                                         graph_attr={'label': 'Base Graph: Chinese Postman Solution (with optional edges)',
+                                                     'labelloc': 't'}
+                                         )
+
         logger.info('Creating single SVG of RPP solution')
-        graph_gv = plot_circuit_graphviz(circuit=circuit,
-                                         graph=graph,
+        graph_gv = plot_circuit_graphviz(circuit=circuit_rpp,
+                                         graph=graph_rpp,
                                          filename=RPP_SVG_FILENAME,
                                          format='svg',
                                          engine='circo',
-                                         graph_attr={'label': 'Base Graph: RPP Solution', 'labelloc': 't'}
+                                         graph_attr={'label': 'Base Graph: Rural Postman Solution', 'labelloc': 't'}
                                          )
 
     except FileNotFoundError(OSError) as e:

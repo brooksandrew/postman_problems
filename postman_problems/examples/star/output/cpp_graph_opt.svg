@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 579.59)">
 <title>%3</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-579.59 571.816,-579.59 571.816,4 -4,4"/>
-<text text-anchor="middle" x="283.908" y="-560.39" font-family="Times,serif" font-size="14.00">Base Graph: Rural Postman Solution</text>
+<text text-anchor="middle" x="283.908" y="-560.39" font-family="Times,serif" font-size="14.00">Base Graph: Chinese Postman Solution (required &amp; optional edges)</text>
 <!-- d -->
 <g id="node1" class="node"><title>d</title>
 <ellipse fill="none" stroke="black" cx="510.955" cy="-155.644" rx="27" ry="18"/>
@@ -22,9 +22,9 @@
 </g>
 <!-- d&#45;&#45;c -->
 <g id="0" class="edge"><title>d&#45;&#45;c</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M496.919,-139.8C481.611,-122.521 457.267,-95.042 442.041,-77.8562"/>
-<text text-anchor="middle" x="462.48" y="-111.628" font-family="Times,serif" font-size="14.00">16</text>
-<polyline fill="none" stroke="black" points="469.48,-108.828 455.48,-108.828 469.914,-109.317 "/>
+<path fill="none" stroke="black" stroke-width="4" stroke-dasharray="5,2" d="M496.919,-139.8C481.611,-122.521 457.267,-95.042 442.041,-77.8562"/>
+<text text-anchor="middle" x="451.98" y="-111.628" font-family="Times,serif" font-size="14.00">27, 28</text>
+<polyline fill="none" stroke="black" points="469.48,-108.828 434.48,-108.828 465.279,-104.085 "/>
 </g>
 <!-- a -->
 <g id="node5" class="node"><title>a</title>
@@ -34,7 +34,7 @@
 <!-- d&#45;&#45;a -->
 <g id="2" class="edge"><title>d&#45;&#45;a</title>
 <path fill="none" stroke="black" d="M487.285,-164.62C405.114,-195.784 132.725,-299.087 50.6242,-330.224"/>
-<text text-anchor="middle" x="261.955" y="-250.222" font-family="Times,serif" font-size="14.00">17</text>
+<text text-anchor="middle" x="261.955" y="-250.222" font-family="Times,serif" font-size="14.00">29</text>
 <polyline fill="none" stroke="black" points="268.955,-247.422 254.955,-247.422 260.102,-250.78 "/>
 </g>
 <!-- e -->
@@ -45,6 +45,8 @@
 <!-- d&#45;&#45;e -->
 <g id="1" class="edge"><title>d&#45;&#45;e</title>
 <path fill="none" stroke="black" stroke-dasharray="5,2" d="M515.361,-173.52C521.007,-196.426 530.738,-235.904 536.392,-258.845"/>
+<text text-anchor="middle" x="518.877" y="-218.983" font-family="Times,serif" font-size="14.00">26</text>
+<polyline fill="none" stroke="black" points="525.877,-216.183 511.877,-216.183 527.134,-221.283 "/>
 </g>
 <!-- f -->
 <g id="node2" class="node"><title>f</title>
@@ -65,12 +67,14 @@
 <!-- f&#45;&#45;g -->
 <g id="22" class="edge"><title>f&#45;&#45;g</title>
 <path fill="none" stroke="black" stroke-dasharray="5,2" d="M496.919,-413.79C481.611,-431.069 457.267,-458.548 442.041,-475.734"/>
+<text text-anchor="middle" x="462.48" y="-447.562" font-family="Times,serif" font-size="14.00">24</text>
+<polyline fill="none" stroke="black" points="469.48,-444.762 455.48,-444.762 462.976,-452.104 "/>
 </g>
 <!-- f&#45;&#45;e -->
 <g id="23" class="edge"><title>f&#45;&#45;e</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M515.361,-380.07C521.007,-357.164 530.738,-317.686 536.392,-294.745"/>
-<text text-anchor="middle" x="522.377" y="-340.207" font-family="Times,serif" font-size="14.00">1</text>
-<polyline fill="none" stroke="black" points="525.877,-337.407 518.877,-337.407 524.075,-344.717 "/>
+<path fill="none" stroke="black" stroke-width="4" stroke-dasharray="5,2" d="M515.361,-380.07C521.007,-357.164 530.738,-317.686 536.392,-294.745"/>
+<text text-anchor="middle" x="511.877" y="-340.207" font-family="Times,serif" font-size="14.00">1, 25</text>
+<polyline fill="none" stroke="black" points="525.877,-337.407 497.877,-337.407 523.45,-347.253 "/>
 </g>
 <!-- c&#45;&#45;a -->
 <g id="7" class="edge"><title>c&#45;&#45;a</title>
@@ -86,6 +90,8 @@
 <!-- c&#45;&#45;b -->
 <g id="6" class="edge"><title>c&#45;&#45;b</title>
 <path fill="none" stroke="black" stroke-dasharray="5,2" d="M404.603,-53.2926C384.361,-45.6161 355.35,-34.6134 335.118,-26.9406"/>
+<text text-anchor="middle" x="362.861" y="-42.9166" font-family="Times,serif" font-size="14.00">14</text>
+<polyline fill="none" stroke="black" points="369.861,-40.1166 355.861,-40.1166 365.82,-38.5842 "/>
 </g>
 <!-- l -->
 <g id="node4" class="node"><title>l</title>
@@ -95,8 +101,8 @@
 <!-- l&#45;&#45;a -->
 <g id="10" class="edge"><title>l&#45;&#45;a</title>
 <path fill="none" stroke="black" d="M80.533,-121.992C69.7128,-165.891 42.1433,-277.745 31.3896,-321.374"/>
-<text text-anchor="middle" x="62.705" y="-224.483" font-family="Times,serif" font-size="14.00">11</text>
-<polyline fill="none" stroke="black" points="69.4486,-221.683 55.9613,-221.683 54.7006,-226.798 "/>
+<text text-anchor="middle" x="62.9613" y="-224.483" font-family="Times,serif" font-size="14.00">10</text>
+<polyline fill="none" stroke="black" points="69.9613,-221.683 55.9613,-221.683 54.7006,-226.798 "/>
 </g>
 <!-- m -->
 <g id="node10" class="node"><title>m</title>
@@ -106,6 +112,8 @@
 <!-- l&#45;&#45;m -->
 <g id="8" class="edge"><title>l&#45;&#45;m</title>
 <path fill="none" stroke="black" stroke-dasharray="5,2" d="M103.822,-90.921C122.234,-78.2116 150.123,-58.9617 168.613,-46.1986"/>
+<text text-anchor="middle" x="132.717" y="-71.3598" font-family="Times,serif" font-size="14.00">9</text>
+<polyline fill="none" stroke="black" points="136.217,-68.5598 129.217,-68.5598 130.497,-72.508 "/>
 </g>
 <!-- k -->
 <g id="node12" class="node"><title>k</title>
@@ -114,15 +122,15 @@
 </g>
 <!-- l&#45;&#45;k -->
 <g id="9" class="edge"><title>l&#45;&#45;k</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M75.9264,-121.185C65.0326,-141.941 46.8622,-176.562 35.9968,-197.264"/>
-<text text-anchor="middle" x="48.9616" y="-162.025" font-family="Times,serif" font-size="14.00">10</text>
-<polyline fill="none" stroke="black" points="55.9616,-159.225 41.9616,-159.225 51.5411,-167.647 "/>
+<path fill="none" stroke="black" stroke-width="4" stroke-dasharray="5,2" d="M75.9264,-121.185C65.0326,-141.941 46.8622,-176.562 35.9968,-197.264"/>
+<text text-anchor="middle" x="45.4616" y="-162.025" font-family="Times,serif" font-size="14.00">4, 5</text>
+<polyline fill="none" stroke="black" points="55.9616,-159.225 34.9616,-159.225 50.8686,-168.929 "/>
 </g>
 <!-- a&#45;&#45;b -->
 <g id="12" class="edge"><title>a&#45;&#45;b</title>
 <path fill="none" stroke="black" d="M41.1106,-323.256C89.6667,-268.448 249.512,-88.0192 297.684,-33.6449"/>
-<text text-anchor="middle" x="165.897" y="-181.251" font-family="Times,serif" font-size="14.00">8</text>
-<polyline fill="none" stroke="black" points="169.397,-178.451 162.397,-178.451 164.357,-184.139 "/>
+<text text-anchor="middle" x="162.653" y="-181.251" font-family="Times,serif" font-size="14.00">11</text>
+<polyline fill="none" stroke="black" points="169.397,-178.451 155.91,-178.451 162.833,-185.859 "/>
 </g>
 <!-- j -->
 <g id="node7" class="node"><title>j</title>
@@ -132,8 +140,8 @@
 <!-- a&#45;&#45;j -->
 <g id="13" class="edge"><title>a&#45;&#45;j</title>
 <path fill="none" stroke="black" d="M36.0604,-356.447C46.9542,-377.203 65.1247,-411.824 75.99,-432.526"/>
-<text text-anchor="middle" x="49.0252" y="-397.287" font-family="Times,serif" font-size="14.00">12</text>
-<polyline fill="none" stroke="black" points="56.0252,-394.487 42.0252,-394.487 57.3971,-397.101 "/>
+<text text-anchor="middle" x="52.5252" y="-397.287" font-family="Times,serif" font-size="14.00">7</text>
+<polyline fill="none" stroke="black" points="56.0252,-394.487 49.0252,-394.487 58.0769,-398.396 "/>
 </g>
 <!-- h -->
 <g id="node8" class="node"><title>h</title>
@@ -143,19 +151,19 @@
 <!-- a&#45;&#45;h -->
 <g id="14" class="edge"><title>a&#45;&#45;h</title>
 <path fill="none" stroke="black" d="M46.1116,-352.375C97.9477,-388.155 240.777,-486.743 292.515,-522.456"/>
-<text text-anchor="middle" x="165.814" y="-440.216" font-family="Times,serif" font-size="14.00">5</text>
-<polyline fill="none" stroke="black" points="169.314,-437.416 162.314,-437.416 169.92,-437.834 "/>
+<text text-anchor="middle" x="162.314" y="-440.216" font-family="Times,serif" font-size="14.00">16</text>
+<polyline fill="none" stroke="black" points="169.314,-437.416 155.314,-437.416 167.64,-436.26 "/>
 </g>
 <!-- a&#45;&#45;g -->
 <g id="15" class="edge"><title>a&#45;&#45;g</title>
 <path fill="none" stroke="black" d="M50.5998,-348.134C121.736,-375.112 333.545,-455.441 404.642,-482.405"/>
-<text text-anchor="middle" x="224.121" y="-418.069" font-family="Times,serif" font-size="14.00">3</text>
-<polyline fill="none" stroke="black" points="227.621,-415.269 220.621,-415.269 226.807,-414.96 "/>
+<text text-anchor="middle" x="220.621" y="-418.069" font-family="Times,serif" font-size="14.00">23</text>
+<polyline fill="none" stroke="black" points="227.621,-415.269 213.621,-415.269 223.906,-413.86 "/>
 </g>
 <!-- a&#45;&#45;m -->
 <g id="16" class="edge"><title>a&#45;&#45;m</title>
 <path fill="none" stroke="black" d="M36.099,-321.847C64.3798,-267.962 150.533,-103.811 178.677,-50.1868"/>
-<text text-anchor="middle" x="103.888" y="-188.817" font-family="Times,serif" font-size="14.00">6</text>
+<text text-anchor="middle" x="103.888" y="-188.817" font-family="Times,serif" font-size="14.00">8</text>
 <polyline fill="none" stroke="black" points="107.388,-186.017 100.388,-186.017 103.755,-192.94 "/>
 </g>
 <!-- i -->
@@ -166,13 +174,13 @@
 <!-- a&#45;&#45;i -->
 <g id="4" class="edge"><title>a&#45;&#45;i</title>
 <path fill="none" stroke="black" d="M40.9779,-354.961C71.4419,-389.348 143.515,-470.702 173.845,-504.938"/>
-<text text-anchor="middle" x="100.412" y="-418.75" font-family="Times,serif" font-size="14.00">14</text>
+<text text-anchor="middle" x="100.412" y="-418.75" font-family="Times,serif" font-size="14.00">22</text>
 <polyline fill="none" stroke="black" points="107.412,-415.95 93.4116,-415.95 100.864,-422.558 "/>
 </g>
 <!-- a&#45;&#45;k -->
 <g id="17" class="edge"><title>a&#45;&#45;k</title>
 <path fill="none" stroke="black" d="M27,-321.04C27,-297.383 27,-256.24 27,-232.572"/>
-<text text-anchor="middle" x="23.5" y="-279.606" font-family="Times,serif" font-size="14.00">9</text>
+<text text-anchor="middle" x="23.5" y="-279.606" font-family="Times,serif" font-size="14.00">3</text>
 <polyline fill="none" stroke="black" points="27,-276.806 20,-276.806 27,-283.633 "/>
 </g>
 <!-- a&#45;&#45;e -->
@@ -183,29 +191,33 @@
 </g>
 <!-- b&#45;&#45;m -->
 <g id="19" class="edge"><title>b&#45;&#45;m</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M284.971,-21.2265C264.214,-23.7469 235.487,-27.235 214.633,-29.7672"/>
-<text text-anchor="middle" x="246.302" y="-28.2968" font-family="Times,serif" font-size="14.00">7</text>
-<polyline fill="none" stroke="black" points="249.802,-25.4968 242.802,-25.4968 245.777,-25.9855 "/>
+<path fill="none" stroke="black" stroke-width="4" stroke-dasharray="5,2" d="M284.971,-21.2265C264.214,-23.7469 235.487,-27.235 214.633,-29.7672"/>
+<text text-anchor="middle" x="232.302" y="-28.2968" font-family="Times,serif" font-size="14.00">12, 13</text>
+<polyline fill="none" stroke="black" points="249.802,-25.4968 214.802,-25.4968 231.223,-27.7527 "/>
 </g>
 <!-- j&#45;&#45;i -->
 <g id="3" class="edge"><title>j&#45;&#45;i</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M103.822,-462.669C122.234,-475.378 150.123,-494.628 168.613,-507.391"/>
-<text text-anchor="middle" x="129.217" y="-487.83" font-family="Times,serif" font-size="14.00">13</text>
-<polyline fill="none" stroke="black" points="136.217,-485.03 122.217,-485.03 134.559,-483.886 "/>
+<path fill="none" stroke="black" stroke-width="4" stroke-dasharray="5,2" d="M103.822,-462.669C122.234,-475.378 150.123,-494.628 168.613,-507.391"/>
+<text text-anchor="middle" x="118.717" y="-487.83" font-family="Times,serif" font-size="14.00">20, 21</text>
+<polyline fill="none" stroke="black" points="136.217,-485.03 101.217,-485.03 127.538,-479.039 "/>
 </g>
 <!-- j&#45;&#45;k -->
 <g id="20" class="edge"><title>j&#45;&#45;k</title>
 <path fill="none" stroke="black" stroke-dasharray="5,2" d="M80.533,-431.598C69.7128,-387.699 42.1433,-275.845 31.3896,-232.216"/>
+<text text-anchor="middle" x="59.4613" y="-334.707" font-family="Times,serif" font-size="14.00">6</text>
+<polyline fill="none" stroke="black" points="62.9613,-331.907 55.9613,-331.907 57.8456,-339.552 "/>
 </g>
 <!-- h&#45;&#45;g -->
 <g id="21" class="edge"><title>h&#45;&#45;g</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M335.154,-526.636C355.395,-518.96 384.407,-507.957 404.638,-500.284"/>
-<text text-anchor="middle" x="366.396" y="-516.26" font-family="Times,serif" font-size="14.00">4</text>
-<polyline fill="none" stroke="black" points="369.896,-513.46 362.896,-513.46 364.711,-515.426 "/>
+<path fill="none" stroke="black" stroke-width="4" stroke-dasharray="5,2" d="M335.154,-526.636C355.395,-518.96 384.407,-507.957 404.638,-500.284"/>
+<text text-anchor="middle" x="352.396" y="-502.26" font-family="Times,serif" font-size="14.00">17, 18</text>
+<polyline fill="none" stroke="black" points="369.896,-499.46 334.896,-499.46 356.727,-518.454 "/>
 </g>
 <!-- h&#45;&#45;i -->
 <g id="5" class="edge"><title>h&#45;&#45;i</title>
 <path fill="none" stroke="black" stroke-dasharray="5,2" d="M284.971,-532.364C264.214,-529.843 235.487,-526.355 214.633,-523.823"/>
+<text text-anchor="middle" x="242.802" y="-530.893" font-family="Times,serif" font-size="14.00">19</text>
+<polyline fill="none" stroke="black" points="249.802,-528.093 235.802,-528.093 243.462,-527.323 "/>
 </g>
 </g>
 </svg>

@@ -126,15 +126,6 @@ def main():
                                          graph_attr={'label': 'Base Graph: Rural Postman Solution', 'labelloc': 't'}
                                          )
 
-        logger.info('Creating GIF of RPP solution')
-        graph_gv = plot_circuit_graphviz(circuit=circuit_rpp,
-                                         graph=graph_rpp,
-                                         filename=RPP_SVG_FILENAME,
-                                         format='svg',
-                                         engine='circo',
-                                         graph_attr={'label': 'Base Graph: Rural Postman Solution', 'labelloc': 't'}
-                                         )
-
         logger.info('Creating PNG files for GIF')
         make_circuit_images(circuit=circuit_rpp,
                             graph=graph_rpp,

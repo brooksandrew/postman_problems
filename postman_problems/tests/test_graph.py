@@ -99,8 +99,7 @@ def test_get_degree_nodes():
 def test_get_shortest_paths_distances():
     odd_nodes = get_odd_nodes(GRAPH)
     odd_node_pairs = list(itertools.combinations(odd_nodes, 2))
-    print('pairs')
-    print(odd_node_pairs)
+
     # coarsely checking structure of `get_shortest_paths_distances` return value
     odd_node_pairs_shortest_paths = get_shortest_paths_distances(GRAPH, odd_node_pairs, 'distance')
     assert len(odd_node_pairs_shortest_paths) == 1

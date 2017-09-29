@@ -197,19 +197,15 @@ def create_eulerian_circuit(graph_augmented, graph_original, start_node=None):
         networkx graph (`graph_original`) augmented with edges directly between the odd nodes
     """
 
-    euler_circuit = list(nx.eulerian_circuit(graph_augmented, source=start_node))
+    euler_circuit = list(nx.eulerian_circuit(graph_augmented, source=start_node, keys=True))
     assert len(graph_augmented.edges()) == len(euler_circuit), 'graph and euler_circuit do not have equal number of edges.'
-    edge_data = list(graph_augmented.edges(data=True))
 
     for edge in euler_circuit:
-        possible_edges = [e for e in edge_data if set([e[0], e[1]]) == set([edge[0], edge[1]])]
-
-        edge_key = 0  # initialize w 0.  Could change w parallel edges.
-        if possible_edges[edge_key][2].get('augmented'):
-            # find shortest path from odd node to odd node in original graph (could be nonadjacent)
-            aug_path = nx.shortest_path(graph_original, edge[0], edge[1], weight='distance')
-
-            # for each shortest path between odd nodes, add shortest path through edges that actually exist to circuit
+        aug_path = nx.shortest_path(graph_original, edge[0], edge[1], weight='distance')
+        edge_attr = graph_augmented[edge[0]][edge[1]][edge[2]]
+        if not edge_attr.get('augmented'):
+            yield (edge + (edge_attr,))
+        else:
             for edge_aug in list(zip(aug_path[:-1], aug_path[1:])):
                 # find edge with shortest distance (if there are two parallel edges between the same nodes)
                 edge_aug_dict = graph_original[edge_aug[0]][edge_aug[1]]
@@ -217,11 +213,7 @@ def create_eulerian_circuit(graph_augmented, graph_original, start_node=None):
                 edge_aug_shortest = edge_aug_dict[edge_key]
                 edge_aug_shortest['augmented'] = True
                 edge_aug_shortest['id'] = edge_aug_dict[edge_key]['id']
-                yield(edge_aug + (edge_aug_shortest,))
-        else:
-            yield(edge + (possible_edges[edge_key][2],))
-
-        edge_data.remove(possible_edges[edge_key])
+                yield(edge_aug + (edge_key, edge_aug_shortest,))
 
 
 def cpp(edgelist_filename, start_node=None, edge_weight='distance'):

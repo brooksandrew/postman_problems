@@ -78,9 +78,8 @@ def prepare_networkx_graph_circuit_for_transformation_to_graphviz(circuit, graph
     for i, e in enumerate(circuit):
 
         # edge attributes
-        eid = e[2]['id']
-        edge_id2key = {v['id']: k for k, v in graph[e[0]][e[1]].items()}
-        key = edge_id2key[eid]
+        eid = e[3]['id']
+        key = e[2]
 
         if eid not in edge_cnter:
             graph[e[0]][e[1]][key]['label'] = str(graph[e[0]][e[1]][key][edge_label_attr]) if edge_label_attr else str(i)
@@ -238,13 +237,12 @@ def make_circuit_images(circuit, graph, outfile_dir, format='png', engine='neato
     for i, e in enumerate(tqdm.tqdm(circuit)):
 
         # adding node colors
-        eid = e[2]['id']
+        eid = e[3]['id']
         graph_white.node[e[0]]['color'] = 'black'
         graph_white.node[e[1]]['color'] = 'red'  # will get overwritten at next step
 
         # adding edge colors and attributes
-        edge_id2key = {v['id']: k for k, v in graph_white[e[0]][e[1]].items()}
-        key = edge_id2key[eid]
+        key = e[2]
         graph_white[e[0]][e[1]][key]['color'] = graph[e[0]][e[1]][key]['color'] if 'color' in graph[e[0]][e[1]][key] else 'red'
 
         png_filename = os.path.join(outfile_dir, 'img' + str(i))

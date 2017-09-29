@@ -27,6 +27,7 @@ def test_entry_point_example_rural_postman_problem_star(script_runner):
     Just testing that star example runs with pre-parameterized config.
     Will overwrite output in the examples dir... that's OK.
     """
-    ret = script_runner.run('rural_postman_sleeping_giant')
+    ret = script_runner.run('rural_postman_star')
     assert ret.success
     assert os.path.isfile(OUT_STAR_SVG)
+

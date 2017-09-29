@@ -118,7 +118,7 @@ def test_sleeping_giant_cpp_solution():
     assert len(cpp_solution) == 155
 
     # make sure our total mileage is correct
-    cpp_solution_distance = sum([edge[2]['distance'] for edge in cpp_solution])
+    cpp_solution_distance = sum([edge[3]['distance'] for edge in cpp_solution])
     assert math.isclose(cpp_solution_distance, 33.25)
 
     # make sure our circuit begins and ends at the same place
@@ -136,7 +136,7 @@ def test_sleeping_giant_rpp_solution():
     assert len(rpp_solution) == 151
 
     # make sure our total mileage is correct
-    rpp_solution_distance = sum([edge[2]['distance'] for edge in rpp_solution])
+    rpp_solution_distance = sum([edge[3]['distance'] for edge in rpp_solution])
     assert math.isclose(rpp_solution_distance, 32.12)
 
     # make sure our circuit begins and ends at the same place
@@ -144,5 +144,5 @@ def test_sleeping_giant_rpp_solution():
 
     # make sure original graph is properly returned
     assert len(graph.edges()) == 133
-    [e[2].get('augmented') for e in graph.edges(data=True)].count(True) == 30
+    [e[3].get('augmented') for e in graph.edges(data=True, keys=True)].count(True) == 30
 

@@ -35,7 +35,7 @@ Usage:
 import logging
 import pkg_resources
 import pandas as pd
-from postman_problems.graph import cpp
+from postman_problems.solver import cpp
 
 
 def main():

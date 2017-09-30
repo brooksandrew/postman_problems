@@ -3,7 +3,7 @@ import logging
 import string
 import networkx as nx
 from postman_problems.tests.utils import create_mock_csv_from_dataframe
-from postman_problems.graph import rpp, cpp
+from postman_problems.solver import rpp, cpp
 
 
 def create_star_graph(n_nodes=10, ring=True):

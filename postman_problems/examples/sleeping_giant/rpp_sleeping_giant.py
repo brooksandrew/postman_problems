@@ -5,7 +5,7 @@
 import logging
 import pkg_resources
 import pandas as pd
-from postman_problems.graph import rpp
+from postman_problems.solver import rpp
 
 
 def main():

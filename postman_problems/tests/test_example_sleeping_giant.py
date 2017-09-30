@@ -5,8 +5,9 @@ import pandas as pd
 import networkx as nx
 from postman_problems.viz import add_node_attributes
 from postman_problems.graph import (
-    read_edgelist, create_networkx_graph_from_edgelist, get_odd_nodes, get_shortest_paths_distances, cpp, rpp
+    read_edgelist, create_networkx_graph_from_edgelist, get_odd_nodes, get_shortest_paths_distances
 )
+from postman_problems.solver import rpp, cpp
 
 # ###################
 # PARAMETERS / DATA #

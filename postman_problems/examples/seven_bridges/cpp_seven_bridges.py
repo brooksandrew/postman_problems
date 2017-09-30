@@ -27,7 +27,7 @@ Usage:
 
 import logging
 import pkg_resources
-from postman_problems.graph import cpp
+from postman_problems.solver import cpp
 
 
 def main():

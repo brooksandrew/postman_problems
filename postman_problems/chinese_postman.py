@@ -1,7 +1,7 @@
 import os
 import argparse
 import logging
-from postman_problems.graph import cpp
+from postman_problems.solver import cpp
 from postman_problems.viz import plot_circuit_graphviz, make_circuit_video, make_circuit_images
 
 

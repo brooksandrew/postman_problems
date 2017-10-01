@@ -45,8 +45,10 @@ def main():
     # PARAMS / DATA ---------------------------------------------------------------------
 
     # inputs
-    EDGELIST = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/edgelist_sleeping_giant.csv')
-    NODELIST = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/nodelist_sleeping_giant.csv')
+    EDGELIST = pkg_resources.resource_filename('postman_problems',
+                                               'examples/sleeping_giant/edgelist_sleeping_giant.csv')
+    NODELIST = pkg_resources.resource_filename('postman_problems',
+                                               'examples/sleeping_giant/nodelist_sleeping_giant.csv')
     START_NODE = "b_end_east"
 
     # outputs
@@ -56,7 +58,8 @@ def main():
 
     PNG_PATH = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/png/')
     CPP_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/cpp_graph')
-    CPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/cpp_graph.gif')
+    CPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems',
+                                                       'examples/sleeping_giant/output/cpp_graph.gif')
 
     # setup logging
     logging.basicConfig(level=logging.INFO)
@@ -88,32 +91,15 @@ def main():
         graph = add_pos_node_attribute(graph, origin='topleft')  # add X,Y positions in format for graphviz
 
         logger.info('Creating single SVG of CPP solution')
-        graph_gv = plot_circuit_graphviz(circuit=circuit,
-                                         graph=graph,
-                                         filename=CPP_SVG_FILENAME,
-                                         format='svg',
-                                         engine='neato',
-                                         graph_attr=GRAPH_ATTR,
-                                         edge_attr=EDGE_ATTR,
-                                         node_attr=NODE_ATTR)
+        plot_circuit_graphviz(circuit=circuit,
+                              graph=graph,
+                              filename=CPP_SVG_FILENAME,
+                              format='svg',
+                              engine='neato',
+                              graph_attr=GRAPH_ATTR,
+                              edge_attr=EDGE_ATTR,
+                              node_attr=NODE_ATTR)
 
-        # logger.info('Creating PNG files for GIF')
-        # images_message = make_circuit_images(circuit=circuit,
-        #                                      graph=graph,
-        #                                      outfile_dir=PNG_PATH,
-        #                                      format='png',
-        #                                      engine='neato',
-        #                                      graph_attr=GRAPH_ATTR,
-        #                                      edge_attr=EDGE_ATTR,
-        #                                      node_attr=NODE_ATTR)
-        # logger.info(images_message)
-        #
-        # logger.info('Creating GIF')
-        # video_message = make_circuit_video(infile_dir_images=PNG_PATH,
-        #                                    outfile_movie=CPP_GIF_FILENAME,
-        #                                    fps=2)
-        # logger.info(video_message)
-        # logger.info("and that's a wrap, checkout the output!")
 
     except FileNotFoundError(OSError) as e:
         print(e)

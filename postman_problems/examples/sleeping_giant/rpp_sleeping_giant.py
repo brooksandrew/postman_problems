@@ -89,7 +89,7 @@ def main():
         logger.info('Creating GIF')
         video_message = make_circuit_video(infile_dir_images=PNG_PATH,
                                            outfile_movie=RPP_GIF_FILENAME,
-                                           fps=2)
+                                           fps=3)
         logger.info(video_message)
         logger.info("and that's a wrap, checkout the output!")
 

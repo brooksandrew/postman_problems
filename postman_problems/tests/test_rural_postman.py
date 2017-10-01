@@ -12,6 +12,7 @@ NODELIST_SLEEPING_GIANT = pkg_resources.resource_filename('postman_problems', 'e
 OUT_SLEEPING_GIANT_SVG = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/rpp_graph.svg')
 OUT_STAR_SVG = pkg_resources.resource_filename('postman_problems', 'examples/star/output/rpp_graph.svg')
 
+
 @pytest.mark.slow
 @pytest.mark.main
 def test_entry_point_example_rural_postman_problem_sleeping_giant(script_runner):

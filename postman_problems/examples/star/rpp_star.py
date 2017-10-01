@@ -3,6 +3,7 @@ import logging
 import string
 import networkx as nx
 from postman_problems.tests.utils import create_mock_csv_from_dataframe
+from postman_problems.stats import calculate_postman_solution_stats
 from postman_problems.solver import rpp, cpp
 
 
@@ -39,8 +40,10 @@ def main():
     N_NODES = 13
 
     # filepaths
-    CPP_REQUIRED_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/cpp_graph_req')
-    CPP_OPTIONAL_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/cpp_graph_opt')
+    CPP_REQUIRED_SVG_FILENAME = pkg_resources.resource_filename('postman_problems',
+                                                                'examples/star/output/cpp_graph_req')
+    CPP_OPTIONAL_SVG_FILENAME = pkg_resources.resource_filename('postman_problems',
+                                                                'examples/star/output/cpp_graph_opt')
     RPP_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/rpp_graph')
     RPP_BASE_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/star/output/base_rpp_graph')
     PNG_PATH = pkg_resources.resource_filename('postman_problems', 'examples/star/output/png/')
@@ -83,48 +86,53 @@ def main():
     for e in circuit_rpp:
         logger.info(e)
 
+    logger.info('Solution summary stats:')
+    for k, v in calculate_postman_solution_stats(circuit_rpp).items():
+        logger.info(str(k) + ' : ' + str(v))
+
     # VIZ -------------------------------------------------------------------------------
 
     try:
         from postman_problems.viz import plot_circuit_graphviz, plot_graphviz, make_circuit_images, make_circuit_video
 
         logger.info('Creating single SVG of base graph')
-        base_graph_gv = plot_graphviz(graph=graph_base,
-                                      filename=RPP_BASE_SVG_FILENAME,
-                                      edge_label_attr='distance',
-                                      format='svg',
-                                      engine='circo',
-                                      graph_attr={'label': 'Base Graph: Distances', 'labelloc': 't'}
-                                      )
+        plot_graphviz(graph=graph_base,
+                      filename=RPP_BASE_SVG_FILENAME,
+                      edge_label_attr='distance',
+                      format='svg',
+                      engine='circo',
+                      graph_attr={'label': 'Base Graph: Distances', 'labelloc': 't'}
+                      )
 
         logger.info('Creating single SVG of CPP solution (required edges only)')
-        graph_gv = plot_circuit_graphviz(circuit=circuit_cpp_req,
-                                         graph=graph_cpp_req,
-                                         filename=CPP_REQUIRED_SVG_FILENAME,
-                                         format='svg',
-                                         engine='circo',
-                                         graph_attr={'label': 'Base Graph: Chinese Postman Solution (required edges only)',
-                                                     'labelloc': 't'}
-                                         )
+        plot_circuit_graphviz(circuit=circuit_cpp_req,
+                              graph=graph_cpp_req,
+                              filename=CPP_REQUIRED_SVG_FILENAME,
+                              format='svg',
+                              engine='circo',
+                              graph_attr={
+                                  'label': 'Base Graph: Chinese Postman Solution (required edges only)',
+                                  'labelloc': 't'}
+                              )
 
         logger.info('Creating single SVG of CPP solution (required & optional edges)')
-        graph_gv = plot_circuit_graphviz(circuit=circuit_cpp_opt,
-                                         graph=graph_cpp_opt,
-                                         filename=CPP_OPTIONAL_SVG_FILENAME,
-                                         format='svg',
-                                         engine='circo',
-                                         graph_attr={'label': 'Base Graph: Chinese Postman Solution (required & optional edges)',
-                                                     'labelloc': 't'}
-                                         )
+        plot_circuit_graphviz(circuit=circuit_cpp_opt,
+                              graph=graph_cpp_opt,
+                              filename=CPP_OPTIONAL_SVG_FILENAME,
+                              format='svg',
+                              engine='circo',
+                              graph_attr={'label': 'Base Graph: Chinese Postman Solution (required & optional edges)',
+                                          'labelloc': 't'}
+                              )
 
         logger.info('Creating single SVG of RPP solution')
-        graph_gv = plot_circuit_graphviz(circuit=circuit_rpp,
-                                         graph=graph_rpp,
-                                         filename=RPP_SVG_FILENAME,
-                                         format='svg',
-                                         engine='circo',
-                                         graph_attr={'label': 'Base Graph: Rural Postman Solution', 'labelloc': 't'}
-                                         )
+        plot_circuit_graphviz(circuit=circuit_rpp,
+                              graph=graph_rpp,
+                              filename=RPP_SVG_FILENAME,
+                              format='svg',
+                              engine='circo',
+                              graph_attr={'label': 'Base Graph: Rural Postman Solution', 'labelloc': 't'}
+                              )
 
         logger.info('Creating PNG files for GIF')
         make_circuit_images(circuit=circuit_rpp,
@@ -134,9 +142,9 @@ def main():
                             engine='circo')
 
         logger.info('Creating GIF')
-        video_message = make_circuit_video(infile_dir_images=PNG_PATH,
-                                           outfile_movie=RPP_GIF_FILENAME,
-                                           fps=0.5)
+        make_circuit_video(infile_dir_images=PNG_PATH,
+                           outfile_movie=RPP_GIF_FILENAME,
+                           fps=0.5)
 
     except FileNotFoundError(OSError) as e:
         print(e)

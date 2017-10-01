@@ -36,6 +36,7 @@ import logging
 import pkg_resources
 import pandas as pd
 from postman_problems.solver import cpp
+from postman_problems.stats import calculate_postman_solution_stats
 
 
 def main():
@@ -70,6 +71,10 @@ def main():
     for e in circuit:
         logger.info(e)
 
+    logger.info('Solution summary stats:')
+    for k, v in calculate_postman_solution_stats(circuit).items():
+        logger.info(str(k) + ' : ' + str(v))
+
     # VIZ -------------------------------------------------------------------------------
 
     try:
@@ -92,23 +97,23 @@ def main():
                                          edge_attr=EDGE_ATTR,
                                          node_attr=NODE_ATTR)
 
-        logger.info('Creating PNG files for GIF')
-        images_message = make_circuit_images(circuit=circuit,
-                                             graph=graph,
-                                             outfile_dir=PNG_PATH,
-                                             format='png',
-                                             engine='neato',
-                                             graph_attr=GRAPH_ATTR,
-                                             edge_attr=EDGE_ATTR,
-                                             node_attr=NODE_ATTR)
-        logger.info(images_message)
-
-        logger.info('Creating GIF')
-        video_message = make_circuit_video(infile_dir_images=PNG_PATH,
-                                           outfile_movie=CPP_GIF_FILENAME,
-                                           fps=2)
-        logger.info(video_message)
-        logger.info("and that's a wrap, checkout the output!")
+        # logger.info('Creating PNG files for GIF')
+        # images_message = make_circuit_images(circuit=circuit,
+        #                                      graph=graph,
+        #                                      outfile_dir=PNG_PATH,
+        #                                      format='png',
+        #                                      engine='neato',
+        #                                      graph_attr=GRAPH_ATTR,
+        #                                      edge_attr=EDGE_ATTR,
+        #                                      node_attr=NODE_ATTR)
+        # logger.info(images_message)
+        #
+        # logger.info('Creating GIF')
+        # video_message = make_circuit_video(infile_dir_images=PNG_PATH,
+        #                                    outfile_movie=CPP_GIF_FILENAME,
+        #                                    fps=2)
+        # logger.info(video_message)
+        # logger.info("and that's a wrap, checkout the output!")
 
     except FileNotFoundError(OSError) as e:
         print(e)

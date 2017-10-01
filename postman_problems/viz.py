@@ -175,7 +175,7 @@ def plot_graphviz(graph, filename=None, format='svg', engine='dot', edge_label_a
     if filename:
         graph_gv.render(filename=filename, view=False)
 
-    return graph_gv
+    return "Plot written to {}".format(filename)
 
 
 def plot_circuit_graphviz(circuit, graph, filename=None, format='svg', engine='dot', edge_label_attr=None,
@@ -250,7 +250,7 @@ def make_circuit_images(circuit, graph, outfile_dir, format='png', engine='neato
 
         graph_white[e[0]][e[1]][key]['color'] = 'black'  # set walked edge back to black
 
-    return 'Images created in {}'.format(os.path.dirname(png_filename))
+    return 'Images created in {}'.format(outfile_dir)
 
 
 def make_circuit_video(infile_dir_images, outfile_movie, fps=3, format='png'):

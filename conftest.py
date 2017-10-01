@@ -47,26 +47,25 @@ def GRAPH_1():
 
 @pytest.fixture(scope='session', autouse=True)
 def GRAPH_1_EDGELIST_DF_W_ID():
-    edgelist = pd.DataFrame({
+    return pd.DataFrame({
         'node1': ['a', 'a', 'b', 'c', 'd'],
         'node2': ['b', 'c', 'c', 'd', 'b'],
         'distance': [5, 20, 10, 3, 2],
-        'id': [1, 2, 3, 4, 5],
+        'id': [1, 2, 3, 4, 5]
     }, columns=['node1', 'node2', 'distance', 'id'])
-    return edgelist
 
 
-@pytest.fixture(scope='session', autouse=True)
+@pytest.fixture(scope='function', autouse=True, )
 def GRAPH_1_EDGELIST_DF(GRAPH_1_EDGELIST_DF_W_ID):
     return GRAPH_1_EDGELIST_DF_W_ID.drop('id', axis=1)
 
 
-@pytest.fixture(scope='session', autouse=True)
+@pytest.fixture(scope='function', autouse=True)
 def GRAPH_1_EDGELIST_CSV(GRAPH_1_EDGELIST_DF):
     return create_mock_csv_from_dataframe(GRAPH_1_EDGELIST_DF)
 
 
-@pytest.fixture(scope='session', autouse=True)
+@pytest.fixture(scope='function', autouse=True)
 def GRAPH_1_EDGELIST_W_ID_CSV(GRAPH_1_EDGELIST_DF_W_ID):
     return create_mock_csv_from_dataframe(GRAPH_1_EDGELIST_DF_W_ID)
 

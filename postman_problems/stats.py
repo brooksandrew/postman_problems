@@ -9,7 +9,7 @@ def calculate_postman_solution_stats(circuit, edge_weight_name='distance'):
         edge_weight_name (str): parameter name for edge attribute with distance/weight
 
     Returns:
-        summary table (pandas dataframe)
+        summary table (OrderedDict)
     """
     summary_stats = collections.OrderedDict()
 

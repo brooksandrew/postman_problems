@@ -78,4 +78,4 @@ def test_entry_point_example_chinese_postman_sleeping_giant(script_runner):
     ret = script_runner.run('chinese_postman_sleeping_giant')
     assert ret.success
     assert os.path.isfile(OUT_SLEEPING_GIANT_SVG)
-    assert os.path.isfile(OUT_SLEEPING_GIANT_GIF)
+    #assert os.path.isfile(OUT_SLEEPING_GIANT_GIF)

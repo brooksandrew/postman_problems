@@ -6,6 +6,7 @@ import logging
 import pkg_resources
 import pandas as pd
 from postman_problems.solver import rpp
+from postman_problems.stats import calculate_postman_solution_stats
 
 
 def main():
@@ -14,8 +15,10 @@ def main():
     # PARAMS / DATA ---------------------------------------------------------------------
 
     # inputs
-    EDGELIST = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/edgelist_sleeping_giant.csv')
-    NODELIST = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/nodelist_sleeping_giant.csv')
+    EDGELIST = pkg_resources.resource_filename('postman_problems',
+                                               'examples/sleeping_giant/edgelist_sleeping_giant.csv')
+    NODELIST = pkg_resources.resource_filename('postman_problems',
+                                               'examples/sleeping_giant/nodelist_sleeping_giant.csv')
     START_NODE = "b_end_east"
 
     # outputs
@@ -25,7 +28,8 @@ def main():
 
     PNG_PATH = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/png/')
     RPP_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/rpp_graph')
-    RPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/rpp_graph.gif')
+    RPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems',
+                                                       'examples/sleeping_giant/output/rpp_graph.gif')
 
     # setup logging
     logging.basicConfig(level=logging.INFO)
@@ -39,6 +43,10 @@ def main():
     logger.info('Print the RPP solution:')
     for e in circuit:
         logger.info(e)
+
+    logger.info('Solution summary stats:')
+    for k, v in calculate_postman_solution_stats(circuit).items():
+        logger.info(str(k) + ' : ' + str(v))
 
     # VIZ -------------------------------------------------------------------------------
 
@@ -57,15 +65,33 @@ def main():
             graph[e[0]][e[1]][e[2]]['style'] = 'solid' if graph[e[0]][e[1]][e[2]]['required'] else 'dashed'
 
         logger.info('Creating single SVG of RPP solution')
-        graph_gv = plot_circuit_graphviz(circuit=circuit,
-                                         graph=graph,
-                                         filename=RPP_SVG_FILENAME,
-                                         format='svg',
-                                         engine='neato',
-                                         graph_attr=GRAPH_ATTR,
-                                         edge_attr=EDGE_ATTR,
-                                         node_attr=NODE_ATTR
-                                         )
+        plot_circuit_graphviz(circuit=circuit,
+                              graph=graph,
+                              filename=RPP_SVG_FILENAME,
+                              format='svg',
+                              engine='neato',
+                              graph_attr=GRAPH_ATTR,
+                              edge_attr=EDGE_ATTR,
+                              node_attr=NODE_ATTR
+                              )
+
+        logger.info('Creating PNG files for GIF')
+        images_message = make_circuit_images(circuit=circuit,
+                                             graph=graph,
+                                             outfile_dir=PNG_PATH,
+                                             format='png',
+                                             engine='neato',
+                                             graph_attr=GRAPH_ATTR,
+                                             edge_attr=EDGE_ATTR,
+                                             node_attr=NODE_ATTR)
+        logger.info(images_message)
+
+        logger.info('Creating GIF')
+        video_message = make_circuit_video(infile_dir_images=PNG_PATH,
+                                           outfile_movie=RPP_GIF_FILENAME,
+                                           fps=2)
+        logger.info(video_message)
+        logger.info("and that's a wrap, checkout the output!")
 
     except FileNotFoundError(OSError) as e:
         print(e)
@@ -74,4 +100,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

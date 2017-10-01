@@ -1,7 +1,6 @@
-import itertools
 import warnings
-import pandas as pd
 import networkx as nx
+import pandas as pd
 
 
 def read_edgelist(edgelist_filename, keep_optional=False):
@@ -24,7 +23,7 @@ def read_edgelist(edgelist_filename, keep_optional=False):
         'Edgelist cannot contain a column named "augmented", sorry. This will cause computation problems'
 
     if 'id' in el.columns:
-        warnings.warn("Edgelist contains field named 'id'.  This is a field that will be assigned to edge attributes"
+        warnings.warn("Edgelist contains field named 'id'.  This is a field that will be assigned to edge attributes "
                       "with the `create_networkx_graph_from_edgelist function.  That is OK though.  We'll use your 'id'"
                       "field if it is unique.")
         assert el['id'].nunique() == len(el), 'Provided edge "id" field is not unique.  Please drop "id" or try again.'
@@ -204,7 +203,7 @@ def create_eulerian_circuit(graph_augmented, graph_original, start_node=None):
         aug_path = nx.shortest_path(graph_original, edge[0], edge[1], weight='distance')
         edge_attr = graph_augmented[edge[0]][edge[1]][edge[2]]
         if not edge_attr.get('augmented'):
-            yield (edge + (edge_attr,))
+            yield edge + (edge_attr,)
         else:
             for edge_aug in list(zip(aug_path[:-1], aug_path[1:])):
                 # find edge with shortest distance (if there are two parallel edges between the same nodes)
@@ -213,46 +212,7 @@ def create_eulerian_circuit(graph_augmented, graph_original, start_node=None):
                 edge_aug_shortest = edge_aug_dict[edge_key]
                 edge_aug_shortest['augmented'] = True
                 edge_aug_shortest['id'] = edge_aug_dict[edge_key]['id']
-                yield(edge_aug + (edge_key, edge_aug_shortest,))
-
-
-def cpp(edgelist_filename, start_node=None, edge_weight='distance'):
-    """
-    Solving the CPP from beginning (load network data) to end (finding optimal route).
-    Can be run from command line with arguments from cpp.py, or from an interactive Python session (ex jupyter notebook)
-
-    Args:
-        edgelist_filename (str): filename of edgelist.  See cpp.py for more details
-        start_node (str): name of starting node.  See cpp.py for more details
-        edge_weight (str): name edge attribute that indicates distance to minimize in CPP
-
-    Returns:
-        tuple(list[tuple(str, str, dict)], networkx.MultiGraph]:
-        Each tuple is a direction (from one node to another) from the CPP solution route.
-          The first element is the starting ("from") node.
-          The second element is the end ("to") node.
-          The third element is the dict of edge attributes for that edge.
-        The original graph is returned as well.  This is needed for visualization
-    """
-    el = read_edgelist(edgelist_filename, keep_optional=False)
-    g = create_networkx_graph_from_edgelist(el)
-
-    # get augmenting path for odd nodes
-    odd_nodes = get_odd_nodes(g)
-    odd_node_pairs = list(itertools.combinations(odd_nodes, 2))
-    odd_node_pairs_shortest_paths = get_shortest_paths_distances(g, odd_node_pairs, edge_weight)
-    g_odd_complete = create_complete_graph(odd_node_pairs_shortest_paths, flip_weights=True)
-
-    # best solution using blossom algorithm
-    odd_matching = dedupe_matching(nx.algorithms.max_weight_matching(g_odd_complete, True))
-
-    # add the min weight matching edges to g
-    g_aug = add_augmenting_path_to_graph(g, odd_matching)
-
-    # get eulerian circuit route.
-    circuit = list(create_eulerian_circuit(g_aug, g, start_node))
-
-    return circuit, g
+                yield edge_aug + (edge_key, edge_aug_shortest, )
 
 
 def create_required_graph(graph):
@@ -297,47 +257,4 @@ def assert_graph_is_connected(graph):
                                                         "this implementation of the RPP here which generalizes to the " \
                                                         "CPP."
     return True
-
-
-def rpp(edgelist_filename, start_node=None, edge_weight='distance'):
-    """
-    Solving the RPP from beginning (load network data) to end (finding optimal route).  This optimization makes a
-     relatively strong assumption: the starting graph must stay a connected graph when optional edges are removed.
-    If this is not so, an assertion is raised.  This class of RPP generalizes to the CPP strategy.
-
-    Args:
-        edgelist_filename (str): filename of edgelist.  See cpp.py for more details
-        start_node (str): name of starting node.  See cpp.py for more details
-        edge_weight (str): name edge attribute that indicates distance to minimize in CPP
-
-    Returns:
-        tuple(list[tuple(str, str, dict)], networkx.MultiGraph]:
-        Each tuple is a direction (from one node to another) from the CPP solution route.
-          The first element is the starting ("from") node.
-          The second element is the end ("to") node.
-          The third element is the dict of edge attributes for that edge.
-        The original graph is returned as well.  This is needed for visualization
-    """
-
-    el = read_edgelist(edgelist_filename, keep_optional=True)
-    g_full = create_networkx_graph_from_edgelist(el)
-    g_req = create_required_graph(g_full)
-    assert_graph_is_connected(g_req)
-
-    # get augmenting path for odd nodes
-    odd_nodes = get_odd_nodes(g_req)
-    odd_node_pairs = list(itertools.combinations(odd_nodes, 2))
-    odd_node_pairs_shortest_paths = get_shortest_paths_distances(g_full, odd_node_pairs, edge_weight)
-    g_odd_complete = create_complete_graph(odd_node_pairs_shortest_paths, flip_weights=True)
-
-    # best solution using blossom algorithm
-    odd_matching = dedupe_matching(nx.algorithms.max_weight_matching(g_odd_complete, True))
-
-    # add the min weight matching edges to g
-    g_aug = add_augmenting_path_to_graph(g_req, odd_matching)
-
-    # get eulerian circuit route.
-    circuit = list(create_eulerian_circuit(g_aug, g_full, start_node))
-
-    return circuit, g_full
 

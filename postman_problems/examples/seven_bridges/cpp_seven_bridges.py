@@ -24,10 +24,10 @@ Usage:
     ```
 """
 
-
 import logging
 import pkg_resources
-from postman_problems.graph import cpp
+from postman_problems.solver import cpp
+from postman_problems.stats import calculate_postman_solution_stats
 
 
 def main():
@@ -42,8 +42,10 @@ def main():
     # outputs
     PNG_PATH = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/output/png/')
     CPP_VIZ_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/output/cpp_graph')
-    CPP_BASE_VIZ_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/output/base_cpp_graph')
-    CPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/output/cpp_graph.gif')
+    CPP_BASE_VIZ_FILENAME = pkg_resources.resource_filename('postman_problems',
+                                                            'examples/seven_bridges/output/base_cpp_graph')
+    CPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems',
+                                                       'examples/seven_bridges/output/cpp_graph.gif')
 
     # setup logging
     logging.basicConfig(level=logging.INFO)
@@ -58,25 +60,29 @@ def main():
     for e in circuit:
         logger.info(e)
 
+    logger.info('Solution summary stats:')
+    for k, v in calculate_postman_solution_stats(circuit).items():
+        logger.info(str(k) + ' : ' + str(v))
+
     # VIZ -------------------------------------------------------------------------------
 
     try:
         from postman_problems.viz import plot_circuit_graphviz, make_circuit_images, make_circuit_video
 
         logger.info('Creating single SVG of base graph')
-        base_graph_gv = plot_circuit_graphviz(circuit=circuit,
-                                              graph=graph,
-                                              filename=CPP_BASE_VIZ_FILENAME,
-                                              edge_label_attr='distance',
-                                              format='svg',
-                                              engine='circo')
+        plot_circuit_graphviz(circuit=circuit,
+                              graph=graph,
+                              filename=CPP_BASE_VIZ_FILENAME,
+                              edge_label_attr='distance',
+                              format='svg',
+                              engine='circo')
 
         logger.info('Creating single SVG of CPP solution')
-        graph_gv = plot_circuit_graphviz(circuit=circuit,
-                                         graph=graph,
-                                         filename=CPP_VIZ_FILENAME,
-                                         format='svg',
-                                         engine='circo')
+        plot_circuit_graphviz(circuit=circuit,
+                              graph=graph,
+                              filename=CPP_VIZ_FILENAME,
+                              format='svg',
+                              engine='circo')
 
         logger.info('Creating PNG files for GIF')
         make_circuit_images(circuit=circuit,

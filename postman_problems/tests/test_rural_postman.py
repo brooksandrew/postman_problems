@@ -1,5 +1,6 @@
 import os
 import pkg_resources
+import pytest
 from pytest_console_scripts import script_runner
 
 
@@ -12,6 +13,8 @@ OUT_SLEEPING_GIANT_SVG = pkg_resources.resource_filename('postman_problems', 'ex
 OUT_STAR_SVG = pkg_resources.resource_filename('postman_problems', 'examples/star/output/rpp_graph.svg')
 
 
+@pytest.mark.slow
+@pytest.mark.main
 def test_entry_point_example_rural_postman_problem_sleeping_giant(script_runner):
     """
     Just testing that Sleeping Giant example runs with pre-parameterized config.

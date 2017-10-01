@@ -1,8 +1,9 @@
 import os
 import argparse
 import logging
-from postman_problems.graph import cpp
+from postman_problems.solver import cpp
 from postman_problems.viz import plot_circuit_graphviz, make_circuit_video, make_circuit_images
+from postman_problems.stats import calculate_postman_solution_stats
 
 
 def get_args():
@@ -128,16 +129,23 @@ def main():
     cpp_solution, graph = cpp(edgelist_filename=args.edgelist_filename,
                               start_node=args.start_node,
                               edge_weight=args.edge_weight)
+
+    logger.info('Solution:')
     for edge in cpp_solution:
         logger.info(edge)
 
+    logger.info('Solution summary stats:')
+    for k, v in calculate_postman_solution_stats(cpp_solution).items():
+        logger.info(str(k) + ' : ' + str(v))
+
     if args.viz_static:
         logger.info('Creating single image of CPP solution...')
-        graph_gv = plot_circuit_graphviz(circuit=cpp_solution,
-                                         graph=graph,
-                                         filename=args.viz_static_filename,
-                                         format=args.viz_static_format,
-                                         engine=args.viz_static_engine)
+        message_static = plot_circuit_graphviz(circuit=cpp_solution,
+                                               graph=graph,
+                                               filename=args.viz_static_filename,
+                                               format=args.viz_static_format,
+                                               engine=args.viz_static_engine)
+        logger.info(message_static)
 
     if args.viz_animation:
 
@@ -145,18 +153,19 @@ def main():
             os.path.dirname(args.viz_animation_filename), 'img')
 
         logger.info('Creating individual files for animation...')
-        make_circuit_images(circuit=cpp_solution,
-                            graph=graph,
-                            outfile_dir=viz_images_dir,
-                            format=args.viz_animation_format,
-                            engine=args.viz_animation_engine)
+        message_images = make_circuit_images(circuit=cpp_solution,
+                                             graph=graph,
+                                             outfile_dir=viz_images_dir,
+                                             format=args.viz_animation_format,
+                                             engine=args.viz_animation_engine)
+        logger.info(message_images)
 
         logger.info('Creating animation...')
-        video_message = make_circuit_video(infile_dir_images=viz_images_dir,
+        message_animation = make_circuit_video(infile_dir_images=viz_images_dir,
                                            outfile_movie=args.viz_animation_filename,
                                            fps=args.fps,
                                            format=args.viz_animation_format)
-        logger.info(video_message)
+        logger.info(message_animation)
 
 
 if __name__ == '__main__':

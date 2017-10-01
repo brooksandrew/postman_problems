@@ -1,16 +1,14 @@
-
+import collections
 import itertools
 import warnings
-import pytest
-import collections
-import pandas as pd
+
 import networkx as nx
+import pytest
 from postman_problems.graph import (
     read_edgelist, create_networkx_graph_from_edgelist, get_odd_nodes, get_even_nodes, get_shortest_paths_distances,
     create_complete_graph, dedupe_matching, add_augmenting_path_to_graph, create_eulerian_circuit,
     assert_graph_is_connected, create_required_graph
 )
-from postman_problems.tests.utils import create_mock_csv_from_dataframe
 
 
 # ###################
@@ -19,41 +17,21 @@ from postman_problems.tests.utils import create_mock_csv_from_dataframe
 
 NODE_PAIRS = {('a', 'b'): 2, ('b', 'c'): 5, ('c', 'd'): 10}
 MATCHING = {'a': 'b', 'd': 'c', 'b': 'a', 'c': 'd'}
-GRAPH = nx.MultiGraph([
-    ('a', 'b', {'id': 1, 'distance': 5}),
-    ('a', 'c', {'id': 2, 'distance': 20}),
-    ('b', 'c', {'id': 3, 'distance': 10}),
-    ('c', 'd', {'id': 4, 'distance': 3}),
-    ('d', 'b', {'id': 5, 'distance': 2})
-])
-EDGELIST_DF_W_ID = pd.DataFrame({
-    'node1': ['a', 'a', 'b', 'c', 'd'],
-    'node2': ['b', 'c', 'c', 'd', 'b'],
-    'distance': [5, 20, 10, 3, 2],
-    'id': [1, 2, 3, 4, 5],
-}, columns=['node1', 'node2', 'distance', 'id'])
-EDGELIST_DF = EDGELIST_DF_W_ID.drop('id', axis=1)
-NODE_ATTRIBUTES = pd.DataFrame({
-    'id': ['a', 'b', 'c', 'd'],
-    'attr_fruit': ['apple', 'banana', 'cherry', 'durian']
-})
 
 
 #########
 # TESTS #
 #########
 
-def test_read_edgelist():
-    EDGELIST_CSV = create_mock_csv_from_dataframe(EDGELIST_DF)
-    df = read_edgelist(EDGELIST_CSV)
+def test_read_edgelist(GRAPH_1_EDGELIST_CSV):
+    df = read_edgelist(GRAPH_1_EDGELIST_CSV)
     assert df.shape == (5, 3)
     assert set(df.columns) == set(['distance', 'node1', 'node2'])
 
 
-def test_read_edgelist_w_ids():
-    EDGELIST_CSV = create_mock_csv_from_dataframe(EDGELIST_DF_W_ID)
+def test_read_edgelist_w_ids(GRAPH_1_EDGELIST_W_ID_CSV):
     with warnings.catch_warnings(record=True) as w:
-        df = read_edgelist(EDGELIST_CSV)
+        df = read_edgelist(GRAPH_1_EDGELIST_W_ID_CSV)
 
         # make sure correct warning was given
         assert len(w) == 1
@@ -71,9 +49,9 @@ def _test_graph_structure(graph):
     assert set([e[3]['distance'] for e in graph.edges(data=True, keys=True)]) == set([5, 20, 10, 2, 3])
 
 
-def test_create_networkx_graph_from_edgelist_w_ids():
+def test_create_networkx_graph_from_edgelist_w_ids_warning(GRAPH_1_EDGELIST_DF_W_ID):
     with warnings.catch_warnings(record=True) as w:
-        graph = create_networkx_graph_from_edgelist(EDGELIST_DF_W_ID, edge_id='id')
+        graph = create_networkx_graph_from_edgelist(GRAPH_1_EDGELIST_DF_W_ID, edge_id='id')
 
         # make sure correct warning was given
         assert len(w) == 1
@@ -84,24 +62,24 @@ def test_create_networkx_graph_from_edgelist_w_ids():
     _test_graph_structure(graph)
 
 
-def test_create_networkx_graph_from_edgelist_w_ids():
-    graph = create_networkx_graph_from_edgelist(EDGELIST_DF, edge_id='id')
+def test_create_networkx_graph_from_edgelist_w_ids(GRAPH_1_EDGELIST_DF):
+    graph = create_networkx_graph_from_edgelist(GRAPH_1_EDGELIST_DF, edge_id='id')
     _test_graph_structure(graph)  # make sure our graph is as it should be
 
 
-def test_get_degree_nodes():
+def test_get_degree_nodes(GRAPH_1):
     # check that even + odd == total
-    assert len(get_odd_nodes(GRAPH)) + len(get_even_nodes(GRAPH)) == len(GRAPH.nodes())
+    assert len(get_odd_nodes(GRAPH_1)) + len(get_even_nodes(GRAPH_1)) == len(GRAPH_1.nodes())
     # check that there is no overlap between odd and even
-    assert set(get_odd_nodes(GRAPH)).intersection(get_even_nodes(GRAPH)) == set()
+    assert set(get_odd_nodes(GRAPH_1)).intersection(get_even_nodes(GRAPH_1)) == set()
 
 
-def test_get_shortest_paths_distances():
-    odd_nodes = get_odd_nodes(GRAPH)
+def test_get_shortest_paths_distances(GRAPH_1):
+    odd_nodes = get_odd_nodes(GRAPH_1)
     odd_node_pairs = list(itertools.combinations(odd_nodes, 2))
 
     # coarsely checking structure of `get_shortest_paths_distances` return value
-    odd_node_pairs_shortest_paths = get_shortest_paths_distances(GRAPH, odd_node_pairs, 'distance')
+    odd_node_pairs_shortest_paths = get_shortest_paths_distances(GRAPH_1, odd_node_pairs, 'distance')
     assert len(odd_node_pairs_shortest_paths) == 1
     assert type(odd_node_pairs_shortest_paths) == dict
     bc_key = ('b', 'c') if ('b', 'c') in odd_node_pairs_shortest_paths else ('c', 'b')  # tuple keys are unordered
@@ -128,16 +106,16 @@ def test_dedupe_matching():
     assert len(deduped_edges) == 2
 
 
-def test_add_augmenting_path_to_graph():
-    graph_aug = add_augmenting_path_to_graph(GRAPH, [('b', 'c')], 'distance')
+def test_add_augmenting_path_to_graph(GRAPH_1):
+    graph_aug = add_augmenting_path_to_graph(GRAPH_1, [('b', 'c')], 'distance')
     assert len(graph_aug.edges()) == 6
     assert sum([e[3]['distance'] for e in graph_aug.edges(data=True, keys=True)]) == 45
     assert [set([e[0], e[1]]) for e in graph_aug.edges(data=True)].count(set(['b', 'c'])) == 2
 
 
-def test_create_eulerian_circuit():
-    graph_aug = add_augmenting_path_to_graph(GRAPH, [('b', 'c')], 'distance')
-    circuit = list(create_eulerian_circuit(graph_aug, GRAPH, 'a'))
+def test_create_eulerian_circuit(GRAPH_1):
+    graph_aug = add_augmenting_path_to_graph(GRAPH_1, [('b', 'c')], 'distance')
+    circuit = list(create_eulerian_circuit(graph_aug, GRAPH_1, 'a'))
     assert len(circuit) == 7
     assert sum([e[3]['distance'] for e in circuit]) == 45
     assert circuit[0][0] == 'a'
@@ -145,25 +123,25 @@ def test_create_eulerian_circuit():
     assert collections.Counter([e[3]['id'] for e in circuit]) == collections.Counter({4: 2, 5: 2, 2: 1, 3: 1, 1: 1})
 
 
-def test_check_graph_is_connected():
-    assert assert_graph_is_connected(GRAPH)  # check that a connected graph is deemed as such
+def test_check_graph_is_connected(GRAPH_1):
+    assert assert_graph_is_connected(GRAPH_1)  # check that a connected graph is deemed as such
 
-    GRAPH_2_COMP = GRAPH.copy()
+    GRAPH_2_COMP = GRAPH_1.copy()
     GRAPH_2_COMP.add_edge('e', 'f')
     with pytest.raises(AssertionError):
         assert_graph_is_connected(GRAPH_2_COMP)  # check that unconnected graph raises assertion
 
 
-def test_create_required_graph():
-    GRAPH_FULL = GRAPH.copy()
-    nx.set_edge_attributes(GRAPH_FULL, 1, 'required')
-    GRAPH_FULL['b']['d'][0]['required'] = 0
-    GRAPH_FULL['c']['d'][0]['required'] = False  # testing 0 and False values for 'required'
+def test_create_required_graph(GRAPH_1):
+    GRAPH_1_FULL = GRAPH_1.copy()
+    nx.set_edge_attributes(GRAPH_1_FULL, 1, 'required')
+    GRAPH_1_FULL['b']['d'][0]['required'] = 0
+    GRAPH_1_FULL['c']['d'][0]['required'] = False  # testing 0 and False values for 'required'
 
-    GRAPH_REQ = create_required_graph(GRAPH_FULL)
-    assert set(GRAPH_REQ.nodes()) == set(['a', 'b', 'c'])
-    assert set(GRAPH.nodes()) == set(['a', 'b', 'c', 'd'])
-    assert len(GRAPH_REQ.edges()) == 3
-    assert len(GRAPH.edges()) == 5
+    GRAPH_1_REQ = create_required_graph(GRAPH_1_FULL)
+    assert set(GRAPH_1_REQ.nodes()) == set(['a', 'b', 'c'])
+    assert set(GRAPH_1.nodes()) == set(['a', 'b', 'c', 'd'])
+    assert len(GRAPH_1_REQ.edges()) == 3
+    assert len(GRAPH_1.edges()) == 5
 
 

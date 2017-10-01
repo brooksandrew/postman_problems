@@ -23,7 +23,7 @@ def read_edgelist(edgelist_filename, keep_optional=False):
         'Edgelist cannot contain a column named "augmented", sorry. This will cause computation problems'
 
     if 'id' in el.columns:
-        warnings.warn("Edgelist contains field named 'id'.  This is a field that will be assigned to edge attributes"
+        warnings.warn("Edgelist contains field named 'id'.  This is a field that will be assigned to edge attributes "
                       "with the `create_networkx_graph_from_edgelist function.  That is OK though.  We'll use your 'id'"
                       "field if it is unique.")
         assert el['id'].nunique() == len(el), 'Provided edge "id" field is not unique.  Please drop "id" or try again.'
@@ -203,7 +203,7 @@ def create_eulerian_circuit(graph_augmented, graph_original, start_node=None):
         aug_path = nx.shortest_path(graph_original, edge[0], edge[1], weight='distance')
         edge_attr = graph_augmented[edge[0]][edge[1]][edge[2]]
         if not edge_attr.get('augmented'):
-            yield (edge + (edge_attr,))
+            yield edge + (edge_attr,)
         else:
             for edge_aug in list(zip(aug_path[:-1], aug_path[1:])):
                 # find edge with shortest distance (if there are two parallel edges between the same nodes)
@@ -212,7 +212,7 @@ def create_eulerian_circuit(graph_augmented, graph_original, start_node=None):
                 edge_aug_shortest = edge_aug_dict[edge_key]
                 edge_aug_shortest['augmented'] = True
                 edge_aug_shortest['id'] = edge_aug_dict[edge_key]['id']
-                yield(edge_aug + (edge_key, edge_aug_shortest,))
+                yield edge_aug + (edge_key, edge_aug_shortest, )
 
 
 def create_required_graph(graph):

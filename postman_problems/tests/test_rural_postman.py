@@ -1,7 +1,10 @@
 import os
+import sys
 import pkg_resources
 import pytest
+from unittest.mock import patch
 from pytest_console_scripts import script_runner
+from postman_problems.postman_rural import rural_postman
 
 
 # input params
@@ -34,3 +37,11 @@ def test_entry_point_example_rural_postman_problem_star(script_runner):
     assert ret.success
     assert os.path.isfile(OUT_STAR_SVG)
 
+
+def test_rural_postman_sleeping_giant():
+    testargs = ["rural_postman",
+                "--edgelist", EDGELIST_SLEEPING_GIANT,
+                "--nodelist", NODELIST_SLEEPING_GIANT
+                ]
+    with patch.object(sys, 'argv', testargs):
+        rural_postman()

@@ -5,7 +5,7 @@ import tempfile
 import shutil
 import pkg_resources
 from unittest.mock import patch
-from postman_problems.chinese_postman import main
+from postman_problems.postman_chinese import chinese_postman
 from pytest_console_scripts import script_runner
 
 
@@ -31,13 +31,13 @@ def test_chinese_postman_seven_bridges():
 
     testargs = ["chinese_postman",
                 "--edgelist", EDGELIST_SEVEN_BRIDGES,
-                "--viz_static",
-                "--viz_animation",
-                "--viz_static_filename", os.path.join(tmpdir, 'test_cpp_graph'),
-                "--viz_animation_filename", os.path.join(tmpdir, 'test_cpp_graph.gif')
+                "--viz",
+                "--animation",
+                "--viz_filename", os.path.join(tmpdir, 'test_cpp_graph.png'),
+                "--animation_filename", os.path.join(tmpdir, 'test_cpp_graph.gif')
                 ]
     with patch.object(sys, 'argv', testargs):
-        main()
+        chinese_postman()
 
     assert os.path.isfile(os.path.join(tmpdir, 'test_cpp_graph.png'))
     assert os.path.isfile(os.path.join(tmpdir, 'test_cpp_graph.gif'))
@@ -53,7 +53,7 @@ def test_chinese_postman_sleeping_giant():
                 "--nodelist", NODELIST_SLEEPING_GIANT
                 ]
     with patch.object(sys, 'argv', testargs):
-        main()
+        chinese_postman()
 
 
 def test_entry_point_example_chinese_postman_seven_bridges(script_runner):

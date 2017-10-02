@@ -17,7 +17,7 @@ def get_args():
     # CPP optimization
     # ---------------------------------------------------------------
 
-    parser.add_argument('--edgelist_filename',
+    parser.add_argument('--edgelist',
                         required=True,
                         type=str,
                         help='Filename of edgelist.'
@@ -26,7 +26,7 @@ def get_args():
                              'Additional columns can be provided for edge attributes.'
                              'The first row should be the edge attribute names.')
 
-    parser.add_argument('--nodelist_filename',
+    parser.add_argument('--nodelist',
                         required=False,
                         type=str,
                         default=None,
@@ -54,34 +54,28 @@ def get_args():
     # CPP viz
     # ---------------------------------------------------------------
 
-    parser.add_argument('--viz_static',
+    parser.add_argument('--viz',
                         action='store_true',
                         help='Write out the static image of the CPP solution using graphviz?')
 
-    parser.add_argument('--viz_animation',
+    parser.add_argument('--animation',
                         action='store_true',
                         help='Write out an animation (GIF) of the CPP solution using a series of static graphviz images')
 
-    parser.add_argument('--viz_static_engine',
+    parser.add_argument('--viz_engine',
                         required=False,
                         type=str,
                         default='dot',
                         help='graphviz engine to use for viz layout: "dot", "neato", "fdp", etc) of solution static viz')
 
-    parser.add_argument('--viz_animation_engine',
+    parser.add_argument('--animation_engine',
                         required=False,
                         type=str,
                         default='dot',
                         help='graphviz engine to use for viz layout: "dot", "neato", "fdp", etc) of solution animation '
                              'viz')
 
-    parser.add_argument('--viz_static_format',
-                        required=False,
-                        type=str,
-                        default='png',
-                        help='File type to use when writing out static (single) CPP solution viz using graphviz.')
-
-    parser.add_argument('--viz_animation_format',
+    parser.add_argument('--animation_format',
                         required=False,
                         type=str,
                         default='png',
@@ -93,31 +87,34 @@ def get_args():
                         default=3,
                         help='Frames per second to use for CPP solution animation.')
 
-    parser.add_argument('--viz_static_filename',
+    parser.add_argument('--viz_filename',
                         required=False,
                         type=str,
-                        default='cpp_graph',
+                        default='cpp_graph.svg',
                         help='Filename to write static (single) viz of CPP solution to.  Do not include the file type '
                              'suffix. This is added with the `format` argument.')
 
-    parser.add_argument('--viz_animation_filename',
+    parser.add_argument('--animation_filename',
                         required=False,
                         type=str,
                         default='cpp_graph.gif',
                         help='Filename to write animation (GIF) of CPP solution viz to.')
 
-    parser.add_argument('--viz_images_dir',
+    parser.add_argument('--animation_images_dir',
                         required=False,
                         type=str,
                         default=None,
                         help='Directory where the series of static visualizations will be produced that get stitched '
                              'into the animation.')
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    args.viz_format = os.path.basename(args.viz_filename).split('.')[-1]
+    print(args)
+    return args
 
 
 def main():
-
     # get args
     args = get_args()
 
@@ -126,7 +123,7 @@ def main():
     logger = logging.getLogger(__name__)
 
     logger.info('Solving the CPP...')
-    cpp_solution, graph = cpp(edgelist_filename=args.edgelist_filename,
+    cpp_solution, graph = cpp(edgelist_filename=args.edgelist,
                               start_node=args.start_node,
                               edge_weight=args.edge_weight)
 
@@ -138,38 +135,35 @@ def main():
     for k, v in calculate_postman_solution_stats(cpp_solution).items():
         logger.info(str(k) + ' : ' + str(v))
 
-    if args.viz_static:
+    if args.viz:
         logger.info('Creating single image of CPP solution...')
         message_static = plot_circuit_graphviz(circuit=cpp_solution,
                                                graph=graph,
-                                               filename=args.viz_static_filename,
-                                               format=args.viz_static_format,
-                                               engine=args.viz_static_engine)
+                                               filename=args.viz_filename,
+                                               format=args.viz_format,
+                                               engine=args.viz_engine)
         logger.info(message_static)
 
-    if args.viz_animation:
-
-        viz_images_dir = args.viz_images_dir if args.viz_images_dir else os.path.join(
-            os.path.dirname(args.viz_animation_filename), 'img')
+    if args.animation:
+        animation_images_dir = args.animation_images_dir if args.animation_images_dir else os.path.join(
+            os.path.dirname(args.animation_filename), 'img')
 
         logger.info('Creating individual files for animation...')
         message_images = make_circuit_images(circuit=cpp_solution,
                                              graph=graph,
-                                             outfile_dir=viz_images_dir,
-                                             format=args.viz_animation_format,
-                                             engine=args.viz_animation_engine)
+                                             outfile_dir=animation_images_dir,
+                                             format=args.animation_format,
+                                             engine=args.animation_engine)
         logger.info(message_images)
 
         logger.info('Creating animation...')
-        message_animation = make_circuit_video(infile_dir_images=viz_images_dir,
-                                           outfile_movie=args.viz_animation_filename,
-                                           fps=args.fps,
-                                           format=args.viz_animation_format)
+        message_animation = make_circuit_video(infile_dir_images=animation_images_dir,
+                                               outfile_movie=args.animation_filename,
+                                               fps=args.fps,
+                                               format=args.animation_format)
         logger.info(message_animation)
 
 
 if __name__ == '__main__':
     """Parse command line arguments and solve the CPP"""
     main()
-
-

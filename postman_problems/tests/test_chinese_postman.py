@@ -31,10 +31,10 @@ def test_chinese_postman_seven_bridges():
 
     testargs = ["chinese_postman",
                 "--edgelist", EDGELIST_SEVEN_BRIDGES,
-                "--viz_static",
-                "--viz_animation",
-                "--viz_static_filename", os.path.join(tmpdir, 'test_cpp_graph'),
-                "--viz_animation_filename", os.path.join(tmpdir, 'test_cpp_graph.gif')
+                "--viz",
+                "--animation",
+                "--viz_filename", os.path.join(tmpdir, 'test_cpp_graph.png'),
+                "--animation_filename", os.path.join(tmpdir, 'test_cpp_graph.gif')
                 ]
     with patch.object(sys, 'argv', testargs):
         main()

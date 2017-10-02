@@ -39,7 +39,8 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'chinese_postman=postman_problems.chinese_postman:main',
+            'chinese_postman=postman_problems.cli:chinese_postman',
+            'rural_postman=postman_problems.cli:rural_postman',
             'chinese_postman_sleeping_giant=postman_problems.examples.sleeping_giant.cpp_sleeping_giant:main',
             'rural_postman_sleeping_giant=postman_problems.examples.sleeping_giant.rpp_sleeping_giant:main',
             'chinese_postman_seven_bridges=postman_problems.examples.seven_bridges.cpp_seven_bridges:main',

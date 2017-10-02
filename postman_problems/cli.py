@@ -1,7 +1,7 @@
 import os
 import argparse
 import logging
-from postman_problems.solver import cpp
+from postman_problems.solver import cpp, rpp
 from postman_problems.viz import plot_circuit_graphviz, make_circuit_video, make_circuit_images
 from postman_problems.stats import calculate_postman_solution_stats
 
@@ -107,14 +107,26 @@ def get_args():
                         help='Directory where the series of static visualizations will be produced that get stitched '
                              'into the animation.')
 
+    # Grabbing viz file format from the filename
     args = parser.parse_args()
-
     args.viz_format = os.path.basename(args.viz_filename).split('.')[-1]
-    print(args)
+
     return args
 
 
-def main():
+def generic_postman(type):
+    """
+    Args:
+        type (str): "rural" or "chinese"
+
+    Returns:
+    """
+
+    if type == 'rural':
+        postman_algo = rpp
+    elif type == 'chinese':
+        postman_algo = cpp
+
     # get args
     args = get_args()
 
@@ -122,22 +134,22 @@ def main():
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
-    logger.info('Solving the CPP...')
-    cpp_solution, graph = cpp(edgelist_filename=args.edgelist,
-                              start_node=args.start_node,
-                              edge_weight=args.edge_weight)
+    logger.info('Solving the {} postman problem..'.format(type))
+    circuit, graph = postman_algo(edgelist_filename=args.edgelist,
+                                       start_node=args.start_node,
+                                       edge_weight=args.edge_weight)
 
     logger.info('Solution:')
-    for edge in cpp_solution:
+    for edge in circuit:
         logger.info(edge)
 
     logger.info('Solution summary stats:')
-    for k, v in calculate_postman_solution_stats(cpp_solution).items():
+    for k, v in calculate_postman_solution_stats(circuit).items():
         logger.info(str(k) + ' : ' + str(v))
 
     if args.viz:
-        logger.info('Creating single image of CPP solution...')
-        message_static = plot_circuit_graphviz(circuit=cpp_solution,
+        logger.info('Creating single image of {} postman solution...'.format(type))
+        message_static = plot_circuit_graphviz(circuit=circuit,
                                                graph=graph,
                                                filename=args.viz_filename,
                                                format=args.viz_format,
@@ -149,7 +161,7 @@ def main():
             os.path.dirname(args.animation_filename), 'img')
 
         logger.info('Creating individual files for animation...')
-        message_images = make_circuit_images(circuit=cpp_solution,
+        message_images = make_circuit_images(circuit=circuit,
                                              graph=graph,
                                              outfile_dir=animation_images_dir,
                                              format=args.animation_format,
@@ -162,6 +174,14 @@ def main():
                                                fps=args.fps,
                                                format=args.animation_format)
         logger.info(message_animation)
+
+
+def rural_postman():
+    generic_postman('rural')
+
+
+def chinese_postman():
+    generic_postman('chinese')
 
 
 if __name__ == '__main__':

@@ -5,7 +5,7 @@ import tempfile
 import shutil
 import pkg_resources
 from unittest.mock import patch
-from postman_problems.cli import chinese_postman
+from postman_problems.postman_chinese import chinese_postman
 from pytest_console_scripts import script_runner
 
 

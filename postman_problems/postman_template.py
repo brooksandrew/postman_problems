@@ -114,17 +114,17 @@ def get_args():
     return args
 
 
-def generic_postman(type):
+def generic_postman(postman_type):
     """
+    Runs the CPP or RPP algorithm, prints solution, saves visualizations to filesystem
+
     Args:
-        type (str): "rural" or "chinese"
-
-    Returns:
+        postman_type (str): "rural" or "chinese"
     """
 
-    if type == 'rural':
+    if postman_type == 'rural':
         postman_algo = rpp
-    elif type == 'chinese':
+    elif postman_type == 'chinese':
         postman_algo = cpp
 
     # get args
@@ -134,7 +134,7 @@ def generic_postman(type):
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
-    logger.info('Solving the {} postman problem..'.format(type))
+    logger.info('Solving the {} postman problem..'.format(postman_type))
     circuit, graph = postman_algo(edgelist_filename=args.edgelist,
                                        start_node=args.start_node,
                                        edge_weight=args.edge_weight)
@@ -148,7 +148,7 @@ def generic_postman(type):
         logger.info(str(k) + ' : ' + str(v))
 
     if args.viz:
-        logger.info('Creating single image of {} postman solution...'.format(type))
+        logger.info('Creating single image of {} postman solution...'.format(postman_type))
         message_static = plot_circuit_graphviz(circuit=circuit,
                                                graph=graph,
                                                filename=args.viz_filename,
@@ -175,15 +175,3 @@ def generic_postman(type):
                                                format=args.animation_format)
         logger.info(message_animation)
 
-
-def rural_postman():
-    generic_postman('rural')
-
-
-def chinese_postman():
-    generic_postman('chinese')
-
-
-if __name__ == '__main__':
-    """Parse command line arguments and solve the CPP"""
-    main()

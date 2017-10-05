@@ -11,6 +11,11 @@
    :target: https://landscape.io/github/brooksandrew/postman_problems/master
    :alt: Code Health
 
+*Note to those reading this on PyPI: For a better reading experience, checkout the README on GitHub*
+`here <https://github.com/brooksandrew/postman_problems/blob/master/README.rst>`__.  *GitHub and PyPI are not
+cooperating on rendering SVGs*.
+
+
 
 .. sectnum::
 
@@ -49,14 +54,14 @@ guarantees they'll be stable.
 
 1. Clone the repo.
 
-   .. code:: bash
+   .. code::
 
       git clone https://github.com/brooksandrew/postman_problems.git
       cd postman_problems
 
 2. Install with pip.  Builds are tested on Python 2.7, 3.3, 3.4, 3.5, 3.6.
 
-   .. code:: bash
+   .. code::
 
       pip install .
 
@@ -71,7 +76,7 @@ installing viz dependencies, if they so choose.
 
 1. Install optional Python visualization libraries.
 
-   .. code:: bash
+   .. code::
 
       pip install postman_problems[viz]
 
@@ -81,15 +86,15 @@ installing viz dependencies, if they so choose.
 
    For Mac, this should be as easy as:
 
-   .. code:: bash
+   .. code::
 
-       brew install graphviz
+      brew install graphviz
 
    For Linux,
 
-   .. code:: bash
+   .. code::
 
-        sudo apt-get install graphviz
+      sudo apt-get install graphviz
 
    These are the installs I'm currently using on my builds for the `tests on TravisCI`_.  YMMV.  For Windows users and
    for those where these methods fail, I defer to the Graphviz download docs.
@@ -118,14 +123,14 @@ A note on some edge attributes:
 - ``required``: must be provided for the RPP.  0 is used for optional edges, 1 for required.
 - ``distance``: default edge attribute used for shortest path computations.  Can be overridden with ``edge_weight``.
 - ``id``: recommended to not include, but will be used if provided.  This will be generated automatically to assist with
-computation of parallel edges.  If provided, it should be unique to ensure stable computation.
+  computation of parallel edges.  If provided, it should be unique to ensure stable computation.
 
 Arguments: others
 ~~~~~~~~~~~~~~~~~
 
 For the complete list of optional arguments run one of the following:
 
-.. code:: bash
+.. code::
 
    chinese_postman --help
    rural_postman --help
@@ -140,21 +145,21 @@ Simple example
 Below we solve the CPP on the `Seven Bridges of Konigsberg`_ network.  The edgelist is provided in this repo, but you
 can swap this out for any comma delimited text file where the first two columns represent the node pairs in your network.
 
-.. code:: bash
+.. code::
 
    chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv
 
 
 If the ``chinese_postman`` entry point is not working for whatever reason, you can run the script directly with:
 
-.. code:: bash
+.. code::
 
    python postman_problems/chinese_postman.py --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv
 
 
 You should see output that describes the CPP route solution (Eulerian circuit through each edge).  Something like this:
 
-.. code::
+.. code ::
 
         ('A', 'C', 1, {'trail': 'd', 'distance': 10, 'id': 3})
         ('C', 'D', 0, {'trail': 'g', 'distance': 3, 'id': 6, 'augmented': True})
@@ -179,7 +184,7 @@ with two exceptions:
 
 A summary report of the solution should be printed.  Something like this:
 
-.. code::
+.. code ::
 
     Solution summary stats:
     distance_walked : 39
@@ -205,20 +210,19 @@ The snippet below should produce exactly the same output as printed above in `CL
 
 .. code:: python
 
-    from postman_problems.solver import cpp
-    from postman_problems.stats import calculate_postman_solution_stats
+   from postman_problems.solver import cpp
+   from postman_problems.stats import calculate_postman_solution_stats
 
-    # find CPP solution
-    circuit, graph = cpp(edgelist_filename='postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv',
-                         start_node='D')
+   # find CPP solution
+   circuit, graph = cpp(edgelist_filename='postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv', start_node='D')
 
-    # print solution route
-    for e in circuit:
-        print(e)
+   # print solution route
+   for e in circuit:
+       print(e)
 
-    # print solution summary stats
-    for k, v in calculate_postman_solution_stats(circuit).items():
-        print(k, v)
+   # print solution summary stats
+   for k, v in calculate_postman_solution_stats(circuit).items():
+       print(k, v)
 
 
 Examples
@@ -257,7 +261,7 @@ right and this property is a key part of solving the Postman Problems.
 
 This contrived example has been bundled and parameterized into a script that can be run with:
 
-.. code:: bash
+.. code::
 
    chinese_postman_seven_bridges
 
@@ -266,7 +270,7 @@ The example can also be run using the verbose method below which allows you to p
 Many of the options provided below are defaults and can be excluded in practice. They are included here simply to convey
 what the possibilities are:
 
-.. code:: bash
+.. code::
 
     chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv \
     --viz \
@@ -282,7 +286,7 @@ what the possibilities are:
 
 ``base_cpp_graph.svg``: This is the starting graph.  Edges are annotated by distance.
 
-.. image:: ./postman_problems/examples/seven_bridges/output/base_cpp_graph.svg
+.. image:: https://github.com/brooksandrew/postman_problems/raw/master/postman_problems/examples/seven_bridges/output/base_cpp_graph.svg
 
 
 ``cpp_graph.svg``: Edges are annotated with the order in which they are walked, starting at 0.  Edges walked more than
@@ -299,7 +303,7 @@ once are annotated by a sequence of numbers (walk order) and **bolded**.
 ``cpp_graph``: dot representation of the graph is also provided.  This is mostly for reference, but in rare cases you may
 want to tweak graphviz parameters directly here.
 
-.. code::
+.. code ::
 
     graph {
 	graph [forcelabels=true "strict"=false]
@@ -325,7 +329,7 @@ This is a simple example that demonstrates the power of the RPP vs CPP.
 
 Run with:
 
-.. code:: bash
+.. code::
 
     rural_postman_star
 
@@ -369,7 +373,7 @@ That's all I'll say here.  I wrote more about the personal motivation and Sleepi
 
 Run this example with:
 
-.. code:: bash
+.. code::
 
    rural_postman_sleeping_giant
 
@@ -386,7 +390,7 @@ annotating their order in the route).
 
 Here are the solution summary stats.
 
-.. code::
+.. code ::
 
     RPP Solution summary stats:
 
@@ -408,7 +412,7 @@ so it is omitted here.
 For a base of comparison on RPP vs CPP, selected stats are printed below for the CPP.  the RPP shortens the CPP solution
 route by about 1 mile.
 
-.. code::
+.. code ::
 
     CPP Solution summary stats:
 
@@ -429,33 +433,33 @@ If you'd like to fork or contribute directly to this project (PRs welcome), or s
 
 1. Full install with test and viz dependencies.
 
-   .. code:: bash
+   .. code::
 
        pip install .[test,viz]
 
    Or do an editable install from the beginning.  This is my typical approach when developing.
 
-   .. code:: bash
+   .. code::
 
-      pip install -e .[test,viz]
+       pip install -e .[test,viz]
 
 2.
 
    .. image:: http://troll.me/images/x-all-the-things/run-all-the-tests.jpg
 
-   .. code:: bash
+   .. code::
 
-      python -m pytest
-      pytest --cov
+       python -m pytest
+       pytest --cov
 
    Some tests take quite a while to run.  Namely the examples that write visualizations to the filesystem for large networks.
 
    As I have limited patience while developing, but am too cautious to drop them completely, I've kept and marked them with the ``@slow`` and ``@long`` decorators.  ``conftest.py`` is configured to exclude them by default with a simple run of ``pytest`` or ``python -m pytest``, but the full test suite can be run by:
 
-   .. code:: bash
+   .. code::
 
-      python -m pytest --runslow
-      pytest --cov --runslow
+       python -m pytest --runslow
+       pytest --cov --runslow
 
 
 Release Notes

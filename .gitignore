@@ -121,6 +121,8 @@ postman_problems/examples/star/output/img/
 # Large project specific files
 postman_problems/examples/sleeping_giant/output/cpp_graph.gif
 postman_problems/examples/sleeping_giant/output/rpp_graph.gif
+postman_problems/examples/star/output/rpp_graph.gif
+
 
 # pypi
 .pypirc

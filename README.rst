@@ -330,7 +330,7 @@ Run with:
     rural_postman_star
 
 
-``base_rpp_graph.svg``: Required edges are solid. Optional edges are dotted.
+``base_rpp_graph.svg``: Required edges are solid. Optional edges are dotted.  Simply showing the edge distances here.
 
 .. image:: ./postman_problems/examples/star/output/base_rpp_graph.svg
 
@@ -382,11 +382,13 @@ annotating their order in the route).
 .. image:: ./postman_problems/examples/sleeping_giant/output/rpp_graph.svg
 
 ``postman_problems/examples/sleeping_giant/rpp_graph.gif`` (omitted from package due to size):  Can be viewed
-`here <https://gist.github.com/brooksandrew/64bacaff6d3004e3601ec14c41382fc3>`__
+`here <https://gist.github.com/brooksandrew/64bacaff6d3004e3601ec14c41382fc3>`__.
 
 Here are the solution summary stats.
 
 .. code::
+
+    RPP Solution summary stats:
 
     Solution summary stats:
     distance_walked : 32.119999999999976
@@ -403,10 +405,12 @@ Here are the solution summary stats.
 A CPP example is also provided with entry point ``chinese_postman_sleeping_giant``.  The solution is very similar,
 so it is omitted here.
 
-For a base of comparison of RPP vs CPP, selected stats are printed below for the CPP.  the RPP shortens the CPP solution
+For a base of comparison on RPP vs CPP, selected stats are printed below for the CPP.  the RPP shortens the CPP solution
 route by about 1 mile.
 
 .. code::
+
+    CPP Solution summary stats:
 
     distance_walked : 33.24999999999998
     distance_doublebacked : 7.240000000000001

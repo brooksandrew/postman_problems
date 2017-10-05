@@ -1,13 +1,20 @@
 .. image:: https://travis-ci.org/brooksandrew/postman_problems.svg?branch=master
     :target: https://travis-ci.org/brooksandrew/postman_problems
 
+.. image:: https://badge.fury.io/py/postman_problems.svg
+    :target: https://badge.fury.io/py/postman_problems
 
 .. image:: http://coveralls.io/repos/github/brooksandrew/postman_problems/badge.svg?branch=master
     :target: https://coveralls.io/github/brooksandrew/postman_problems?branch=master
 
+.. image:: https://landscape.io/github/brooksandrew/postman_problems/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/brooksandrew/postman_problems/master
+   :alt: Code Health
+
+
 .. sectnum::
 
-.. contents:: Table of Contents
+.. contents:: **Table of Contents:**
    :depth: 2
 
 
@@ -32,7 +39,7 @@ Basic
 
 **Option 1. Install from PyPI:** Stable release.
 
-.. code::
+.. code:: bash
 
    pip install postman_packages
 
@@ -42,14 +49,14 @@ guarantees they'll be stable.
 
 1. Clone the repo.
 
-   .. code::
+   .. code:: bash
 
       git clone https://github.com/brooksandrew/postman_problems.git
       cd postman_problems
 
 2. Install with pip.  Builds are tested on Python 2.7, 3.3, 3.4, 3.5, 3.6.
 
-   .. code::
+   .. code:: bash
 
       pip install .
 
@@ -64,7 +71,7 @@ installing viz dependencies, if they so choose.
 
 1. Install optional Python visualization libraries.
 
-   .. code::
+   .. code:: bash
 
       pip install postman_problems[viz]
 
@@ -74,18 +81,18 @@ installing viz dependencies, if they so choose.
 
    For Mac, this should be as easy as:
 
-   .. code::
+   .. code:: bash
 
      brew install graphviz
 
    For Linux,
 
-   .. code::
+   .. code:: bash
 
     sudo apt-get install graphviz
 
-   These are the installs I'm currently using on my builds for the `tests on TravisCI`_.  YMMV.  For Windows users and
-    for those where these methods fail, I defer to the Graphviz download docs.
+    These are the installs I'm currently using on my builds for the `tests on TravisCI`_.  YMMV.  For Windows users and
+     for those where these methods fail, I defer to the Graphviz download docs.
 
 
 Usage
@@ -100,9 +107,9 @@ and `rural_postman`.
 Arguments: edgelist
 ~~~~~~~~~~~~~~~~~~~
 
-There are several optional command line arguments, but the only one required is ``--edgelist``.
+There are several optional command line arguments, but the only one required is ``--edgelist``:
 
-Filename of edgelist.  Expected to be comma delimited text file readable with pandas.read_csv.  The first two columns
+**Description:** Filename of edgelist.  Expected to be comma delimited text file readable with pandas.read_csv.  The first two columns
 should be the "from" and "to" node names.  Additional columns can be provided for edge attributes.  The first row
 should be the edge attribute names.
 
@@ -110,16 +117,15 @@ A note on some edge attributes:
 
 - ``required``: must be provided for the RPP.  0 is used for optional edges, 1 for required.
 - ``distance``: default edge attribute used for shortest path computations.  Can be overridden with ``edge_weight``.
-- ``id``: recommended to not include a column named ``id``.  This will be generated automatically, but when present, the
-user provided ``id`` will be provided.  If provided, it should be unique to ensure stable computation.
-
+- ``id``: recommended to not include, but will be used if provided.  This will be generated automatically to assist with
+computation of parallel edges.  If provided, it should be unique to ensure stable computation.
 
 Arguments: others
 ~~~~~~~~~~~~~~~~~
 
 For the complete list of optional arguments run one of the following:
 
-.. code::
+.. code:: bash
 
    chinese_postman --help
    rural_postman --help
@@ -133,21 +139,20 @@ Simple example
 
 Below we solve the CPP on the `Seven Bridges of Konigsberg`_ network.  The edgelist is provided in this repo, but you
 can swap this out for any comma delimited text file where the first two columns represent the node pairs in your network.
-The columns should have headers.  Columns after the first two are treated as edge attributes.
 
-.. code::
+.. code:: bash
 
    chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv
 
 
 If the ``chinese_postman`` entry point is not working for whatever reason, you can run the script directly with:
 
-.. code::
+.. code:: bash
 
    python postman_problems/chinese_postman.py --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv
 
 
-You should see output that describes the CPP solution (Eulerian circuit) through each edge.  Something like this:
+You should see output that describes the CPP route solution (Eulerian circuit through each edge).  Something like this:
 
 .. code::
 
@@ -232,8 +237,8 @@ the output is prepackaged into ``/examples`` and images are embedded below.
 
 Each example will produce the following file types:
 
-- ``cpp_graph``: representation of `cpp_graph.svg` in the `DOT`_ graph description language.  This is provided mostly
-for reference, or for tweaking.
+- ``cpp_graph``: representation of ``cpp_graph.svg`` in the `DOT`_ graph description language.  This is provided mostly
+ for reference, or for tweaking.
 - ``cpp_graph.svg``: static image with edge attributes annotating the walk sequence.
 - ``cpp_graph.gif``: animation highlighting each edge in the Euler circuit (solution route) as it's walked.
 - ``png/img*.png``: PNGs generated for each frame of the GIF (omitted from package, but will hit your filesystem when
@@ -252,7 +257,7 @@ right and this property is a key part of solving the Postman Problems.
 
 This contrived example has been bundled and parameterized into a script that can be run with:
 
-.. code::
+.. code:: bash
 
    chinese_postman_seven_bridges
 
@@ -261,7 +266,7 @@ The example can also be run using the verbose method below which allows you to p
 Many of the options provided below are defaults and can be excluded in practice. They are included here simply to convey
 what the possibilities are.
 
-.. code::
+.. code:: bash
 
     chinese_postman --edgelist postman_problems/examples/seven_bridges/edgelist_seven_bridges.csv \
     --viz \
@@ -320,7 +325,7 @@ This is a simple example that demonstrates the power of the RPP vs CPP.
 
 Run with:
 
-.. code::
+.. code:: bash
 
     rural_postman_star
 
@@ -362,7 +367,9 @@ spot on the `Giantmaster roster`_ and the glory of a red highlight on their name
 That's all I'll say here.  I wrote more about the personal motivation and Sleeping Giant specific data/problem in a
 `DataCamp tutorial`_ which also helped motivate this project.
 
-.. code::
+Run this example with:
+
+.. code:: bash
 
    rural_postman_sleeping_giant
 
@@ -404,7 +411,6 @@ shortens the solution route by about 1 mile.
     distance_walked : 33.24999999999998
     distance_doublebacked : 7.240000000000001
     distance_walked_once : 26.009999999999977
-
     edges_walked : 155
     edges_doublebacked : 34
     edges_walked_once : 121
@@ -419,13 +425,13 @@ If you'd like to fork or contribute directly to this project (PRs welcome), or s
 
 1. Full install with test and viz dependencies.
 
-   .. code::
+   .. code:: bash
 
        pip install .[test,viz]
 
    Or do an editable install from the beginning.  This is my typical approach when developing.
 
-   .. code::
+   .. code:: bash
 
       pip install -e .[test,viz]
 
@@ -433,7 +439,7 @@ If you'd like to fork or contribute directly to this project (PRs welcome), or s
 
    .. image:: http://troll.me/images/x-all-the-things/run-all-the-tests.jpg
 
-   .. code::
+   .. code:: bash
 
       python -m pytest
       pytest --cov
@@ -442,11 +448,19 @@ If you'd like to fork or contribute directly to this project (PRs welcome), or s
 
    As I have limited patience while developing, but am too cautious to drop them completely, I've kept and marked them with the ``@slow`` and ``@long`` decorators.  ``conftest.py`` is configured to exclude them by default with a simple run of ``pytest`` or ``python -m pytest``, but the full test suite can be run by:
 
-   .. code::
+   .. code:: bash
 
       python -m pytest --runslow
       pytest --cov --runslow
 
+
+Release Notes
+=============
+
+Checkout the release notes in Gitub `here <https://github.com/brooksandrew/postman_problems/releases>`__.
+
+If I'm doing a good job of keeping PyPI updated, each release should also be available
+`here <https://pypi.org/project/postman_problems/#history>`__.
 
 
 License

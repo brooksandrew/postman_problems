@@ -13,7 +13,7 @@ def read(fname):
 
 setup(
     name='postman_problems',
-    version='0.1.1',
+    version='0.2',
     author='Andrew Brooks',
     author_email='andrewbrooks@gmail.com',
     description='Solutions to Postman graph optimization problems: Chinese and Rural Postman problems',

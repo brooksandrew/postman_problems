@@ -87,7 +87,7 @@ installing viz dependencies, if they so choose.
 
    For Linux,
 
-   .. code-block:: bash
+   .. code:: bash
 
         sudo apt-get install graphviz
 

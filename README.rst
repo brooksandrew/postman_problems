@@ -83,16 +83,16 @@ installing viz dependencies, if they so choose.
 
    .. code:: bash
 
-     brew install graphviz
+       brew install graphviz
 
    For Linux,
 
-   .. code:: bash
+   .. code-block:: bash
 
-    sudo apt-get install graphviz
+        sudo apt-get install graphviz
 
-    These are the installs I'm currently using on my builds for the `tests on TravisCI`_.  YMMV.  For Windows users and
-     for those where these methods fail, I defer to the Graphviz download docs.
+   These are the installs I'm currently using on my builds for the `tests on TravisCI`_.  YMMV.  For Windows users and
+   for those where these methods fail, I defer to the Graphviz download docs.
 
 
 Usage

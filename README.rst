@@ -8,7 +8,7 @@
 .. sectnum::
 
 .. contents:: Table of Contents
-   :depth: 1
+   :depth: 2
 
 
 Contents
@@ -92,22 +92,44 @@ Usage
 =====
 
 CLI
-------
+---
 
 The easiest way to start is with the command line using the entry points installed with this package: `chinese_postman`
 and `rural_postman`.
 
-There are several optional command line arguments, but the only one required is ``--edgelist``.  For the complete list of
-optional arguments run one of the following:
+Arguments: edgelist
+~~~~~~~~~~~~~~~~~~~
+
+There are several optional command line arguments, but the only one required is ``--edgelist``.
+
+Filename of edgelist.  Expected to be comma delimited text file readable with pandas.read_csv.  The first two columns
+should be the "from" and "to" node names.  Additional columns can be provided for edge attributes.  The first row
+should be the edge attribute names.
+
+A note on some edge attributes:
+
+- ``required``: must be provided for the RPP.  0 is used for optional edges, 1 for required.
+- ``distance``: default edge attribute used for shortest path computations.  Can be overridden with ``edge_weight``.
+- ``id``: recommended to not include a column named ``id``.  This will be generated automatically, but when present, the
+user provided ``id`` will be provided.  If provided, it should be unique to ensure stable computation.
+
+
+Arguments: others
+~~~~~~~~~~~~~~~~~
+
+For the complete list of optional arguments run one of the following:
 
 .. code::
 
    chinese_postman --help
    rural_postman --help
 
-The big ones are ``--viz`` and ``--animation`` which when present will create the static (single visualization) and
-animation of the postman problem solution.  Most of the other arguments modify the default values used forthe
+The big ones are ``--viz`` and ``--animation``, which when present will create the static (single visualization) and
+animation of the postman problem solution.  Most of the other arguments modify the default values used for the
 visualizations.
+
+Simple example
+~~~~~~~~~~~~~~
 
 Below we solve the CPP on the `Seven Bridges of Konigsberg`_ network.  The edgelist is provided in this repo, but you
 can swap this out for any comma delimited text file where the first two columns represent the node pairs in your network.
@@ -129,20 +151,22 @@ You should see output that describes the CPP solution (Eulerian circuit) through
 
 .. code::
 
-    ('A', 'C', {'trail': 'c', 'distance': 2, 'id': 2})
-    ('C', 'D', {'trail': 'g', 'distance': 3, 'id': 6})
-    ('D', 'C', {'trail': 'g', 'distance': 3, 'id': 6, 'augmented': True})
-    ('C', 'A', {'trail': 'd', 'distance': 10, 'id': 3})
-    ('A', 'D', {'trail': 'e', 'distance': 1, 'id': 4})
-    ('D', 'B', {'trail': 'f', 'distance': 9, 'id': 5})
-    ('B', 'A', {'trail': 'a', 'distance': 3, 'id': 0})
-    ('A', 'B', {'trail': 'b', 'distance': 5, 'id': 1})
-    ('B', 'A', {'trail': 'a', 'distance': 3, 'id': 0, 'augmented': True})
+        ('A', 'C', 1, {'trail': 'd', 'distance': 10, 'id': 3})
+        ('C', 'D', 0, {'trail': 'g', 'distance': 3, 'id': 6, 'augmented': True})
+        ('D', 'C', 0, {'trail': 'g', 'distance': 3, 'id': 6})
+        ('C', 'A', 0, {'trail': 'c', 'distance': 2, 'id': 2})
+        ('A', 'D', 0, {'trail': 'e', 'distance': 1, 'id': 4})
+        ('D', 'B', 0, {'trail': 'f', 'distance': 9, 'id': 5})
+        ('B', 'A', 0, {'trail': 'a', 'distance': 3, 'id': 0, 'augmented': True})
+        ('A', 'B', 1, {'trail': 'b', 'distance': 5, 'id': 1})
+        ('B', 'A', 0, {'trail': 'a', 'distance': 3, 'id': 0})
 
 
 The first two values of each tuple are the "from" and the "to" node respectively for each edge in the circuit.
 
-The third value contains the edge attributes for each edge walked.  These are mostly grabbed from the starting graph,
+The third value indicates the key of the edge on the MultiGraph.  These will be 0 unless there are parallel edges.
+
+The fourth value contains the edge attributes for each edge walked.  These are mostly grabbed from the starting graph,
 with two exceptions:
 
 - ``augmented`` is added to edges after their first walk (double backing... the thing we want to minimize)
@@ -166,7 +190,7 @@ A summary report of the solution should be printed.  Something like this:
 
 
 Python
----------
+------
 
 The postman solvers are modules that can also be imported and run within a Python environment.  This might interest you
 if solving the CPP/RPP is just one step in your problem, you'd like to poke and prod at the output, or you'd like to tweak
@@ -216,15 +240,15 @@ for reference, or for tweaking.
 you run the examples).
 
 
-1. CPP: Seven Bridges of Konigsberg
------------------------------------
+CPP: Seven Bridges of Konigsberg
+--------------------------------
 
 The Seven Bridges of Konigsberg is rather simple network with just 4 nodes and 7 edges.  Although small, it does contain
 2 parallel edges which introduce some complexity to the CPP computation.
 
 This was the graph with which Leonhard Euler famously postulated in 1736 that there exists a path which visits each edge
 exactly once if all nodes have even degree. Although this wasn't proven until the 1870s by Carl Hierholzer, Euler was
- right and this property is a key part of solving the Postman Problems.
+right and this property is a key part of solving the Postman Problems.
 
 This contrived example has been bundled and parameterized into a script that can be run with:
 
@@ -289,14 +313,15 @@ want to tweak graphviz parameters directly here.
 
 
 
-2. RPP: Star
-------------
+RPP: Star
+---------
 
 This is a simple example that demonstrates the power of the RPP vs CPP.
 
 Run with:
 
 .. code::
+
     rural_postman_star
 
 
@@ -325,8 +350,8 @@ where we walk all required edges exactly once and only use a subset of optional 
 
 
 
-3. RPP: Sleeping Giant
-----------------------
+RPP: Sleeping Giant
+-------------------
 
 This example is near and dear to my heart and the motivation for this project in the first place.
 
@@ -355,6 +380,7 @@ annotating their order in the route).
 Here are the solution summary stats.
 
 .. code::
+
     Solution summary stats:
     distance_walked : 32.119999999999976
     distance_doublebacked : 6.11

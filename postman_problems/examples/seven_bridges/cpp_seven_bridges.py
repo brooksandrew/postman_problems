@@ -75,21 +75,24 @@ def main():
                               filename=CPP_BASE_VIZ_FILENAME,
                               edge_label_attr='distance',
                               format='svg',
-                              engine='circo')
+                              engine='circo',
+                              graph_attr={'label': 'Base Graph: Distances', 'labelloc': 't'})
 
         logger.info('Creating single SVG of CPP solution')
         plot_circuit_graphviz(circuit=circuit,
                               graph=graph,
                               filename=CPP_VIZ_FILENAME,
                               format='svg',
-                              engine='circo')
+                              engine='circo',
+                              graph_attr={'label': 'Base Graph: Chinese Postman Solution', 'labelloc': 't'})
 
         logger.info('Creating PNG files for GIF')
         make_circuit_images(circuit=circuit,
                             graph=graph,
                             outfile_dir=PNG_PATH,
                             format='png',
-                            engine='circo')
+                            engine='circo',
+                            graph_attr={'label': 'Base Graph: Chinese Postman Solution', 'labelloc': 't'})
 
         logger.info('Creating GIF')
         video_message = make_circuit_video(infile_dir_images=PNG_PATH,

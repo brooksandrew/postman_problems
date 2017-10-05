@@ -242,7 +242,7 @@ Each example will produce the following file types:
 - ``cpp_graph.svg``: static image with edge attributes annotating the walk sequence.
 - ``cpp_graph.gif``: animation highlighting each edge in the Euler circuit (solution route) as it's walked.
 - ``png/img*.png``: PNGs generated for each frame of the GIF (omitted from package, but will hit your filesystem when
-you run the examples).
+  you run the examples).
 
 
 CPP: Seven Bridges of Konigsberg

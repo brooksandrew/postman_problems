@@ -286,7 +286,7 @@ what the possibilities are:
 
 ``base_cpp_graph.svg``: This is the starting graph.  Edges are annotated by distance.
 
-.. image:: https://github.com/brooksandrew/postman_problems/raw/master/postman_problems/examples/seven_bridges/output/base_cpp_graph.svg
+.. image:: ./postman_problems/examples/seven_bridges/output/base_cpp_graph.svg
 
 
 ``cpp_graph.svg``: Edges are annotated with the order in which they are walked, starting at 0.  Edges walked more than

@@ -323,7 +323,7 @@ where we walk all required edges exactly once and only use a subset of optional 
 
 .. raw:: html
 
-    <script src="https://gist.github.com/brooksandrew/d24560e674fccd1ab78f9d2588769e86.js"></script>
+    <embed src="https://gist.githubusercontent.com/brooksandrew/d24560e674fccd1ab78f9d2588769e86/raw/4e477121ea698431ce294c6e1b17ad7e415eb396/rpp_star_example_for_postman_problems.gif"></embed>
 
 
 

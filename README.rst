@@ -238,7 +238,7 @@ the output is prepackaged into ``/examples`` and images are embedded below.
 Each example will produce the following file types:
 
 - ``cpp_graph``: representation of ``cpp_graph.svg`` in the `DOT`_ graph description language.  This is provided mostly
- for reference, or for tweaking.
+for reference, or for tweaking.
 - ``cpp_graph.svg``: static image with edge attributes annotating the walk sequence.
 - ``cpp_graph.gif``: animation highlighting each edge in the Euler circuit (solution route) as it's walked.
 - ``png/img*.png``: PNGs generated for each frame of the GIF (omitted from package, but will hit your filesystem when
@@ -264,7 +264,7 @@ This contrived example has been bundled and parameterized into a script that can
 
 The example can also be run using the verbose method below which allows you to parameterize more pieces.
 Many of the options provided below are defaults and can be excluded in practice. They are included here simply to convey
-what the possibilities are.
+what the possibilities are:
 
 .. code:: bash
 
@@ -339,7 +339,7 @@ doubling back on every single edge.
 
 .. image:: ./postman_problems/examples/star/output/cpp_graph_req.svg
 
-``cpp_graph_opt.svg``: If recognize the optional edges, and apply the the CPP again (where the optional edges are treated
+``cpp_graph_opt.svg``: If we recognize the optional edges, and apply the the CPP again (where the optional edges are treated
 as required edges), we get a slightly better solution:
 
 .. image:: ./postman_problems/examples/star/output/cpp_graph_opt.svg
@@ -383,6 +383,8 @@ annotating their order in the route).
 
 ``postman_problems/examples/sleeping_giant/rpp_graph.gif`` (omitted from package due to size):  Can be viewed
 `here <https://gist.github.com/brooksandrew/64bacaff6d3004e3601ec14c41382fc3>`__
+
+.. image:: https://gist.github.com/brooksandrew/64bacaff6d3004e3601ec14c41382fc3/raw/2ce809bd521a4b78fed3a7ed755b5bfea25b56bb/sleeping_giant_rpp_route_animation_using_graphviz.gif
 
 Here are the solution summary stats.
 

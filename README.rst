@@ -384,8 +384,6 @@ annotating their order in the route).
 ``postman_problems/examples/sleeping_giant/rpp_graph.gif`` (omitted from package due to size):  Can be viewed
 `here <https://gist.github.com/brooksandrew/64bacaff6d3004e3601ec14c41382fc3>`__
 
-.. image:: https://gist.github.com/brooksandrew/64bacaff6d3004e3601ec14c41382fc3/raw/2ce809bd521a4b78fed3a7ed755b5bfea25b56bb/sleeping_giant_rpp_route_animation_using_graphviz.gif
-
 Here are the solution summary stats.
 
 .. code::
@@ -405,8 +403,8 @@ Here are the solution summary stats.
 A CPP example is also provided with entry point ``chinese_postman_sleeping_giant``.  The solution is very similar,
 so it is omitted here.
 
-For a base of comparison of RPP vs CPP, selected stats are printed below for the CPP.  the RPP utilizing optional edges
-shortens the solution route by about 1 mile.
+For a base of comparison of RPP vs CPP, selected stats are printed below for the CPP.  the RPP shortens the CPP solution
+route by about 1 mile.
 
 .. code::
 

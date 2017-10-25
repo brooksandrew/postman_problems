@@ -46,7 +46,7 @@ Basic
 
 .. code:: bash
 
-   pip install postman_packages
+   pip install postman_problems
 
 **Option 2. Install from GitHub:**  As this project develops, GitHub will have the most recent features, but no
 guarantees they'll be stable.

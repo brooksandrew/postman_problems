@@ -13,8 +13,8 @@ def read_edgelist(edgelist_filename, keep_optional=False):
     Returns:
         pandas dataframe of edgelist
     """
-    el = pd.read_csv(edgelist_filename)
-    el = el.dropna()  # drop rows with all NAs... as I find CSVs created w Numbers annoyingly do.
+    el = pd.read_csv(edgelist_filename, dtype={0: str, 1: str})  # node_ids as strings makes life easier
+    el = el.dropna(how='all')  # drop rows with all NAs... as I find CSVs created w Numbers annoyingly do.
 
     if (not keep_optional) & ('required' in el.columns):
         el = el[el['required'] == 1]

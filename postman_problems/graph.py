@@ -1,7 +1,6 @@
 import warnings
 import networkx as nx
 import pandas as pd
-import io
 
 
 def read_edgelist(edgelist_filename, keep_optional=False):

@@ -7,9 +7,8 @@ from postman_problems.graph import read_edgelist, create_networkx_graph_from_edg
     add_augmenting_path_to_graph, create_eulerian_circuit
 
 
-#logger = logging.getLogger(__name__)
-logger_rpp = logging.getLogger( '{0}.{1}'.format( __name__, 'rpp'))
-logger_rpp = logging.getLogger( '{0}.{1}'.format( __name__, 'rpp'))
+logger_rpp = logging.getLogger('{0}.{1}'.format(__name__, 'rpp'))
+logger_cpp = logging.getLogger('{0}.{1}'.format(__name__, 'cpp'))
 
 
 def rpp(edgelist_filename, start_node=None, edge_weight='distance', verbose=False):

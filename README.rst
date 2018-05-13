@@ -443,9 +443,7 @@ If you'd like to fork or contribute directly to this project (PRs welcome), or s
 
        pip install -e .[test,viz]
 
-2.
-
-   .. image:: http://troll.me/images/x-all-the-things/run-all-the-tests.jpg
+2. Run tests
 
    .. code::
 

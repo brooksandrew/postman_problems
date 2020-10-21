@@ -1,5 +1,4 @@
-#	File Created:
-#	Author: Jack Connor <jconnor@baaqmd.gov>
+#	Modifications and additions to code written by brooksandrew
 
 import osmnx as ox
 import networkx as nx

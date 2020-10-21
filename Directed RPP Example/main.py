@@ -5,6 +5,14 @@
 Main file for running directed rpp with turning conditions.
 Args:
     Polygon file identifier through command line input.
+        This is a filename suffix that is used as a key for specific files amongst files of a given naming convention
+        Each file identifier keys two files within the input_file_directory as follows:
+            InnerFileName = file_identifier + ' Inner Polygon.csv
+            OuterFileName = file_identifier + ' Outer Polygon.csv
+        The inner polygon file contains a set of coordinates that specify a polygon containing all required roads
+        The outer polygon file contains a set of coordinates that specify a polygon containing optional roads
+        in addition to the inner polygon
+        Example inner and outer polygon files are saved in the Directed RPP Example directory
 Returns:
     Status print statements and visualization plots.
     Routes in .csv and .gpx input.

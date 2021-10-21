@@ -484,7 +484,7 @@ Copyright (C) 2017 Andrew Brooks.
 .. _`Graphviz`: http://www.graphviz.org/
 .. _`Tests on TravisCI`: https://github.com/brooksandrew/postman_problems/blob/master/.travis.yml
 .. _`Sleeping Giant`: http://www.sgpa.org/
-.. _`Giant Master Program`: http://www.sgpa.org/hikes/masters.html
+.. _`Giant Master Program`: https://sgpa.org/about/giant-master/
 .. _`trail map`: http://www.ct.gov/deep/lib/deep/stateparks/maps/sleepgiant.pdf
 .. _`Giantmaster roster`: http://www.sgpa.org/hikes/master-list.htm
 .. _`Datacamp tutorial`: https://www.datacamp.com/community/tutorials/networkx-python-graph-tutorial

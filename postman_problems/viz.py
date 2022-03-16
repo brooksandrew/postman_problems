@@ -113,9 +113,9 @@ def convert_networkx_graph_to_graphiz(graph, directed=False):
         G = gv.Graph()
 
     # add nodes and their attributes to graphviz object
-    for n in graph.nodes():
-        n_attr = {k: str(v) for k, v in graph.node[n].items()}
-        G.attr('node', n_attr)
+    for n, attr in graph.nodes(data=True):
+        # n_attr = {k: str(v) for k, v in graph.node[n].items()}
+        G.attr('node', attr)
         G.node(str(n), str(n))
 
     # add edges and their attributes to graphviz object
@@ -229,7 +229,7 @@ def make_circuit_images(circuit, graph, outfile_dir, format='png', engine='neato
 
     # Start w a blank (OK, opaque) canvas
     for e in graph_white.edges(keys=True):
-        graph_white.node[e[0]]['color'] = graph_white.node[e[1]]['color'] = '#eeeeee'
+        graph_white.nodes[e[0]]['color'] = graph_white.nodes[e[1]]['color'] = '#eeeeee'
         graph_white[e[0]][e[1]][e[2]]['color'] = '#eeeeee'
         graph_white[e[0]][e[1]][e[2]]['label'] = ''
 
@@ -238,8 +238,8 @@ def make_circuit_images(circuit, graph, outfile_dir, format='png', engine='neato
 
         # adding node colors
         eid = e[3]['id']
-        graph_white.node[e[0]]['color'] = 'black'
-        graph_white.node[e[1]]['color'] = 'red'  # will get overwritten at next step
+        graph_white.nodes[e[0]]['color'] = 'black'
+        graph_white.nodes[e[1]]['color'] = 'red'  # will get overwritten at next step
 
         # adding edge colors and attributes
         key = e[2]

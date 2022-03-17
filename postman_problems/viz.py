@@ -114,7 +114,6 @@ def convert_networkx_graph_to_graphiz(graph, directed=False):
 
     # add nodes and their attributes to graphviz object
     for n, attr in graph.nodes(data=True):
-        # n_attr = {k: str(v) for k, v in graph.node[n].items()}
         G.attr('node', attr)
         G.node(str(n), str(n))
 

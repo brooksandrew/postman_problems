@@ -47,7 +47,7 @@ setup(
             'rural_postman_star=postman_problems.examples.star.rpp_star:main'
         ]
     },
-    python_requires='>=3.8',
+    python_requires='>=3.7',
     install_requires=[
         'pandas',
         'networkx'

@@ -51,8 +51,8 @@ def add_pos_node_attribute(graph, origin='bottomleft'):
     for node_id in graph.nodes():
         try:
             # dividing by arbitrary number to make pos appear as required type: double
-            graph.node[node_id]['pos'] = "{},{}!".format(ori['X']*graph.node[node_id]['X']/100,
-                                                         ori['Y']*graph.node[node_id]['Y']/100)
+            graph.nodes[node_id]['pos'] = "{},{}!".format(ori['X']*graph.nodes[node_id]['X']/100,
+                                                          ori['Y']*graph.nodes[node_id]['Y']/100)
         except KeyError as e:
             print(e)
             print('No X, Y coordinates found for node: {}'.format(node_id))
@@ -114,7 +114,7 @@ def convert_networkx_graph_to_graphiz(graph, directed=False):
 
     # add nodes and their attributes to graphviz object
     for n in graph.nodes():
-        n_attr = {k: str(v) for k, v in graph.node[n].items()}
+        n_attr = {k: str(v) for k, v in graph.nodes[n].items()}
         G.attr('node', n_attr)
         G.node(str(n), str(n))
 
@@ -229,7 +229,7 @@ def make_circuit_images(circuit, graph, outfile_dir, format='png', engine='neato
 
     # Start w a blank (OK, opaque) canvas
     for e in graph_white.edges(keys=True):
-        graph_white.node[e[0]]['color'] = graph_white.node[e[1]]['color'] = '#eeeeee'
+        graph_white.nodes[e[0]]['color'] = graph_white.nodes[e[1]]['color'] = '#eeeeee'
         graph_white[e[0]][e[1]][e[2]]['color'] = '#eeeeee'
         graph_white[e[0]][e[1]][e[2]]['label'] = ''
 
@@ -238,8 +238,8 @@ def make_circuit_images(circuit, graph, outfile_dir, format='png', engine='neato
 
         # adding node colors
         eid = e[3]['id']
-        graph_white.node[e[0]]['color'] = 'black'
-        graph_white.node[e[1]]['color'] = 'red'  # will get overwritten at next step
+        graph_white.nodes[e[0]]['color'] = 'black'
+        graph_white.nodes[e[1]]['color'] = 'red'  # will get overwritten at next step
 
         # adding edge colors and attributes
         key = e[2]

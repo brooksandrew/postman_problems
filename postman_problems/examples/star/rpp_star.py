@@ -20,7 +20,7 @@ def create_star_graph(n_nodes=10, ring=True):
     """
     graph = nx.MultiGraph()
     node_names = list(string.ascii_lowercase)[:n_nodes]
-    graph.add_star(node_names)
+    nx.add_star(graph, node_names)
     nx.set_edge_attributes(graph, 10, 'distance')
     nx.set_edge_attributes(graph, 1, 'required')
     nx.set_edge_attributes(graph, 'solid', 'style')

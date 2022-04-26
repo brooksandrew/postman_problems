@@ -51,7 +51,7 @@ def rpp(edgelist_filename, start_node=None, edge_weight='distance', verbose=Fals
 
     logger_rpp.info('Find min weight matching using blossom algorithm')
     g_odd_complete = create_complete_graph(odd_node_pairs_shortest_paths, flip_weights=True)
-    odd_matching = dedupe_matching(nx.algorithms.max_weight_matching(g_odd_complete, True))
+    odd_matching = nx.algorithms.max_weight_matching(g_odd_complete, True)
 
     logger_rpp.info('add the min weight matching edges to g')
     g_aug = add_augmenting_path_to_graph(g_req, odd_matching)
@@ -94,7 +94,7 @@ def cpp(edgelist_filename, start_node=None, edge_weight='distance', verbose=Fals
     g_odd_complete = create_complete_graph(odd_node_pairs_shortest_paths, flip_weights=True)
 
     logger_cpp.info('Find min weight matching using blossom algorithm')
-    odd_matching = dedupe_matching(nx.algorithms.max_weight_matching(g_odd_complete, True))
+    odd_matching = nx.algorithms.max_weight_matching(g_odd_complete, True)
 
     logger_cpp.info('add the min weight matching edges to g')
     g_aug = add_augmenting_path_to_graph(g, odd_matching)

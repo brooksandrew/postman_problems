@@ -1,0 +1,19 @@
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+[tool.ruff.lint]
+select = [
+    "ALL"
+]
+
+ignore = [
+    "COM812", # missing-trailing-comma (incompatible with ruff format)
+    "D202", # no-blank-line-after-function (looks stupid)
+    "D203", # one-blank-line-before-class
+    "D212", # multi-line-summary-first-line
+    "ERA001", # commented-out-code
+    "G004", # logging-f-string (allow f-strings in logging calls)
+    "PD002", # pandas-use-of-inplace-argument
+    "S101", # assert (allow to use assertions)
+]

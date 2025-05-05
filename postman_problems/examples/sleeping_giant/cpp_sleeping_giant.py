@@ -33,8 +33,10 @@ Usage:
 """
 
 import logging
-import pkg_resources
+
 import pandas as pd
+import pkg_resources
+
 from postman_problems.solver import cpp
 from postman_problems.stats import calculate_postman_solution_stats
 
@@ -45,21 +47,24 @@ def main():
     # PARAMS / DATA ---------------------------------------------------------------------
 
     # inputs
-    EDGELIST = pkg_resources.resource_filename('postman_problems',
-                                               'examples/sleeping_giant/edgelist_sleeping_giant.csv')
-    NODELIST = pkg_resources.resource_filename('postman_problems',
-                                               'examples/sleeping_giant/nodelist_sleeping_giant.csv')
+    EDGELIST = pkg_resources.resource_filename(
+        "postman_problems", "examples/sleeping_giant/edgelist_sleeping_giant.csv"
+    )
+    NODELIST = pkg_resources.resource_filename(
+        "postman_problems", "examples/sleeping_giant/nodelist_sleeping_giant.csv"
+    )
     START_NODE = "b_end_east"
 
     # outputs
-    GRAPH_ATTR = {'dpi': '65'}
-    EDGE_ATTR = {'fontsize': '20'}
-    NODE_ATTR = {'shape': 'point', 'color': 'black', 'width': '0.1', 'fixedsize': 'true'}
+    GRAPH_ATTR = {"dpi": "65"}
+    EDGE_ATTR = {"fontsize": "20"}
+    NODE_ATTR = {"shape": "point", "color": "black", "width": "0.1", "fixedsize": "true"}
 
-    PNG_PATH = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/png/')
-    CPP_SVG_FILENAME = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/cpp_graph')
-    CPP_GIF_FILENAME = pkg_resources.resource_filename('postman_problems',
-                                                       'examples/sleeping_giant/output/cpp_graph.gif')
+    PNG_PATH = pkg_resources.resource_filename("postman_problems", "examples/sleeping_giant/output/png/")
+    CPP_SVG_FILENAME = pkg_resources.resource_filename("postman_problems", "examples/sleeping_giant/output/cpp_graph")
+    CPP_GIF_FILENAME = pkg_resources.resource_filename(
+        "postman_problems", "examples/sleeping_giant/output/cpp_graph.gif"
+    )
 
     # setup logging
     logging.basicConfig(level=logging.INFO)
@@ -67,44 +72,47 @@ def main():
 
     # SOLVE CPP -------------------------------------------------------------------------
 
-    logger.info('Solve CPP')
+    logger.info("Solve CPP")
     circuit, graph = cpp(EDGELIST, START_NODE)
 
-    logger.info('Print the CPP solution:')
+    logger.info("Print the CPP solution:")
     for e in circuit:
         logger.info(e)
 
-    logger.info('Solution summary stats:')
+    logger.info("Solution summary stats:")
     for k, v in calculate_postman_solution_stats(circuit).items():
-        logger.info(str(k) + ' : ' + str(v))
+        logger.info(str(k) + " : " + str(v))
 
     # VIZ -------------------------------------------------------------------------------
 
     try:
         from postman_problems.viz import (
-            add_pos_node_attribute, add_node_attributes, plot_circuit_graphviz, make_circuit_images, make_circuit_video
+            add_node_attributes,
+            add_pos_node_attribute,
+            plot_circuit_graphviz,
         )
 
-        logger.info('Add node attributes to graph')
+        logger.info("Add node attributes to graph")
         nodelist_df = pd.read_csv(NODELIST)
         graph = add_node_attributes(graph, nodelist_df)  # add attributes
-        graph = add_pos_node_attribute(graph, origin='topleft')  # add X,Y positions in format for graphviz
+        graph = add_pos_node_attribute(graph, origin="topleft")  # add X,Y positions in format for graphviz
 
-        logger.info('Creating single SVG of CPP solution')
-        plot_circuit_graphviz(circuit=circuit,
-                              graph=graph,
-                              filename=CPP_SVG_FILENAME,
-                              format='svg',
-                              engine='neato',
-                              graph_attr=GRAPH_ATTR,
-                              edge_attr=EDGE_ATTR,
-                              node_attr=NODE_ATTR)
-
+        logger.info("Creating single SVG of CPP solution")
+        plot_circuit_graphviz(
+            circuit=circuit,
+            graph=graph,
+            filename=CPP_SVG_FILENAME,
+            format="svg",
+            engine="neato",
+            graph_attr=GRAPH_ATTR,
+            edge_attr=EDGE_ATTR,
+            node_attr=NODE_ATTR,
+        )
 
     except FileNotFoundError(OSError) as e:
         print(e)
         print("Sorry, looks like you don't have all the needed visualization dependencies.")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

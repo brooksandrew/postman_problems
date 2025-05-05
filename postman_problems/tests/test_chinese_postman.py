@@ -1,23 +1,35 @@
-import sys
 import os
-import pytest
-import tempfile
 import shutil
-import pkg_resources
+import sys
+import tempfile
 from unittest.mock import patch
-from postman_problems.postman_chinese import chinese_postman
-from pytest_console_scripts import script_runner
 
+import pkg_resources
+import pytest
+
+from postman_problems.postman_chinese import chinese_postman
 
 # input params
-EDGELIST_SEVEN_BRIDGES = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/edgelist_seven_bridges.csv')
-EDGELIST_SLEEPING_GIANT = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/edgelist_sleeping_giant.csv')
-NODELIST_SLEEPING_GIANT = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/nodelist_sleeping_giant.csv')
+EDGELIST_SEVEN_BRIDGES = pkg_resources.resource_filename(
+    "postman_problems", "examples/seven_bridges/edgelist_seven_bridges.csv"
+)
+EDGELIST_SLEEPING_GIANT = pkg_resources.resource_filename(
+    "postman_problems", "examples/sleeping_giant/edgelist_sleeping_giant.csv"
+)
+NODELIST_SLEEPING_GIANT = pkg_resources.resource_filename(
+    "postman_problems", "examples/sleeping_giant/nodelist_sleeping_giant.csv"
+)
 
 # output params
-OUT_SEVEN_BRIDGES_SVG = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/output/cpp_graph.svg')
-OUT_SEVEN_BRIDGES_GIF = pkg_resources.resource_filename('postman_problems', 'examples/seven_bridges/output/cpp_graph.gif')
-OUT_SLEEPING_GIANT_SVG = pkg_resources.resource_filename('postman_problems', 'examples/sleeping_giant/output/cpp_graph.svg')
+OUT_SEVEN_BRIDGES_SVG = pkg_resources.resource_filename(
+    "postman_problems", "examples/seven_bridges/output/cpp_graph.svg"
+)
+OUT_SEVEN_BRIDGES_GIF = pkg_resources.resource_filename(
+    "postman_problems", "examples/seven_bridges/output/cpp_graph.gif"
+)
+OUT_SLEEPING_GIANT_SVG = pkg_resources.resource_filename(
+    "postman_problems", "examples/sleeping_giant/output/cpp_graph.svg"
+)
 
 
 def test_chinese_postman_seven_bridges():
@@ -29,18 +41,22 @@ def test_chinese_postman_seven_bridges():
     tmpdir = tempfile.mkdtemp()
     saved_umask = os.umask(00)  # 0077
 
-    testargs = ["chinese_postman",
-                "--edgelist", EDGELIST_SEVEN_BRIDGES,
-                "--viz",
-                "--animation",
-                "--viz_filename", os.path.join(tmpdir, 'test_cpp_graph.png'),
-                "--animation_filename", os.path.join(tmpdir, 'test_cpp_graph.gif')
-                ]
-    with patch.object(sys, 'argv', testargs):
+    testargs = [
+        "chinese_postman",
+        "--edgelist",
+        EDGELIST_SEVEN_BRIDGES,
+        "--viz",
+        "--animation",
+        "--viz_filename",
+        os.path.join(tmpdir, "test_cpp_graph.png"),
+        "--animation_filename",
+        os.path.join(tmpdir, "test_cpp_graph.gif"),
+    ]
+    with patch.object(sys, "argv", testargs):
         chinese_postman()
 
-    assert os.path.isfile(os.path.join(tmpdir, 'test_cpp_graph.png'))
-    assert os.path.isfile(os.path.join(tmpdir, 'test_cpp_graph.gif'))
+    assert os.path.isfile(os.path.join(tmpdir, "test_cpp_graph.png"))
+    assert os.path.isfile(os.path.join(tmpdir, "test_cpp_graph.gif"))
 
     # clean up
     os.umask(saved_umask)
@@ -48,11 +64,8 @@ def test_chinese_postman_seven_bridges():
 
 
 def test_chinese_postman_sleeping_giant():
-    testargs = ["chinese_postman",
-                "--edgelist", EDGELIST_SLEEPING_GIANT,
-                "--nodelist", NODELIST_SLEEPING_GIANT
-                ]
-    with patch.object(sys, 'argv', testargs):
+    testargs = ["chinese_postman", "--edgelist", EDGELIST_SLEEPING_GIANT, "--nodelist", NODELIST_SLEEPING_GIANT]
+    with patch.object(sys, "argv", testargs):
         chinese_postman()
 
 
@@ -61,7 +74,7 @@ def test_entry_point_example_chinese_postman_seven_bridges(script_runner):
     Just testing that seven_bridges example runs with pre-parameterized config.
     Will overwrite output in the examples dir... that's OK.
     """
-    ret = script_runner.run('chinese_postman_seven_bridges')
+    ret = script_runner.run("chinese_postman_seven_bridges")
     assert ret.success
     assert os.path.isfile(OUT_SEVEN_BRIDGES_SVG)
     assert os.path.isfile(OUT_SEVEN_BRIDGES_GIF)
@@ -74,6 +87,6 @@ def test_entry_point_example_chinese_postman_sleeping_giant(script_runner):
     Just testing that Sleeping Giant example run with pre-parameterized config.
     Will overwrite output in the examples dir... that's OK.
     """
-    ret = script_runner.run('chinese_postman_sleeping_giant')
+    ret = script_runner.run("chinese_postman_sleeping_giant")
     assert ret.success
     assert os.path.isfile(OUT_SLEEPING_GIANT_SVG)

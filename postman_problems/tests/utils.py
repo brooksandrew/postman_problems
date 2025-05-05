@@ -11,6 +11,7 @@ def create_mock_csv_from_dataframe(df):
         df (pandas dataframe): to be converted into a StringIO object
 
     Returns: io.StringIO representation of `df`
+
     """
 
     csvfile = StringIO()
